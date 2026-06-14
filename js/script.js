@@ -69,18 +69,25 @@ const home = () => {
     ...document.querySelectorAll(".container-home-img > div"),
   ];
 
-  window.addEventListener("load", () => {
-document.querySelectorAll(".home-img-init").forEach((item) => {
-        item.classList.remove("opacity-0",'scale-0');
-      });
 
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-    setTimeout(() => {
-      document.querySelectorAll(".home-img-init").forEach((item) => {
-        item.classList.remove("home-img-init");
-      });
-    }, 2000);
-  });
+  async function animateImages() {
+    // Tahap 1
+    for (const item of containerImgHomeEl) {
+      item.classList.remove("opacity-0", "scale-0");
+      await delay(400);
+    }
+
+    await delay(700)
+    // Tahap 2
+    for (const item of containerImgHomeEl) {
+      item.classList.remove("home-img-init");
+      // await delay(700);
+    }
+  }
+
+  animateImages();
 };
 
 home();

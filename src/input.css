@@ -6,5 +6,5 @@
   right: auto !important;
   bottom: auto !important;
 
-  transform: translate(-50%, -50%) ;
+  transform: translate(-50%, -50%) scale(1);
 }
