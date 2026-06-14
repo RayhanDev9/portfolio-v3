@@ -30,8 +30,6 @@ const initGrid = () => {
       showGrid();
 
       clearTimeout(hideTimeout);
-
-   
     });
 
     document.addEventListener("mouseleave", hideGrid);
@@ -48,8 +46,6 @@ const initGrid = () => {
       showGrid();
 
       clearTimeout(hideTimeout);
-
-      
     });
   }
 
@@ -67,3 +63,24 @@ const initGrid = () => {
 };
 
 initGrid();
+
+const home = () => {
+  const containerImgHomeEl = [
+    ...document.querySelectorAll(".container-home-img > div"),
+  ];
+
+  window.addEventListener("load", () => {
+document.querySelectorAll(".home-img-init").forEach((item) => {
+        item.classList.remove("opacity-0",'scale-0');
+      });
+
+
+    setTimeout(() => {
+      document.querySelectorAll(".home-img-init").forEach((item) => {
+        item.classList.remove("home-img-init");
+      });
+    }, 2000);
+  });
+};
+
+home();

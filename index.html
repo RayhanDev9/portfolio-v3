@@ -51,13 +51,67 @@
     </header>
 
     <main class="overflow-hidden">
+      <!-- grid cursor start-->
       <div
         id="gridCursor"
         class="pointer-events-none absolute h-96 w-96 -translate-x-1/2 -translate-y-1/2 opacity-0 scale-0 transition-all duration-500 ease-out overflow-hidden [background-image:linear-gradient(rgba(255,255,255,0.15)_2px,transparent_2px),linear-gradient(90deg,rgba(255,255,255,0.15)_2px,transparent_2px)] [background-size:80px_80px] [mask-image:radial-gradient(circle,white_40%,transparent_80%)] [-webkit-mask-image:radial-gradient(circle,white_40%,transparent_80%)]"
       ></div>
+      <!-- grid cursor end-->
 
-      <section class="h-screen" id="home">
-        <div class="h-[inherit] m-0 p-0">
+      <section class="h-screen flex relative" id="home">
+        <div class="absolut inset-0 z-0 container-home-img">
+          <!-- 1 -->
+          <div
+            class="absolute top-10 right-2 w-32 rounded-2xl overflow-hidden opacity-0 scale-0 transition-all duration-800 home-img-init"
+          >
+            <img
+              src="asset/img/home/aiony-haust.jpg"
+              alt="ainoy-haust"
+              class="aspect-[16/9] object-cover"
+            />
+          </div>
+          <!-- 2 -->
+          <div
+            class="absolute top-2 left-2 w-32 rounded-2xl overflow-hidden opacity-0 scale-0 transition-all duration-800 home-img-init"
+          >
+            <img
+              src="asset/img/home/ian-dooley.jpg"
+              alt="ian-dooley"
+              class="aspect-[11/9] object-cover"
+            />
+          </div>
+          <!-- 3 -->
+          <div
+            class="absolute top-56 right-1/2 -translate-x-10/ w-32 rounded-2xl overflow-hidden opacity-0 scale-0 transition-all duration-800 home-img-init"
+          >
+            <img
+              src="asset/img/home/michael-dam.jpg"
+              alt="michael-dam"
+              class="aspect-[16/9] object-[50%_20%] object-cover"
+            />
+          </div>
+          <!-- 4 -->
+          <div
+            class="absolute bottom-5 left-4 -translate-x-10/ w-32 rounded-2xl overflow-hidden opacity-0 scale-0 transition-all duration-800 home-img-init"
+          >
+            <img
+              src="asset/img/home/rafaella-mendes.jpg"
+              alt="rafaella-mendes"
+              class="aspect-[11/9] object-[50%_20%] object-cover"
+            />
+          </div>
+          <!-- 5 -->
+          <div
+            class="absolute bottom-30 right-4 -translate-x-20/ w-32 rounded-2xl overflow-hidden opacity-0 scale-0 transition-all duration-800 home-img-init"
+          >
+            <img
+              src="asset/img/home/raul-guilherme.jpg"
+              alt="raul-guilherme"
+              class="aspect-[11/9] object-[50%_30%] object-cover"
+            />
+          </div>
+        </div>
+        <div class="h-[inherit] m-0 p-0 z-20">
           <div
             class="h-full w-[60%] mx-auto bg-amber-10 flex items-center justify-center"
           >
@@ -77,6 +131,8 @@
           </div>
         </div>
       </section>
+
+      <!-- <section id=""></section> -->
     </main>
 
     <!-- <div
