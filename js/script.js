@@ -31,9 +31,7 @@ const initGrid = () => {
 
       clearTimeout(hideTimeout);
 
-      hideTimeout = setTimeout(() => {
-        hideGrid();
-      }, 1000);
+   
     });
 
     document.addEventListener("mouseleave", hideGrid);
@@ -51,9 +49,7 @@ const initGrid = () => {
 
       clearTimeout(hideTimeout);
 
-      hideTimeout = setTimeout(() => {
-        hideGrid();
-      }, 500);
+      
     });
   }
 
