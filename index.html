@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="css/output.css" />
   </head>
   <body class="text-white antialiased bg-black overflow-x-hidden">
-    <header>
-      <nav
+    <header class="relative z-50">
+      <!-- <nav
         class="hidden absolute left-1/2 top-7 z-30 lg:flex -translate-x-1/2 items-center gap-7 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/80 backdrop-blur-md"
       >
         <span
@@ -31,9 +31,10 @@
         >
           Hire Talent
         </button>
-      </nav>
+      </nav> -->
 
-      <nav class="flex lg:hidden items-center justify-between px-5 py-5">
+      <!-- Top bar -->
+      <div class="flex items-center justify-between px-5 py-5">
         <div class="flex items-center gap-2 text-base font-semibold">
           <span
             class="flex h-6 w-6 items-center justify-center rounded-full bg-white text-black"
@@ -46,18 +47,97 @@
           </span>
           Blueprint.
         </div>
-        <button class="lg:hidden text-sm text-white/70">Menu</button>
+
+        <button
+          class="lg:hidden text-sm text-white/70 transition-all duration-300 opacity-100 open-menu"
+        >
+          Menu
+        </button>
+      </div>
+
+      <nav
+        class="lg:hidden h-screen absolute inset-0 flex items-center justify-center origin-top scale-y-0 opacity-0 transition-all duration-500 hidden  nav-mobile"
+      >
+        <div
+          class="bg-white/10 absolute inset-0 backdrop-blur-3xl border border-white/2 rounded-xl"
+        >
+          <!-- Top bar -->
+          <div class="flex items-center justify-between px-5 py-5">
+            <div class="flex items-center gap-2 text-base font-semibold">
+              <span
+                class="flex h-6 w-6 items-center justify-center rounded-full bg-white text-black"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  class="h-3.5 w-3.5"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M12 2C8 2 5 6 5 10.5 5 16 9 20 12 22c3-2 7-6 7-11.5C19 6 16 2 12 2z"
+                  />
+                </svg>
+              </span>
+              Blueprint.
+            </div>
+
+            <button class="lg:hidden text-sm text-white/70 close-menu">
+              Close
+            </button>
+          </div>
+
+          <!-- Center menu -->
+          <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 p-6 bg-white/10 backdrop-blur-3xl border border-white/2 rounded-xl"
+          >
+            <div class="flex flex-col items-center gap-2 mt-5">
+              <a
+                href="#"
+                class="transition hover:text-white text-3xl font-semibold active-link-nav"
+              >
+                Home
+              </a>
+
+              <a
+                href="#"
+                class="transition hover:text-white text-3xl font-semibold opacity-45"
+              >
+                About
+              </a>
+
+              <a
+                href="#"
+                class="transition hover:text-white text-3xl font-semibold opacity-45"
+              >
+                Sertifikat
+              </a>
+
+              <a
+                href="#"
+                class="transition hover:text-white text-3xl font-semibold opacity-45"
+              >
+                Countact
+              </a>
+            </div>
+
+            <button
+              class="w-full bg-white rounded-sm px-5 py-2 mt-10 font-medium text-black transition hover:bg-white/90"
+            >
+              Hire Talent
+            </button>
+          </div>
+        </div>
       </nav>
     </header>
 
     <main class="overflow-hidden">
-      <!-- grid cursor start-->
+      <!-- GRID COURSOR START-->
       <div
         id="gridCursor"
-        class="pointer-events-none absolute h-96 w-96 -translate-x-1/2 -translate-y-1/2 opacity-0 scale-0 transition-all duration-500 ease-out overflow-hidden [background-image:linear-gradient(rgba(255,255,255,0.12)_2px,transparent_2px),linear-gradient(90deg,rgba(255,255,255,0.12)_2px,transparent_2px)] [background-size:80px_80px] [mask-image:radial-gradient(circle,white_40%,transparent_80%)] [-webkit-mask-image:radial-gradient(circle,white_40%,transparent_80%)]"
+        class="lg:pointer-events-none absolute h-96 w-96 -translate-x-1/2 -translate-y-1/2 opacity-0 scale-0 transition-all duration-500 ease-out overflow-hidden [background-image:linear-gradient(rgba(255,255,255,0.12)_2px,transparent_2px),linear-gradient(90deg,rgba(255,255,255,0.12)_2px,transparent_2px)] [background-size:80px_80px] [mask-image:radial-gradient(circle,white_40%,transparent_80%)] [-webkit-mask-image:radial-gradient(circle,white_40%,transparent_80%)]"
       ></div>
-      <!-- grid cursor end-->
+      <!-- GRID COURSER -->
 
+      <!-- HOME SECTION START -->
       <section class="h-screen flex flex-col relative" id="home">
         <div
           class="absolute inset-0 z-0 transition-all duration-300 container-home-img"
@@ -152,6 +232,7 @@
           </div>
         </div>
       </section>
+      <!-- HOME SECTION END -->
 
       <!-- <section id=""></section> -->
     </main>

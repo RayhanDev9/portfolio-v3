@@ -12,3 +12,7 @@
 
   transform: translate(-50%, -50%) scale(1);
 }
+
+.active-link-nav {
+  @apply opacity-100 shadow-3xl;
+}

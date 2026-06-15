@@ -1,3 +1,70 @@
+const nav = () => {
+  const openMenu = document.querySelector(".open-menu");
+  const closeMenu = document.querySelector(".close-menu");
+  const navMobile = document.querySelector(".nav-mobile");
+  const data = [
+    "x7z_k0d3_9q",
+    "rmh#b!ru_xx",
+    "jlns0r3_zz9",
+    "t3h_h4ng4t__x",
+    "musiq_lof1_8x",
+  ];
+
+  // function animasi menu open and close
+  async function animaiMenu(text) {
+    if (text === "Menu") {
+      navMobile.classList.remove("hidden");
+      openMenu.textContent = "";
+      closeMenu.textContent = "Close";
+
+      await delay(200);
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          navMobile.classList.remove("scale-y-0", "opacity-0");
+          navMobile.classList.add("scale-y-100", "opacity-100");
+        });
+      });
+    } else {
+      navMobile.classList.remove("scale-y-100", "opacity-100");
+      navMobile.classList.add("scale-y-0", "opacity-0");
+
+      await delay(200);
+      closeMenu.textContent = "";
+      openMenu.textContent = "Menu";
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          navMobile.classList.add("hidden");
+        });
+      });
+    }
+  }
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  async function runText(text, menu) {
+    for (let i = 0; i < data.length; i++) {
+      menu.textContent = i !== data.length - 1 ? data[i] : text;
+
+      await delay(200);
+    }
+
+    await delay(100);
+
+    animaiMenu(text);
+  }
+
+  openMenu.addEventListener("click", () => {
+    runText("Menu", openMenu);
+  });
+
+  closeMenu.addEventListener("click", () => {
+    runText("Close", closeMenu);
+  });
+};
+
+nav();
+
 const initGrid = () => {
   const grid = document.getElementById("gridCursor");
 
