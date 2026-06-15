@@ -69,6 +69,11 @@ const home = () => {
     ...document.querySelectorAll(".container-home-img > div"),
   ];
 
+  const containerHomeText = document.querySelector(".container-home-text");
+  function textHome() {
+    containerHomeText.classList.remove("opacity-0");
+    containerHomeText.classList.remove("opacity-100");
+  }
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -79,12 +84,16 @@ const home = () => {
       await delay(400);
     }
 
-    await delay(700)
+    await delay(700);
     // Tahap 2
     for (const item of containerImgHomeEl) {
       item.classList.remove("home-img-init");
       // await delay(700);
     }
+
+    await delay(700);
+
+    textHome();
   }
 
   animateImages();
