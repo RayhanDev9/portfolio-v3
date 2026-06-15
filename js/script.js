@@ -80,34 +80,64 @@ const home = () => {
     containerHomeText.classList.remove("opacity-100");
   }
 
-  let lastScrollY = window.scrollY;
-  let ticking = false;
+  function scrollDiractionAnimation() {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
 
-  window.addEventListener("scroll", () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        const currentY = window.scrollY;
-        const scrollingDown = currentY > lastScrollY;
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentY = window.scrollY;
+          const scrollingDown = currentY > lastScrollY;
 
-        containerImgHomeEl.forEach((el) => {
-          if (scrollingDown) {
-            el.style.transform = "translateY(2px)";
-          } else {
-            el.style.transform = "translateY(-2px)";
-          }
+          containerImgHomeEl.forEach((el) => {
+            if (scrollingDown) {
+              el.style.transform = "translateY(8px)";
+            } else {
+              el.style.transform = "translateY(-8px)";
+            }
+          });
+
+          lastScrollY = currentY;
+          ticking = false;
         });
 
-        lastScrollY = currentY;
-        ticking = false;
-      });
+        ticking = true;
+      }
+    });
+  }
 
-      ticking = true;
-    }
-  });
+  function mouseDiractionAnimation() {
+    let lastX = 0;
+    let lastY = 0;
+    let ticking = false;
+
+    window.addEventListener("mousemove", (e) => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentX = e.clientX;
+          const currentY = e.clientY;
+
+          const diffX = (currentX - lastX) * 0.3;
+          const diffY = (currentY - lastY) * 0.3;
+
+          containerImgHomeEl.forEach((el) => {
+            el.style.transform = `translate(${diffX}px, ${diffY}px)`;
+          });
+
+          lastX = currentX;
+          lastY = currentY;
+          ticking = false;
+        });
+
+        ticking = true;
+      }
+    });
+  }
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  async function animateImages() {
+  async function animate() {
     // Tahap 1
     for (const item of containerImgHomeChildEl) {
       item.classList.remove("opacity-0", "scale-0");
@@ -124,9 +154,12 @@ const home = () => {
     await delay(700);
 
     textHome();
+
+    scrollDiractionAnimation();
+    mouseDiractionAnimation();
   }
 
-  animateImages();
+  animate();
 };
 
 home();
