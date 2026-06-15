@@ -66,27 +66,57 @@ initGrid();
 
 const home = () => {
   const containerImgHomeEl = [
+    ...document.querySelectorAll(".container-home-img"),
+  ];
+  const containerImgHomeChildEl = [
     ...document.querySelectorAll(".container-home-img > div"),
   ];
 
   const containerHomeText = document.querySelector(".container-home-text");
+
+  // Untuk text home
   function textHome() {
     containerHomeText.classList.remove("opacity-0");
     containerHomeText.classList.remove("opacity-100");
   }
 
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const currentY = window.scrollY;
+        const scrollingDown = currentY > lastScrollY;
+
+        containerImgHomeEl.forEach((el) => {
+          if (scrollingDown) {
+            el.style.transform = "translateY(2px)";
+          } else {
+            el.style.transform = "translateY(-2px)";
+          }
+        });
+
+        lastScrollY = currentY;
+        ticking = false;
+      });
+
+      ticking = true;
+    }
+  });
+
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   async function animateImages() {
     // Tahap 1
-    for (const item of containerImgHomeEl) {
+    for (const item of containerImgHomeChildEl) {
       item.classList.remove("opacity-0", "scale-0");
       await delay(400);
     }
 
     await delay(700);
     // Tahap 2
-    for (const item of containerImgHomeEl) {
+    for (const item of containerImgHomeChildEl) {
       item.classList.remove("home-img-init");
       // await delay(700);
     }
