@@ -2,7 +2,32 @@ const nav = () => {
   const openMenu = document.querySelector(".open-menu");
   const closeMenu = document.querySelector(".close-menu");
   const navMobile = document.querySelector(".nav-mobile");
+  const topBarMobileEl = document.querySelector(".top-bar-mobile");
   const data = ["x7z_k0d3_9q", "rmh#b!ru_xx", "jlns0r3_zz9", "t3h_h4ng4t__x"];
+
+  function topBarMobile() {
+    document.addEventListener("scroll", () => {
+      const cordinat = topBarMobileEl.getBoundingClientRect();
+      console.info();
+
+      if (window.pageYOffset > cordinat.bottom) {
+        setTimeout(() => {
+          topBarMobileEl.classList.add(
+            "fixed",
+            "bg-white/10",
+            "backdrop-blur-md",
+          );
+        }, 300);
+      } else {
+        topBarMobileEl.classList.remove(
+          "fixed",
+          "bg-white/10",
+          "backdrop-blur-md",
+        );
+      }
+    });
+  }
+  topBarMobile();
 
   function mobile() {
     // function animasi menu open and close
@@ -11,26 +36,31 @@ const nav = () => {
         navMobile.classList.remove("hidden");
         openMenu.textContent = "";
         closeMenu.textContent = "Close";
+        topBarMobileEl.classList.add('hidden','opacity-0')
 
-        await delay(200);
+        await delay(100);
 
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             navMobile.classList.remove("scale-y-0", "opacity-0");
             navMobile.classList.add("scale-y-100", "opacity-100");
+            document.body.classList.add("overflow-hidden");
           });
         });
       } else {
         navMobile.classList.remove("scale-y-100", "opacity-100");
         navMobile.classList.add("scale-y-0", "opacity-0");
 
-        await delay(200);
+        await delay(100);
         closeMenu.textContent = "";
         openMenu.textContent = "Menu";
+        topBarMobileEl.classList.remove('hidden','opacity-0')
+
 
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             navMobile.classList.add("hidden");
+            document.body.classList.remove("overflow-hidden");
           });
         });
       }
@@ -44,7 +74,7 @@ const nav = () => {
         await delay(50);
       }
 
-      await delay(100);
+      await delay(80);
 
       animaiMenu(text);
     }
