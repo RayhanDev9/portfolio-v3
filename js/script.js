@@ -2,65 +2,62 @@ const nav = () => {
   const openMenu = document.querySelector(".open-menu");
   const closeMenu = document.querySelector(".close-menu");
   const navMobile = document.querySelector(".nav-mobile");
-  const data = [
-    "x7z_k0d3_9q",
-    "rmh#b!ru_xx",
-    "jlns0r3_zz9",
-    "t3h_h4ng4t__x",
-    "musiq_lof1_8x",
-  ];
+  const data = ["x7z_k0d3_9q", "rmh#b!ru_xx", "jlns0r3_zz9", "t3h_h4ng4t__x"];
 
-  // function animasi menu open and close
-  async function animaiMenu(text) {
-    if (text === "Menu") {
-      navMobile.classList.remove("hidden");
-      openMenu.textContent = "";
-      closeMenu.textContent = "Close";
+  function mobile() {
+    // function animasi menu open and close
+    async function animaiMenu(text) {
+      if (text === "Menu") {
+        navMobile.classList.remove("hidden");
+        openMenu.textContent = "";
+        closeMenu.textContent = "Close";
 
-      await delay(200);
+        await delay(200);
 
-      requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          navMobile.classList.remove("scale-y-0", "opacity-0");
-          navMobile.classList.add("scale-y-100", "opacity-100");
+          requestAnimationFrame(() => {
+            navMobile.classList.remove("scale-y-0", "opacity-0");
+            navMobile.classList.add("scale-y-100", "opacity-100");
+          });
         });
-      });
-    } else {
-      navMobile.classList.remove("scale-y-100", "opacity-100");
-      navMobile.classList.add("scale-y-0", "opacity-0");
+      } else {
+        navMobile.classList.remove("scale-y-100", "opacity-100");
+        navMobile.classList.add("scale-y-0", "opacity-0");
 
-      await delay(200);
-      closeMenu.textContent = "";
-      openMenu.textContent = "Menu";
+        await delay(200);
+        closeMenu.textContent = "";
+        openMenu.textContent = "Menu";
 
-      requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          navMobile.classList.add("hidden");
+          requestAnimationFrame(() => {
+            navMobile.classList.add("hidden");
+          });
         });
-      });
+      }
     }
-  }
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  async function runText(text, menu) {
-    for (let i = 0; i < data.length; i++) {
-      menu.textContent = i !== data.length - 1 ? data[i] : text;
+    async function runText(text, menu) {
+      for (let i = 0; i < data.length; i++) {
+        menu.textContent = i !== data.length - 1 ? data[i] : text;
 
-      await delay(200);
+        await delay(50);
+      }
+
+      await delay(100);
+
+      animaiMenu(text);
     }
 
-    await delay(100);
+    openMenu.addEventListener("click", () => {
+      runText("Menu", openMenu);
+    });
 
-    animaiMenu(text);
+    closeMenu.addEventListener("click", () => {
+      runText("Close", closeMenu);
+    });
   }
-
-  openMenu.addEventListener("click", () => {
-    runText("Menu", openMenu);
-  });
-
-  closeMenu.addEventListener("click", () => {
-    runText("Close", closeMenu);
-  });
+  mobile();
 };
 
 nav();
@@ -230,3 +227,57 @@ const home = () => {
 };
 
 home();
+
+const about = () => {
+  function initRevealAnimation() {
+    const revealEl = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove("opacity-0", "translate-y-8");
+            console.info("in");
+          } else {
+            entry.target.classList.add("opacity-0", "translate-y-8");
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+      },
+    );
+
+    revealEl.forEach((element) => {
+      observer.observe(element);
+      console.info(element);
+    });
+  }
+
+  initRevealAnimation();
+};
+
+about();
+
+const journey = () => {
+  const items = document.querySelectorAll(
+    ".timeline-item, .timeline-item-mobile",
+  );
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove("opacity-0", "translate-y-8");
+        }
+      });
+    },
+    {
+      threshold: 0.3,
+    },
+  );
+
+  items.forEach((item) => observer.observe(item));
+};
+
+journey();

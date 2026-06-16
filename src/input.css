@@ -14,5 +14,5 @@
 }
 
 .active-link-nav {
-  @apply opacity-100 shadow-3xl;
+  @apply opacity-100 shadow-2xl;
 }
