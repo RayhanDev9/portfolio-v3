@@ -1107,6 +1107,11 @@
       width: calc(var(--spacing) * 96);
     }
   }
+  .lg\:w-\[6\%\] {
+    @media (width >= 64rem) {
+      width: 6%;
+    }
+  }
   .lg\:w-\[55\%\] {
     @media (width >= 64rem) {
       width: 55%;
@@ -1120,6 +1125,16 @@
   .lg\:w-\[60\] {
     @media (width >= 64rem) {
       width: 60;
+    }
+  }
+  .lg\:w-\[67\%\] {
+    @media (width >= 64rem) {
+      width: 67%;
+    }
+  }
+  .lg\:w-\[68\%\] {
+    @media (width >= 64rem) {
+      width: 68%;
     }
   }
   .lg\:w-\[70\%\] {
