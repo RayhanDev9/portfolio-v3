@@ -265,11 +265,15 @@ const about = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            // 1. Munculkan elemen dengan menghapus class transparansi & geser
             entry.target.classList.remove("opacity-0", "translate-y-8");
+
+            // 2. KUNCI UTAMA: Hentikan pengamatan agar efeknya HANYA SEKALI
+            observer.unobserve(entry.target);
+
             console.info("in");
-          } else {
-            entry.target.classList.add("opacity-0", "translate-y-8");
           }
+          // Bagian 'else' dihapus karena kita tidak ingin menyembunyikan elemen lagi saat di-scroll menjauh
         });
       },
       {
@@ -310,3 +314,64 @@ const journey = () => {
 };
 
 journey();
+
+const contact = () => {
+  function initContactObserver() {
+    // Mengambil elemen dengan ID contact
+    const revealElements = document.querySelectorAll("#contact");
+
+    // Mengubah nama variabel dari 'observer' menjadi 'myObserver' agar tidak bentrok dengan nama fungsi
+    const myObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Munculkan elemen
+            entry.target.classList.remove("opacity-0", "translate-y-8");
+
+            // Hentikan pengamatan (Menggunakan nama variabel baru)
+            myObserver.unobserve(entry.target);
+
+            console.info("Section contact masuk layar & animasi dijalankan");
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+      },
+    );
+
+    revealElements.forEach((element) => {
+      myObserver.observe(element);
+    });
+  }
+
+  // Jalankan fungsi
+  initContactObserver();
+  function sendMessge() {
+    document
+      .getElementById("contactForm")
+      .addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Ambil data inputan
+        const name = document.getElementById("name").value;
+        const subject = document.getElementById("subject").value;
+        const message = document.getElementById("message").value;
+
+        // Contoh: Alihkan ke email bawaan pengguna (Mailto)
+        // Anda juga bisa menggantinya dengan integrasi EmailJS, Formspree, atau Web3Forms
+        const wa = "6285692097048";
+        const textWA = `Halo, nama saya *${name}*.\n\n*Subjek:* ${subject}\n\n*Pesan:*\n${message}`;
+
+        // Gunakan window.open dengan parameter '_blank' agar membuka di tab baru
+        window.open(
+          `https://wa.me/${wa}?text=${encodeURIComponent(textWA)}`,
+          "_blank",
+        );
+      });
+  }
+
+  sendMessge();
+};
+
+contact();
