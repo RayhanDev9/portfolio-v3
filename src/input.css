@@ -14,7 +14,7 @@
 }
 
 .active-link-nav {
-  @apply opacity-100 shadow-2xl;
+  @apply opacity-100 shadow-2xl font-bold;
 }
 
 /* Gerakan foto ke kiri */

@@ -21,8 +21,9 @@
     <!-- GRID COURSER -->
 
     <header class="relative z-50">
+      <!-- Dekstop -->
       <nav
-        class="hidden absolute left-1/2 top-7 z-30 lg:flex -translate-x-1/2 items-center gap-7 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/80 backdrop-blur-md fixed"
+        class="hidden absolute left-1/2 top-7 z-30 lg:flex -translate-x-1/2 items-center gap-7 rounded-full border border-white/10 px-3 py-2 text-sm text-white/80 nav-menu top-bar-dekstop"
       >
         <span
           class="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black"
@@ -41,19 +42,35 @@
             <polyline points="8 6 2 12 8 18"></polyline>
           </svg>
         </span>
-        <a href="#home" class="transition hover:text-white">Home</a>
-        <a href="#about" class="transition hover:text-white">About</a>
-        <a href="#journey" class="transition hover:text-white">Journey</a>
-        <a href="#skill&project" class="transition hover:text-white">Work</a>
-        <a href="#contact" class="transition hover:text-white">Contact</a>
-        <button
-          class="rounded-full bg-white px-5 py-2 font-medium text-black transition hover:bg-white/90"
-        >
-          Hire Talent
-        </button>
+        <div class="flex gap-7 items-center nav-menu">
+          <a
+            href="#home"
+            class="transition hover:text-white leading-relaxed active-link-nav"
+            >Home</a
+          >
+          <a href="#about" class="transition hover:text-white leading-relaxed"
+            >About</a
+          >
+          <a href="#journey" class="transition hover:text-white leading-relaxed"
+            >Journey</a
+          >
+          <a
+            href="#skill-project"
+            class="transition hover:text-white leading-relaxed"
+            >Work</a
+          >
+          <a href="#contact" class="transition hover:text-white leading-relaxed"
+            >Contact</a
+          >
+          <button
+            class="rounded-full bg-white px-5 py-2 font-medium text-black transition hover:bg-white/90"
+          >
+            Hire Talent
+          </button>
+        </div>
       </nav>
 
-      <!-- Top bar -->
+      <!-- Top bar mobile -->
       <div
         class="lg:hidden flex items-center justify-between absolute left-0 right-0 top-0 px-5 py-5 top-bar-mobile"
       >
@@ -87,6 +104,7 @@
         </button>
       </div>
 
+      <!-- Mobile -->
       <nav
         class="lg:hidden h-screen fixed inset-0 flex items-center justify-center origin-top scale-y-0 opacity-0 transition-all duration-500 hidden nav-mobile"
       >
@@ -130,7 +148,7 @@
             <div class="flex flex-col items-center gap-2 mt-5 nav-menu">
               <a
                 href="#home"
-                class="transition hover:text-white text-3xl font-semibold active-link-nav"
+                class="transition hover:text-white text-3xl font-semibold opacity-45 active-link-nav"
               >
                 Home
               </a>
@@ -150,10 +168,16 @@
               </a>
 
               <a
-                href="#skill&project"
+                href="#skill-project"
                 class="transition hover:text-white text-3xl font-semibold opacity-45"
               >
                 Work
+              </a>
+              <a
+                href="#contact"
+                class="transition hover:text-white text-3xl font-semibold opacity-45"
+              >
+                Contact
               </a>
             </div>
 
@@ -394,7 +418,7 @@
       <!-- JOURNEY SECTION END-->
 
       <!-- SKILL & PROJECT SECTION START -->
-      <section id="skill&project" class="py-24 overflow-hidde group">
+      <section id="skill-project" class="py-24 overflow-hidde group">
         <div class="max-w-7xl px-6 mx-auto mb-7">
           <span
             class="inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-purple-300 text-sm text-loop"
@@ -445,7 +469,6 @@
                   class="h-full object-contain max-w-full"
                 />
               </div>
-
               <div
                 class="item-logo h-12 w-24 md:h-16 md:w-32 shrink-0 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl p-3"
               >
@@ -473,9 +496,37 @@
                   class="h-full object-contain max-w-full"
                 />
               </div>
+              <div
+                class="item-logo h-12 w-24 md:h-16 md:w-32 shrink-0 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl p-3"
+              >
+                <img
+                  src="asset/svg/skill/json.svg"
+                  alt="Json"
+                  class="h-full object-contain max-w-full"
+                />
+              </div>
+              <div
+                class="item-logo h-12 w-24 md:h-16 md:w-32 shrink-0 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl p-3"
+              >
+                <img
+                  src="asset/svg/skill/jquery.svg"
+                  alt="Jquery"
+                  class="h-full object-contain max-w-full"
+                />
+              </div>
+              <div
+                class="item-logo h-12 w-24 md:h-16 md:w-32 shrink-0 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl p-3"
+              >
+                <img
+                  src="asset/svg/skill/bootstrap-4.svg"
+                  alt="Bootstrap-4"
+                  class="h-full object-contain max-w-full"
+                />
+              </div>
 
               <!-- Duplikasi -->
-              <div
+
+                 <div
                 class="item-logo h-12 w-24 md:h-16 md:w-32 shrink-0 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl p-3"
               >
                 <img
@@ -511,7 +562,6 @@
                   class="h-full object-contain max-w-full"
                 />
               </div>
-
               <div
                 class="item-logo h-12 w-24 md:h-16 md:w-32 shrink-0 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl p-3"
               >
@@ -539,8 +589,35 @@
                   class="h-full object-contain max-w-full"
                 />
               </div>
-            </div>
-          </div>
+              <div
+                class="item-logo h-12 w-24 md:h-16 md:w-32 shrink-0 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl p-3"
+              >
+                <img
+                  src="asset/svg/skill/json.svg"
+                  alt="Json"
+                  class="h-full object-contain max-w-full"
+                />
+              </div>
+              <div
+                class="item-logo h-12 w-24 md:h-16 md:w-32 shrink-0 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl p-3"
+              >
+                <img
+                  src="asset/svg/skill/jquery.svg"
+                  alt="Jquery"
+                  class="h-full object-contain max-w-full"
+                />
+              </div>
+              <div
+                class="item-logo h-12 w-24 md:h-16 md:w-32 shrink-0 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl p-3"
+              >
+                <img
+                  src="asset/svg/skill/bootstrap-4.svg"
+                  alt="Bootstrap-4"
+                  class="h-full object-contain max-w-full"
+                />
+              </div>
+            
+           
 
           <div class="carousel w-full overflow-hidden">
             <div
@@ -907,7 +984,7 @@
             <a href="#journey" class="hover:text-white transition-colors"
               >Journey</a
             >
-            <a href="#skill&project" class="hover:text-white transition-colors"
+            <a href="#skill-project" class="hover:text-white transition-colors"
               >Work</a
             >
             <a href="#contact" class="hover:text-white transition-colors"

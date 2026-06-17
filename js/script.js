@@ -3,6 +3,7 @@ const nav = () => {
   const closeMenu = document.querySelector(".close-menu");
   const navMobile = document.querySelector(".nav-mobile");
   const topBarMobileEl = document.querySelector(".top-bar-mobile");
+  const topBarDekstopEl = document.querySelector(".top-bar-dekstop");
   const data = ["x7z_k0d3_9q", "rmh#b!ru_xx", "jlns0r3_zz9", "t3h_h4ng4t__x"];
 
   function topBarMobile() {
@@ -28,6 +29,29 @@ const nav = () => {
     });
   }
   topBarMobile();
+  function topBarDesktop() {
+    document.addEventListener("scroll", () => {
+      const cordinat = topBarDekstopEl.getBoundingClientRect();
+      console.info();
+
+      if (window.pageYOffset > cordinat.bottom) {
+        setTimeout(() => {
+          topBarDekstopEl.classList.add(
+            "fixed",
+            "bg-white/10",
+            "backdrop-blur-md",
+          );
+        }, 50);
+      } else {
+        topBarDekstopEl.classList.remove(
+          "fixed",
+          "bg-white/10",
+          "backdrop-blur-md",
+        );
+      }
+    });
+  }
+  topBarDesktop();
 
   function mobile() {
     // function animasi menu open and close
@@ -87,22 +111,72 @@ const nav = () => {
     });
   }
   mobile();
-
-  function actionNavLinks() {
-    const navLinks = [...document.querySelectorAll(".nav-menu > a")];
+  function initNavigationActiveStateEventClick() {
+    const navLinks = document.querySelectorAll(".nav-menu > a");
     console.info(navLinks);
+    if (navLinks.length === 0) return; // Guard clause jika element tidak ditemukan
 
     navLinks.forEach((link) => {
       link.addEventListener("click", function () {
-        navLinks.forEach((link) => {
-          link.classList.remove("active-link-nav");
-        });
+        // 1. Bersihkan class aktif dari SEMUA link terlebih dahulu
+        navLinks.forEach((item) => item.classList.remove("active-link-nav"));
 
+        // 2. Tambahkan class aktif ke link yang baru saja DIKLIK
         this.classList.add("active-link-nav");
       });
     });
   }
-  actionNavLinks();
+  // Jalankan inisialisasi
+  initNavigationActiveStateEventClick();
+
+  function initNavigationScrollSpy() {
+    const navLinks = document.querySelectorAll(".nav-menu > a");
+    if (navLinks.length === 0) return;
+
+    // 1. Ambil semua target section berdasarkan href dari navLinks
+    const sections = [];
+    navLinks.forEach((link) => {
+      const targetId = link.getAttribute("href");
+      // Pastikan href berupa ID valid (diawali #)
+      if (targetId && targetId.startsWith("#")) {
+        const section = document.querySelector(targetId);
+        console.info(section);
+        if (section) sections.push(section);
+      }
+    });
+
+    // 2. Setup IntersectionObserver
+    const observerOptions = {
+      root: null,
+      // rootMargin: mendeteksi bagian tengah layar agar perpindahan class terasa pas
+      rootMargin: "-30% 0px -60% 0px",
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        // Jika section masuk ke area pantauan (viewport)
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute("id");
+
+          // Bersihkan class aktif lama dan pasang ke menu yang sesuai dengan ID section
+          navLinks.forEach((link) => {
+            if (link.getAttribute("href") === `#${id}`) {
+              link.classList.add("active-link-nav");
+            } else {
+              link.classList.remove("active-link-nav");
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    // 3. Daftarkan semua section ke dalam observer
+    sections.forEach((section) => observer.observe(section));
+  }
+
+  // Jalankan fungsi
+  initNavigationScrollSpy();
 };
 
 nav();
