@@ -12,6 +12,14 @@
     <div
       class="container-rain absolute inset-0 w-screen h-full pointer-events-none -z-50 overflow-hidden"
     ></div>
+
+    <!-- GRID COURSOR START-->
+    <div
+      id="gridCursor"
+      class="lg:pointer-events-none inset-0 fixed h-96 w-96 -translate-x-1/2 -translate-y-1/2 opacity-0 scale-0 transition-all duration-500 ease-out overflow-hidden [background-image:linear-gradient(rgba(255,255,255,0.12)_2px,transparent_2px),linear-gradient(90deg,rgba(255,255,255,0.12)_2px,transparent_2px)] [background-size:80px_80px] [mask-image:radial-gradient(circle,white_40%,transparent_80%)] [-webkit-mask-image:radial-gradient(circle,white_40%,transparent_80%)]"
+    ></div>
+    <!-- GRID COURSER -->
+
     <header class="relative z-50">
       <nav
         class="hidden absolute left-1/2 top-7 z-30 lg:flex -translate-x-1/2 items-center gap-7 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/80 backdrop-blur-md fixed"
@@ -136,13 +144,6 @@
     </header>
 
     <main class="overflow-hidden z-10">
-      <!-- GRID COURSOR START-->
-      <div
-        id="gridCursor"
-        class="lg:pointer-events-none absolute h-96 w-96 -translate-x-1/2 -translate-y-1/2 opacity-0 scale-0 transition-all duration-500 ease-out overflow-hidden [background-image:linear-gradient(rgba(255,255,255,0.12)_2px,transparent_2px),linear-gradient(90deg,rgba(255,255,255,0.12)_2px,transparent_2px)] [background-size:80px_80px] [mask-image:radial-gradient(circle,white_40%,transparent_80%)] [-webkit-mask-image:radial-gradient(circle,white_40%,transparent_80%)]"
-      ></div>
-      <!-- GRID COURSER -->
-
       <!-- HOME SECTION START -->
       <section
         id="home"
@@ -205,7 +206,7 @@
             data-delay="200"
           >
             <div
-              class="lg:col-span-2 flex justify-center opacity-0 translate-y-8 transition-all duration-700 reveal"
+              class="lg:col-span-2 flex justify-center opacity-0 translate-y-8 transition-all duration-700 reveal z-20"
             >
               <img
                 src="asset/img/profile/rayhan.avif"
