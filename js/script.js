@@ -259,92 +259,121 @@ const home = () => {
 
   // Untuk text home
   function textHome() {
-    homeAnimasi.forEach((item) => {
-      item.classList.remove("opacity-0");
-      item.classList.remove("opacity-100");
-    });
-  }
+    function initScrollReveal() {
+      // Ambil semua elemen yang ingin diberi efek reveal
+      const revealElements = document.querySelectorAll(".home-animasi");
+      if (revealElements.length === 0) return;
 
-  function scrollDiractionAnimation() {
-    let lastScrollY = window.scrollY;
-    let ticking = false;
+      const observerOptions = {
+        root: null,
+        threshold: 0.15, // Aktif jika 15% elemen sudah masuk layar
+        rootMargin: "0px 0px -50px 0px", // Memberi sedikit jeda sebelum animasi mulai
+      };
 
-    window.addEventListener("scroll", () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const currentY = window.scrollY;
-          const scrollingDown = currentY > lastScrollY;
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("reveal-visible");
+            entry.target.classList.remove("opacity-0", "-translate-y-10");
+            entry.target.classList.add("opacity-100", "translate-y-0");
 
-          containerImgHomeEl.forEach((el) => {
-            if (scrollingDown) {
-              el.style.transform = "translateY(8px)";
-            } else {
-              el.style.transform = "translateY(-8px)";
-            }
-          });
-
-          lastScrollY = currentY;
-          ticking = false;
+            // Hapus tanda komentar di bawah jika ingin animasi hanya berjalan SEKALI saja
+            observer.unobserve(entry.target);
+          } else {
+            // Hapus class jika di-scroll menjauh (animasi akan berulang setiap di-scroll)
+            entry.target.classList.remove("reveal-visible");
+          }
         });
+      }, observerOptions);
 
-        ticking = true;
-      }
-    });
-  }
-
-  function mouseDiractionAnimation() {
-    let lastX = 0;
-    let lastY = 0;
-    let ticking = false;
-
-    window.addEventListener("mousemove", (e) => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const currentX = e.clientX;
-          const currentY = e.clientY;
-
-          const diffX = (currentX - lastX) * 0.3;
-          const diffY = (currentY - lastY) * 0.3;
-
-          containerImgHomeEl.forEach((el) => {
-            el.style.transform = `translate(${diffX}px, ${diffY}px)`;
-          });
-
-          lastX = currentX;
-          lastY = currentY;
-          ticking = false;
-        });
-
-        ticking = true;
-      }
-    });
-  }
-
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-  async function animate() {
-    // Tahap 1
-    for (const item of containerImgHomeChildEl) {
-      item.classList.remove("opacity-0", "scale-0");
-      await delay(400);
+      revealElements.forEach((el) => observer.observe(el));
     }
 
-    await delay(700);
-    // Tahap 2
-    for (const item of containerImgHomeChildEl) {
-      item.classList.remove("home-img-init");
-      // await delay(700);
-    }
-
-    await delay(700);
-
-    textHome();
-
-    scrollDiractionAnimation();
-    mouseDiractionAnimation();
+    // Jalankan fungsi
+    initScrollReveal();
   }
+  textHome();
 
-  animate();
+  // function scrollDiractionAnimation() {
+  //   let lastScrollY = window.scrollY;
+  //   let ticking = false;
+
+  //   window.addEventListener("scroll", () => {
+  //     if (!ticking) {
+  //       window.requestAnimationFrame(() => {
+  //         const currentY = window.scrollY;
+  //         const scrollingDown = currentY > lastScrollY;
+
+  //         containerImgHomeEl.forEach((el) => {
+  //           if (scrollingDown) {
+  //             el.style.transform = "translateY(8px)";
+  //           } else {
+  //             el.style.transform = "translateY(-8px)";
+  //           }
+  //         });
+
+  //         lastScrollY = currentY;
+  //         ticking = false;
+  //       });
+
+  //       ticking = true;
+  //     }
+  //   });
+  // }
+
+  // function mouseDiractionAnimation() {
+  //   let lastX = 0;
+  //   let lastY = 0;
+  //   let ticking = false;
+
+  //   window.addEventListener("mousemove", (e) => {
+  //     if (!ticking) {
+  //       window.requestAnimationFrame(() => {
+  //         const currentX = e.clientX;
+  //         const currentY = e.clientY;
+
+  //         const diffX = (currentX - lastX) * 0.3;
+  //         const diffY = (currentY - lastY) * 0.3;
+
+  //         containerImgHomeEl.forEach((el) => {
+  //           el.style.transform = `translate(${diffX}px, ${diffY}px)`;
+  //         });
+
+  //         lastX = currentX;
+  //         lastY = currentY;
+  //         ticking = false;
+  //       });
+
+  //       ticking = true;
+  //     }
+  //   });
+  // }
+
+  // const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  // async function animate() {
+  //   // Tahap 1
+  //   for (const item of containerImgHomeChildEl) {
+  //     item.classList.remove("opacity-0", "scale-0");
+  //     await delay(400);
+  //   }
+
+  //   await delay(700);
+  //   // Tahap 2
+  //   for (const item of containerImgHomeChildEl) {
+  //     item.classList.remove("home-img-init");
+  //     // await delay(700);
+  //   }
+
+  //   await delay(700);
+
+  //   textHome();
+
+  //   scrollDiractionAnimation();
+  //   mouseDiractionAnimation();
+  // }
+
+  // animate();
 };
 
 home();
@@ -408,37 +437,42 @@ const journey = () => {
 journey();
 
 const contact = () => {
-  function initContactObserver() {
-    // Mengambil elemen dengan ID contact
-    const revealElements = document.querySelectorAll("#contact");
+  function initScrollReveal() {
+    // Ambil semua elemen yang ingin diberi efek reveal
+    const revealElements = document.querySelectorAll(".contact-animasi");
+    if (revealElements.length === 0) return;
 
-    // Mengubah nama variabel dari 'observer' menjadi 'myObserver' agar tidak bentrok dengan nama fungsi
-    const myObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Munculkan elemen
-            entry.target.classList.remove("opacity-0", "translate-y-8");
+    const observerOptions = {
+      root: null,
+      threshold: 0.15, // Aktif jika 15% elemen sudah masuk layar
+      rootMargin: "0px 0px -50px 0px", // Memberi sedikit jeda sebelum animasi mulai
+    };
 
-            // Hentikan pengamatan (Menggunakan nama variabel baru)
-            myObserver.unobserve(entry.target);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // PERBAIKAN DI SINI: Pasang class Tailwind yang membuat muncul
+          entry.target.classList.remove("opacity-0", "-translate-y-10");
+          entry.target.classList.add("opacity-100", "translate-y-0");
 
-            console.info("Section contact masuk layar & animasi dijalankan");
-          }
-        });
-      },
-      {
-        threshold: 0.15,
-      },
-    );
+          // Jika ingin animasi hanya berjalan SEKALI saja, buka komentar di bawah:
+          // observer.unobserve(entry.target);
+        } else {
+          // PERBAIKAN DI SINI: Kembalikan elemen ke keadaan sembunyi/awal
+          // Hapus class yang membuatnya muncul
+          entry.target.classList.remove("opacity-100", "translate-y-0");
+          // Tambahkan kembali class yang membuatnya sembunyi
+          entry.target.classList.add("opacity-0", "-translate-y-10");
+        }
+      });
+    }, observerOptions);
 
-    revealElements.forEach((element) => {
-      myObserver.observe(element);
-    });
+    revealElements.forEach((el) => observer.observe(el));
   }
 
   // Jalankan fungsi
-  initContactObserver();
+  initScrollReveal();
+
   function sendMessge() {
     document
       .getElementById("contactForm")
