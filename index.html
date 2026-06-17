@@ -8,7 +8,23 @@
     <!-- CSS hasil build Tailwind CLI: npm run build -->
     <link rel="stylesheet" href="css/output.css" />
   </head>
-  <body class="text-white antialiased bg-gray-950 overflow-x-hidden">
+  <body class="text-white antialiased bg-gray-950 overflow-x-hidden relative">
+    <div
+      class="container-rain absolute inset-0 w-screen h-full pointer-events-none z-20 overflow-hidden"
+    >
+      <div
+        class="rain"
+        style="--top: 10px; --speed: 2s; --geserX: 20vw; --geserY: -10px"
+      ></div>
+      <div
+        class="rain"
+        style="--top: 50px; --speed: 1.5s; --geserX: 50vw; --geserY: -10px"
+      ></div>
+      <div
+        class="rain"
+        style="--top: 100px; --speed: 2.5s; --geserX: 80vw; --geserY: -10px"
+      ></div>
+    </div>
     <header class="relative z-50">
       <nav
         class="hidden absolute left-1/2 top-7 z-30 lg:flex -translate-x-1/2 items-center gap-7 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/80 backdrop-blur-md fixed"
@@ -649,7 +665,7 @@
       <!-- CONTACT SECTION START -->
       <section
         id="contact"
-        class="py-24 bg-gray-950 text-white relative overflow-hidden opacity-0"
+        class="py-24 bg-gray-950 text-white relative overflow-hidden opacity-0 z-50"
       >
         <div
           class="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"
@@ -853,7 +869,7 @@
     </main>
 
     <footer
-      class="bg-gray-950 text-gray-400 border-t border-white/5 py-12 relative overflow-hidden"
+      class="bg-gray-950 text-gray-400 border-t border-white/5 py-12 relative overflow-hidden z-40"
     >
       <div class="max-w-6xl mx-auto px-4 relative z-10">
         <div
@@ -935,6 +951,7 @@
         </div>
       </div>
     </footer>
+
     <script src="js/script.js"></script>
   </body>
 </html>

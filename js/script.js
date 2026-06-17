@@ -169,11 +169,10 @@ const home = () => {
 
   // Untuk text home
   function textHome() {
-    homeAnimasi.forEach(item => {
-       item.classList.remove("opacity-0");
-    item.classList.remove("opacity-100");
+    homeAnimasi.forEach((item) => {
+      item.classList.remove("opacity-0");
+      item.classList.remove("opacity-100");
     });
-   
   }
 
   function scrollDiractionAnimation() {
@@ -378,3 +377,89 @@ const contact = () => {
 };
 
 contact();
+
+const rainLogic = () => {
+  // 1. Audio Hujan (Ditambahkan .play() dan perbaikan typo path)
+  // const voiceRain = () => {
+  //   const audioRain = new Audio("./asset/audio/rain.mp3");
+
+  //   audioRain.volume = 0.01; // Sesuai catatan Anda
+  //   audioRain.loop = true;
+
+  //   // Putar audio (catatan: browser biasanya meminta interaksi user terlebih dahulu sebelum play otomatis)
+  //   audioRain
+  //     .play()
+  //     .catch((err) =>
+  //       console.log(
+  //         "Audio dimatikan otomatis oleh browser sampai ada interaksi user.",
+  //       ),
+  //     );
+  // };
+
+  // 2. Jumlah hujan berdasarkan lebar layar
+  const rainFall = () => {
+    const screnx = window.innerWidth;
+    return Math.floor(Number(screnx) / 10);
+  };
+
+  // 3. Posisi random untuk X (Horizontal)
+  const randomValueX = () => {
+    const screnx = window.innerWidth;
+    return Math.floor(Math.random() * Number(screnx));
+  };
+
+  // 4. Posisi random untuk Y (Vertical) - Menggunakan scrollHeight agar mencakup seluruh panjang halaman!
+  const randomValueY = () => {
+    const totalHeight = document.documentElement.scrollHeight;
+    return Math.floor(Math.random() * totalHeight);
+  };
+
+  // 5. Speed hujan
+  const speedRain = () => {
+    const totalHeight = document.documentElement.scrollHeight;
+
+    // Base speed: per 1000px tinggi halaman, butuh waktu sekitar 2 - 4 detik
+    const baseSpeed = (totalHeight / 1000) * 2;
+
+    // Beri sedikit random variasi agar kecepatan tiap tetesan berbeda tipis
+    return baseSpeed + Math.random() * 2;
+  };
+
+  // 6. Membuat elemen di container-rain
+  const createRainDrop = () => {
+    const containerRain = document.querySelector(".container-rain");
+    if (!containerRain) return; // Proteksi jika container tidak ditemukan
+
+    const html = '<div class="rain"></div>';
+    containerRain.insertAdjacentHTML("beforeend", html);
+  };
+
+  // 7. Mengatur property CSS
+  const setCss = () => {
+    const rain = document.querySelector(".rain:last-child");
+    if (!rain) return;
+
+    // Set kecepatan dan delay random agar jatuhnya tidak berbarengan
+    rain.style.setProperty("--speed", `${speedRain()}s`);
+    rain.style.animationDelay = `${Math.random() * 2}s`;
+
+    // Kirim ke CSS variable
+    rain.style.setProperty("--geserX", `${randomValueX()}px`);
+
+    // Agar hujan jatuh natural dari atas halaman, berikan posisi awal --top dari nilai Y yang diacak
+    // Dan biarkan --geserY tetap kecil atau koordinat relatif agar translasinya lurus.
+    rain.style.setProperty("--top", `${randomValueY()}px`);
+    rain.style.setProperty("--geserY", `-20px`);
+  };
+
+  // Loop pembuatan hujan
+  for (let i = 0; i < rainFall(); i++) {
+    createRainDrop();
+    setCss();
+  }
+
+  // voiceRain();
+};
+
+// Jalankan fungsi setelah DOM sepenuhnya termuat agar target container terbaca
+document.addEventListener("DOMContentLoaded", rainLogic);
