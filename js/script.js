@@ -379,87 +379,76 @@ const contact = () => {
 contact();
 
 const rainLogic = () => {
-  // 1. Audio Hujan (Ditambahkan .play() dan perbaikan typo path)
-  // const voiceRain = () => {
-  //   const audioRain = new Audio("./asset/audio/rain.mp3");
-
-  //   audioRain.volume = 0.01; // Sesuai catatan Anda
-  //   audioRain.loop = true;
-
-  //   // Putar audio (catatan: browser biasanya meminta interaksi user terlebih dahulu sebelum play otomatis)
-  //   audioRain
-  //     .play()
-  //     .catch((err) =>
-  //       console.log(
-  //         "Audio dimatikan otomatis oleh browser sampai ada interaksi user.",
-  //       ),
-  //     );
-  // };
-
-  // 2. Jumlah hujan berdasarkan lebar layar
-  const rainFall = () => {
+  // 1. Batasi jumlah maksimal hujan yang boleh ada di layar
+  const maxRainCount = () => {
     const screnx = window.innerWidth;
     return Math.floor(Number(screnx) / 10);
   };
 
-  // 3. Posisi random untuk X (Horizontal)
+  // 2. Posisi random untuk X (Horizontal)
   const randomValueX = () => {
     const screnx = window.innerWidth;
     return Math.floor(Math.random() * Number(screnx));
   };
 
-  // 4. Posisi random untuk Y (Vertical) - Menggunakan scrollHeight agar mencakup seluruh panjang halaman!
+  // 3. Posisi random untuk Y (Vertical) - Menggunakan scrollHeight
   const randomValueY = () => {
     const totalHeight = document.documentElement.scrollHeight;
     return Math.floor(Math.random() * totalHeight);
   };
 
-  // 5. Speed hujan
+  // 4. Speed hujan SLOW MOTION yang stabil
   const speedRain = () => {
     const totalHeight = document.documentElement.scrollHeight;
 
-    // Base speed: per 1000px tinggi halaman, butuh waktu sekitar 2 - 4 detik
-    const baseSpeed = (totalHeight / 1000) * 2;
+    // Angka diganti ke 8 agar pas (tidak macet total seperti 900).
+    // Berarti per 1000px tinggi web, butuh sekitar 8-10 detik untuk jatuh.
+    const baseSpeed = (totalHeight / 1000) * 8;
 
-    // Beri sedikit random variasi agar kecepatan tiap tetesan berbeda tipis
-    return baseSpeed + Math.random() * 2;
+    return baseSpeed + Math.random() * 3;
   };
 
-  // 6. Membuat elemen di container-rain
-  const createRainDrop = () => {
+  // 5. Membuat satu tetes hujan & langsung pasang CSS-nya
+  const spawnRainDrop = () => {
     const containerRain = document.querySelector(".container-rain");
-    if (!containerRain) return; // Proteksi jika container tidak ditemukan
+    if (!containerRain) return;
 
-    const html = '<div class="rain"></div>';
-    containerRain.insertAdjacentHTML("beforeend", html);
+    // Cek jika jumlah hujan di layar sudah terlalu banyak, jangan bikin baru lagi
+    const currentRain = containerRain.querySelectorAll(".rain");
+    if (currentRain.length >= maxRainCount()) return;
+
+    // Buat elemen baru
+    const rainDrop = document.createElement("div");
+    rainDrop.classList.add("rain");
+
+    // Pasang property CSS langsung ke elemen yang baru dibuat (lebih aman daripada :last-child)
+    rainDrop.style.setProperty("--speed", `${speedRain()}s`);
+    rainDrop.style.setProperty("--geserX", `${randomValueX()}px`);
+    rainDrop.style.setProperty("--top", `${randomValueY()}px`);
+    rainDrop.style.setProperty("--geserY", `-20px`);
+
+    // Beri delay acak super tipis agar terasa lebih halus organiknya
+    rainDrop.style.animationDelay = `${Math.random() * 0.5}s`;
+
+    // Masukkan ke container
+    containerRain.appendChild(rainDrop);
   };
 
-  // 7. Mengatur property CSS
-  const setCss = () => {
-    const rain = document.querySelector(".rain:last-child");
-    if (!rain) return;
-
-    // Set kecepatan dan delay random agar jatuhnya tidak berbarengan
-    rain.style.setProperty("--speed", `${speedRain()}s`);
-    rain.style.animationDelay = `${Math.random() * 2}s`;
-
-    // Kirim ke CSS variable
-    rain.style.setProperty("--geserX", `${randomValueX()}px`);
-
-    // Agar hujan jatuh natural dari atas halaman, berikan posisi awal --top dari nilai Y yang diacak
-    // Dan biarkan --geserY tetap kecil atau koordinat relatif agar translasinya lurus.
-    rain.style.setProperty("--top", `${randomValueY()}px`);
-    rain.style.setProperty("--geserY", `-20px`);
-  };
-
-  // Loop pembuatan hujan
-  for (let i = 0; i < rainFall(); i++) {
-    createRainDrop();
-    setCss();
-  }
-
-  // voiceRain();
+  // KUNCI UTAMA: Mengganti loop 'for' dengan interval waktu (Interval Spawning)
+  // Fungsi spawnRainDrop akan dipanggil setiap 40 milidetik (muncul bergantian, tidak barengan)
+  const rainInterval = setInterval(() => {
+    const containerRain = document.querySelector(".container-rain");
+    if (containerRain) {
+      const currentRain = containerRain.querySelectorAll(".rain");
+      if (currentRain.length >= maxRainCount()) {
+        // Jika kapasitas hujan maksimal sudah terpenuhi, hentikan interval pembuatannya
+        clearInterval(rainInterval);
+      } else {
+        spawnRainDrop();
+      }
+    }
+  }, 40); // Ubah angka 40 ini (makin kecil makin cepat badainya kumpul)
 };
 
-// Jalankan fungsi setelah DOM sepenuhnya termuat agar target container terbaca
+// Jalankan fungsi setelah halaman siap
 document.addEventListener("DOMContentLoaded", rainLogic);

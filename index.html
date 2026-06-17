@@ -10,21 +10,8 @@
   </head>
   <body class="text-white antialiased bg-gray-950 overflow-x-hidden relative">
     <div
-      class="container-rain absolute inset-0 w-screen h-full pointer-events-none z-20 overflow-hidden"
-    >
-      <div
-        class="rain"
-        style="--top: 10px; --speed: 2s; --geserX: 20vw; --geserY: -10px"
-      ></div>
-      <div
-        class="rain"
-        style="--top: 50px; --speed: 1.5s; --geserX: 50vw; --geserY: -10px"
-      ></div>
-      <div
-        class="rain"
-        style="--top: 100px; --speed: 2.5s; --geserX: 80vw; --geserY: -10px"
-      ></div>
-    </div>
+      class="container-rain absolute inset-0 w-screen h-full pointer-events-none -z-50 overflow-hidden"
+    ></div>
     <header class="relative z-50">
       <nav
         class="hidden absolute left-1/2 top-7 z-30 lg:flex -translate-x-1/2 items-center gap-7 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/80 backdrop-blur-md fixed"
@@ -148,7 +135,7 @@
       </nav>
     </header>
 
-    <main class="overflow-hidden">
+    <main class="overflow-hidden z-10">
       <!-- GRID COURSOR START-->
       <div
         id="gridCursor"
