@@ -165,12 +165,15 @@ const home = () => {
     ...document.querySelectorAll(".container-home-img > div"),
   ];
 
-  const containerHomeText = document.querySelector(".container-home-text");
+  const homeAnimasi = document.querySelectorAll(".home-animasi");
 
   // Untuk text home
   function textHome() {
-    containerHomeText.classList.remove("opacity-0");
-    containerHomeText.classList.remove("opacity-100");
+    homeAnimasi.forEach(item => {
+       item.classList.remove("opacity-0");
+    item.classList.remove("opacity-100");
+    });
+   
   }
 
   function scrollDiractionAnimation() {
