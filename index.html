@@ -27,10 +27,18 @@
         <span
           class="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black"
         >
-          <svg viewBox="0 0 24 24" class="" fill="currentColor">
-            <path
-              d="M12 2C8 2 5 6 5 10.5 5 16 9 20 12 22c3-2 7-6 7-11.5C19 6 16 2 12 2z"
-            />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-6 w-6 #0000"
+          >
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
           </svg>
         </span>
         <a href="#home" class="transition hover:text-white">Home</a>
@@ -53,13 +61,23 @@
           <span
             class="flex h-6 w-6 items-center justify-center rounded-full bg-white text-black"
           >
-            <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="currentColor">
-              <path
-                d="M12 2C8 2 5 6 5 10.5 5 16 9 20 12 22c3-2 7-6 7-11.5C19 6 16 2 12 2z"
-              />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="h-3 w-3 #0000"
+            >
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
             </svg>
           </span>
-          Blueprint.
+          <span class="font-bold text-white bg-clip-text text-transparent">
+            Rayhan.
+          </span>
         </div>
 
         <button
@@ -82,16 +100,22 @@
                 class="flex h-6 w-6 items-center justify-center rounded-full bg-white text-black"
               >
                 <svg
+                  xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  class="h-3.5 w-3.5"
-                  fill="currentColor"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="h-3 w-3 #0000"
                 >
-                  <path
-                    d="M12 2C8 2 5 6 5 10.5 5 16 9 20 12 22c3-2 7-6 7-11.5C19 6 16 2 12 2z"
-                  />
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
                 </svg>
               </span>
-              Blueprint.
+              <span class="font-bold text-white bg-clip-text text-transparent">
+                Rayhan.
+              </span>
             </div>
 
             <button class="lg:hidden text-sm text-white/70 close-menu">
@@ -103,7 +127,7 @@
           <div
             class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 p-6 bg-white/10 backdrop-blur-3xl border border-white/2 rounded-xl"
           >
-            <div class="flex flex-col items-center gap-2 mt-5">
+            <div class="flex flex-col items-center gap-2 mt-5 nav-menu">
               <a
                 href="#home"
                 class="transition hover:text-white text-3xl font-semibold active-link-nav"
@@ -154,7 +178,7 @@
         >
           <div class="border-[.2px] border-white/20 rounded-2xl">
             <div
-              class="relative transform -rotate-6 p-4 pb-8 rounded-2xl shadow-xl w-64 border-[.2px] border-white/20  transition hover:rotate-0 duration-300 ease-in-out cursor-pointer"
+              class="relative transform -rotate-6 p-4 pb-8 rounded-2xl shadow-xl w-64 border-[.2px] border-white/20 transition active:rotate-0 hover:rotate-0 duration-300 ease-in-out cursor-pointer bg-white/5 backdrop-blur-md"
             >
               <div class="overflow-hidden rounded-xl bg-gray-50 aspect-[3/4]">
                 <img
@@ -195,7 +219,7 @@
       <section id="about" class="py-24 px-6">
         <div class="max-w-7xl mx-auto">
           <span
-            class="reveal inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-purple-300 text-sm"
+            class="reveal inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-purple-300 text-sm text-loop"
             data-delay="0"
           >
             Our Promise
@@ -235,7 +259,7 @@
       <section id="journey" class="py-24 overflow-hidden">
         <div class="max-w-7xl mx-auto px-6">
           <span
-            class="inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-purple-300 text-sm"
+            class="inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-purple-300 text-sm text-loop"
             data-delay="0"
           >
             Learning Journey
@@ -373,7 +397,7 @@
       <section id="skill&project" class="py-24 overflow-hidde group">
         <div class="max-w-7xl px-6 mx-auto mb-7">
           <span
-            class="inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-purple-300 text-sm"
+            class="inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-purple-300 text-sm text-loop"
             data-delay="0"
           >
             Skills & Project
@@ -653,7 +677,7 @@
       <!-- CONTACT SECTION START -->
       <section
         id="contact"
-        class="py-24 bg-gray-950 text-white relative overflow-hidden opacity-0 z-50"
+        class="py-24 bg-gray-950 text-white relative overflow-hidden opacity-0 z-20"
       >
         <div
           class="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"
@@ -665,7 +689,7 @@
         <div class="max-w-6xl mx-auto px-4 relative z-10">
           <div class="text-center max-w-2xl mx-auto mb-16">
             <span
-              class="inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-purple-300 text-sm mb-4"
+              class="inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-purple-300 text-sm mb-4 text-loop"
             >
               Get In Touch
             </span>

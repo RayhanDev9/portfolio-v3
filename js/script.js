@@ -87,6 +87,22 @@ const nav = () => {
     });
   }
   mobile();
+
+  function actionNavLinks() {
+    const navLinks = [...document.querySelectorAll(".nav-menu > a")];
+    console.info(navLinks);
+
+    navLinks.forEach((link) => {
+      link.addEventListener("click", function () {
+        navLinks.forEach((link) => {
+          link.classList.remove("active-link-nav");
+        });
+
+        this.classList.add("active-link-nav");
+      });
+    });
+  }
+  actionNavLinks();
 };
 
 nav();
@@ -452,3 +468,64 @@ const rainLogic = () => {
 
 // Jalankan fungsi setelah halaman siap
 document.addEventListener("DOMContentLoaded", rainLogic);
+
+// Fungsi bantuan untuk membuat jeda waktu (delay)
+
+function initTextScrambleAnimation() {
+  // 1. Data acak untuk efek glitch/scramble
+  const randomWords = [
+    "x7z_k0d3_9q",
+    "rmh#b!ru_xx",
+    "jlns0r3_zz9",
+    "t3h_h4ng4t__x",
+    "v01d_w4lk3r_7",
+    "c0ff33_0v3rd0s3",
+    "n1ght_r1d3r_99",
+  ];
+
+  // Fungsi bantuan delay (ditaruh di dalam agar fungsi menjadi self-contained)
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  // 2. Ambil semua elemen dengan class .text-loop
+  const targetElements = document.querySelectorAll(".text-loop");
+  if (targetElements.length === 0) return;
+
+  // 3. Fungsi inti untuk animasi per elemen
+  async function animateElement(element) {
+    // Ambil dan simpan teks asli elemen tersebut sebelum diacak
+    const originalText = element.textContent;
+
+    // Jalankan efek acak teks
+    for (let i = 0; i < randomWords.length; i++) {
+      element.textContent = randomWords[i];
+      await delay(70); // Kecepatan glitch (70ms)
+    }
+
+    // Kembalikan ke teks asli masing-masing elemen
+    element.textContent = originalText;
+  }
+
+  // 4. Setup IntersectionObserver untuk mendeteksi scroll
+  const observerOptions = {
+    root: null,
+    threshold: 0.5, // Aktif jika 50% elemen masuk ke layar
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // Jalankan animasi khusus untuk elemen yang sedang terlihat saja
+        animateElement(entry.target);
+
+        // Jika ingin animasi hanya berjalan SEKALI SAJA seumur hidup, aktifkan baris di bawah:
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // 5. Daftarkan semua elemen ke observer
+  targetElements.forEach((element) => observer.observe(element));
+}
+
+// Eksekusi fungsi utama
+initTextScrambleAnimation();
