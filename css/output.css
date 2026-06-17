@@ -569,6 +569,21 @@
   .-rotate-6 {
     rotate: calc(6deg * -1);
   }
+  .rotate-0 {
+    rotate: 0deg;
+  }
+  .rotate-30 {
+    rotate: 30deg;
+  }
+  .rotate-90 {
+    rotate: 90deg;
+  }
+  .rotate-180 {
+    rotate: 180deg;
+  }
+  .rotate-360 {
+    rotate: 360deg;
+  }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
