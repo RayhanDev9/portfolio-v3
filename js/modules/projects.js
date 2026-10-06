@@ -16,6 +16,8 @@ export function initProjects() {
     const filtered =
       filter === "all"
         ? projectsData
+        : filter === "collab"
+        ? projectsData.filter((p) => Boolean(p.collab))
         : projectsData.filter((p) => p.category === filter);
 
     grid.innerHTML = filtered
