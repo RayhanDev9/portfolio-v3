@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="Framer Motion">
+  <defs>
+    <linearGradient id="fm-g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF0055"/>
+      <stop offset="50%" stop-color="#7B00FF"/>
+      <stop offset="100%" stop-color="#0055FF"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#fm-g)" d="M4 0h16v8h-8zM4 8h8l8 8H4zM4 16h8v8z"/>
+</svg>
