@@ -45,12 +45,40 @@
   animation: marquee-reverse 20s linear infinite; /* Sedikit lebih cepat dari foto */
 }
 
-/* Pause carousel tracks independently on hover */
+/* Pause carousel tracks independently on hover and when active/paused */
 .carousel:hover .track,
 .carousel:hover .animate-marquee,
 .carousel:hover .animate-marquee-reverse,
-.track:hover {
+.track:hover,
+.track.is-paused {
   animation-play-state: paused !important;
+}
+
+/* Active states for mobile tap/click interaction */
+.item-logo.is-active .skill-tooltip {
+  opacity: 1 !important;
+  top: -2.75rem !important;
+  transform: translateX(-50%) scale(1) !important;
+  pointer-events: auto !important;
+}
+
+.item-logo.is-active {
+  border-color: rgba(168, 85, 247, 0.7) !important;
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.3) !important;
+}
+
+.item.is-active .project-overlay {
+  opacity: 1 !important;
+}
+
+.item.is-active img {
+  transform: scale(1.05) !important;
+}
+
+.item.is-active {
+  border-color: rgba(168, 85, 247, 0.6) !important;
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.25) !important;
 }
 
 /* Rain */

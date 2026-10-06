@@ -543,11 +543,11 @@ const skillProjectSection = () => {
     tracks[0].innerHTML = combinedSkills
       .map(
         (skill) => `
-      <div class="item-logo rounded-2xl group/skill relative h-12 w-24 md:h-16 md:w-32 shrink-0 flex items-center justify-center bg-white/5 border border-white/10 p-3 hover:border-purple-500/50 hover:bg-white/10 transition-all duration-300 cursor-pointer">
+      <div class="item-logo rounded-2xl group/skill relative h-12 w-24 md:h-16 md:w-32 shrink-0 flex items-center justify-center bg-white/5 border border-white/10 p-3 hover:border-purple-500/50 hover:bg-white/10 transition-all duration-300 cursor-pointer" data-skill="${skill.name}">
         <img src="${skill.src}" alt="${skill.name}" class="h-full object-contain max-w-full transition-transform duration-300 group-hover/skill:scale-110" />
 
         <!-- Floating Tooltip -->
-        <div class="pointer-events-none rounded-2xl absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 scale-90 group-hover/skill:opacity-100 group-hover/skill:scale-100 group-hover/skill:-top-11 transition-all duration-75 ease-out z-30">
+        <div class="skill-tooltip pointer-events-none rounded-2xl absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 scale-90 group-hover/skill:opacity-100 group-hover/skill:scale-100 group-hover/skill:-top-11 transition-all duration-150 ease-out z-30">
           <div class="px-2.5 py-1 text-xs rounded-2xl font-medium text-white bg-gray-900/95 border border-white/15 rounded-md shadow-xl backdrop-blur-md whitespace-nowrap">
             ${skill.name}
           </div>
@@ -564,13 +564,13 @@ const skillProjectSection = () => {
     tracks[1].innerHTML = combinedProjects
       .map(
         (project) => `
-      <div class="item group/proj relative h-52 sm:h-64 md:h-72 w-[280px] sm:w-[380px] md:w-[460px] shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-gray-900 shadow-xl">
-        <a href="${project.url}" target="_blank" class="block w-full h-full relative" title="${project.title}">
+      <div class="item group/proj relative h-52 sm:h-64 md:h-72 w-[280px] sm:w-[380px] md:w-[460px] shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-gray-900 shadow-xl cursor-pointer" data-url="${project.url}">
+        <a href="${project.url}" target="_blank" rel="noopener noreferrer" class="project-card-link block w-full h-full relative" title="${project.title}">
           <!-- Thumbnail Image -->
           <img src="${project.img}" alt="${project.alt}" class="w-full h-full object-cover aspect-[16/9] transition-transform duration-500 ease-out group-hover/proj:scale-105" />
 
           <!-- Sharp Solid Gradient Overlay (Tanpa backdrop-blur, Teks 100% Tajam) -->
-          <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/90 to-transparent p-4 sm:p-5 flex flex-col justify-end opacity-0 group-hover/proj:opacity-100 transition-opacity duration-300">
+          <div class="project-overlay absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/90 to-transparent p-4 sm:p-5 flex flex-col justify-end opacity-0 group-hover/proj:opacity-100 transition-opacity duration-300">
             <div class="antialiased">
               <!-- Title & External Link Icon -->
               <div class="flex items-center justify-between mb-1.5">
@@ -583,9 +583,14 @@ const skillProjectSection = () => {
               <!-- Description -->
               <p class="text-[11px] sm:text-xs md:text-sm text-gray-200 line-clamp-2 mb-2 sm:mb-3 leading-relaxed">${project.description}</p>
               
-              <!-- Skill Badges -->
-              <div class="flex flex-wrap gap-1 sm:gap-1.5">
-                ${project.skills.map((s) => `<span class="px-2 py-0.5 text-[9px] sm:text-[11px] font-medium rounded-md bg-purple-500/25 text-purple-200 border border-purple-500/40 whitespace-nowrap">${s}</span>`).join("")}
+              <!-- Skill Badges & Mobile Double-click Hint -->
+              <div class="flex items-center justify-between gap-2 flex-wrap">
+                <div class="flex flex-wrap gap-1 sm:gap-1.5">
+                  ${project.skills.map((s) => `<span class="px-2 py-0.5 text-[9px] sm:text-[11px] font-medium rounded-md bg-purple-500/25 text-purple-200 border border-purple-500/40 whitespace-nowrap">${s}</span>`).join("")}
+                </div>
+                <span class="inline-flex items-center gap-1 text-[10px] text-purple-300/90 bg-purple-500/20 px-2 py-0.5 rounded-full border border-purple-500/30 lg:hidden">
+                  Double click to visit ↗
+                </span>
               </div>
             </div>
           </div>
@@ -608,13 +613,139 @@ const skillProjectSection = () => {
       });
 
       carousel.addEventListener("mouseleave", () => {
-        track.style.animationPlayState = "running";
+        // Jangan restart jika sedang ada item yang aktif
+        if (!track.classList.contains("is-paused")) {
+          track.style.animationPlayState = "running";
+        }
       });
+    });
+  }
+
+  // Interaksi Click di Mobile:
+  // - Klik pada skill logo: menampilkan tooltip teks nama skill.
+  // - Klik sekali pada project: menampilkan overlay detail teks project (title, desc, skills).
+  // - Klik dua kali (double click / double tap) pada project: membuka website project.
+  function initCardInteractions() {
+    const tracks = document.querySelectorAll("#skill-project .carousel .track");
+    const skillTrack = tracks[0];
+    const projectTrack = tracks[1];
+    const skillItems = document.querySelectorAll("#skill-project .item-logo");
+    const projectItems = document.querySelectorAll("#skill-project .item");
+
+    function updateTrackPauseState() {
+      const anySkillActive = document.querySelector("#skill-project .item-logo.is-active");
+      const anyProjectActive = document.querySelector("#skill-project .item.is-active");
+
+      if (skillTrack) {
+        if (anySkillActive) {
+          skillTrack.classList.add("is-paused");
+        } else {
+          skillTrack.classList.remove("is-paused");
+        }
+      }
+      if (projectTrack) {
+        if (anyProjectActive) {
+          projectTrack.classList.add("is-paused");
+        } else {
+          projectTrack.classList.remove("is-paused");
+        }
+      }
+    }
+
+    // 1. Skill items: click/tap toggle tooltip
+    skillItems.forEach((item) => {
+      item.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const wasActive = item.classList.contains("is-active");
+        skillItems.forEach((si) => si.classList.remove("is-active"));
+
+        if (!wasActive) {
+          item.classList.add("is-active");
+        }
+        updateTrackPauseState();
+      });
+    });
+
+    // 2. Project items: single click shows text, double click opens site
+    let lastTapTime = 0;
+    let lastTappedItem = null;
+
+    projectItems.forEach((item) => {
+      const url = item.getAttribute("data-url");
+
+      // Handler double click native (desktop & browser support)
+      item.addEventListener("dblclick", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (url) {
+          window.open(url, "_blank", "noopener,noreferrer");
+        }
+      });
+
+      // Handler click & double-tap mobile
+      item.addEventListener("click", (e) => {
+        const isMobileScreen =
+          window.innerWidth < 1024 ||
+          window.matchMedia("(hover: none)").matches ||
+          "ontouchstart" in window;
+
+        if (isMobileScreen) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          const currentTime = Date.now();
+          const tapDelay = currentTime - lastTapTime;
+          const isSameItem = lastTappedItem === item;
+          const isAlreadyActive = item.classList.contains("is-active");
+
+          // Double tap terdeteksi jika tap kedua berturut-turut pada item yang sama (<500ms) ATAU card sudah aktif dan di-tap lagi
+          if ((isSameItem && tapDelay < 500 && tapDelay > 0) || isAlreadyActive) {
+            if (url) {
+              window.open(url, "_blank", "noopener,noreferrer");
+            }
+            lastTapTime = 0;
+            lastTappedItem = null;
+            item.classList.remove("is-active");
+          } else {
+            // Single click/tap: tampilkan overlay teks
+            projectItems.forEach((pi) => pi.classList.remove("is-active"));
+            item.classList.add("is-active");
+            lastTapTime = currentTime;
+            lastTappedItem = item;
+          }
+
+          updateTrackPauseState();
+        }
+      });
+    });
+
+    // Klik di luar area menutup card/tooltip aktif dan melanjutkan scroll carousel
+    document.addEventListener("click", () => {
+      let changed = false;
+      skillItems.forEach((si) => {
+        if (si.classList.contains("is-active")) {
+          si.classList.remove("is-active");
+          changed = true;
+        }
+      });
+      projectItems.forEach((pi) => {
+        if (pi.classList.contains("is-active")) {
+          pi.classList.remove("is-active");
+          changed = true;
+        }
+      });
+
+      if (changed) {
+        lastTapTime = 0;
+        lastTappedItem = null;
+        updateTrackPauseState();
+      }
     });
   }
 
   renderCarouselTracks();
   initCarouselHoverPause();
+  initCardInteractions();
 };
 
 const contactSection = () => {
