@@ -541,8 +541,10 @@ const projectsSection = () => {
     {
       title: "Siap Kerja",
       category: "app",
-      description: "Interactive career preparation platform integrated with AI-driven career recommendations and curated skill modules.",
-      skills: ["React", "Redux Toolkit", "Gemini AI", "Framer Motion", "Vite"],
+      collab: "Team: FE • BE • UI/UX",
+      role: "Front-End",
+      description: "Interactive career platform built in a cross-functional team (FE, BE & UI/UX). Implemented responsive UI, integrated AI-driven career recommendations, and interactive skill modules.",
+      skills: ["React", "Redux Toolkit", "Gemini AI", "Framer Motion", "Team Collab"],
       url: "https://rayhandev9.github.io/siap-kerja/#/landingPage",
       img: "asset/img/project/siap-kerja.avif",
       alt: "Siap Kerja",
@@ -568,8 +570,10 @@ const projectsSection = () => {
     {
       title: "Mading Kampus",
       category: "app",
-      description: "Digital campus magazine web portal for publishing student articles, news, and campus announcements.",
-      skills: ["Tailwind CSS", "HTML5 Semantic", "JavaScript", "Responsive Design"],
+      collab: "Team: FE • BE • UI/UX",
+      role: "Front-End",
+      description: "Digital campus magazine & announcement portal developed in collaboration with BE & UI/UX teams. Built responsive magazine layout, article upload flows, and student tools.",
+      skills: ["Tailwind CSS", "HTML5 Semantic", "JavaScript", "Team Collab", "Responsive Design"],
       url: "https://rayhandev9.github.io/mading-kampus/",
       img: "asset/img/project/mading-kampus.avif",
       alt: "Mading Kampus",
@@ -629,6 +633,11 @@ const projectsSection = () => {
         <!-- Thumbnail (16:9) -->
         <a href="${project.url}" target="_blank" rel="noopener noreferrer" class="block aspect-[16/9] overflow-hidden relative bg-gray-900 border-b border-white/10 cursor-pointer" title="${project.title}">
           <img src="${project.img}" alt="${project.alt}" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
+          ${project.collab ? `
+          <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-purple-950/85 backdrop-blur-md border border-purple-500/30 text-purple-300 flex items-center gap-1.5 shadow-lg">
+            <svg class="w-3.5 h-3.5 text-purple-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            <span>${project.collab}</span>
+          </span>` : ""}
           <span class="absolute top-3.5 right-3.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-gray-950/85 backdrop-blur-md border border-white/15 text-emerald-400 flex items-center gap-1.5 shadow-lg">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>Live Demo
           </span>
@@ -637,10 +646,14 @@ const projectsSection = () => {
         <!-- Content -->
         <div class="p-6 md:p-7 flex flex-col flex-grow justify-between gap-5">
           <div class="space-y-3">
-            <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center justify-between gap-2 flex-wrap">
               <h3 class="text-xl md:text-2xl font-bold text-white group-hover:text-purple-300 transition-colors tracking-tight">
                 ${project.title}
               </h3>
+              ${project.role ? `
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-purple-500/15 text-purple-300 border border-purple-500/30 shrink-0">
+                ${project.role}
+              </span>` : ""}
             </div>
             <p class="text-sm text-gray-300/80 leading-relaxed">
               ${project.description}
