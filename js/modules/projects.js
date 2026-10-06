@@ -71,10 +71,15 @@ export function initProjects() {
           </div>
 
           <!-- Action Button -->
-          <div class="pt-2">
-            <a href="${project.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-purple-600 border border-white/10 hover:border-purple-500 text-sm font-semibold text-white transition-all duration-300 group-hover:bg-purple-600 group-hover:border-purple-500 shadow-md">
+          <div class="pt-2 relative z-20">
+            <a
+              href="${project.url}"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="visit-btn inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-purple-600 active:bg-purple-700 focus:bg-purple-600 border border-white/10 hover:border-purple-500 active:border-purple-400 active:scale-[0.98] text-sm font-semibold text-white transition-all duration-200 group-hover:bg-purple-600 group-hover:border-purple-500 shadow-md cursor-pointer touch-manipulation relative z-20"
+            >
               <span>Visit Website</span>
-              <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 active:translate-x-0.5 active:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
               </svg>
             </a>
