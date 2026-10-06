@@ -395,6 +395,26 @@ const skillProjectSection = () => {
       img: "asset/img/project/tk.avif",
       alt: "TK",
     },
+    {
+      url: "https://danusatya.my.id/",
+      img: "asset/img/project/portfolio-danu.avif",
+      alt: "Danu Satya",
+    },
+    {
+      url: "https://rayhandev9.github.io/fast-pizza/menu",
+      img: "asset/img/project/fast-pizza.avif",
+      alt: "Fast Pizza",
+    },
+    {
+      url: "https://rayhandev9.github.io/siap-kerja/#/landingPage",
+      img: "asset/img/project/siap-kerja.avif",
+      alt: "Siap Kerja",
+    },
+    {
+      url: "https://rayhandev9.github.io/mading-kampus/",
+      img: "asset/img/project/mading-kampus.avif",
+      alt: "Mading Kampus",
+    },
   ];
 
   function renderCarouselTracks() {
