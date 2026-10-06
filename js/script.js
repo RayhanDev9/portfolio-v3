@@ -12,9 +12,9 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 function initTextScrambleAnimation() {
   const randomWords = [
     "x7z_k0d3_9q",
-    "rmh#b!ru_xx",
-    "jlns0r3_zz9",
-    "t3h_h4ng4t__x",
+    "c0d3_fl0w_99",
+    "d3v_m0d3_xx",
+    "n3t_runn3r_z",
     "v01d_w4lk3r_7",
     "c0ff33_0v3rd0s3",
     "n1ght_r1d3r_99",
@@ -121,7 +121,7 @@ function initBackgroundRainEffect() {
     rainDrop.classList.add("rain");
 
     // Kecepatan stabil alami (2.0s - 3.2s melintasi seluruh tinggi viewport)
-    const duration = 2.0 + Math.random() * 1.2;
+    const duration = 6.6 + Math.random() * 1.2;
     // Delay negatif agar langsung tersebar merata saat halaman dimuat
     const delay = -(Math.random() * duration);
 
@@ -157,9 +157,9 @@ const navigationModule = () => {
   const topBarDekstopEl = document.querySelector(".top-bar-dekstop");
   const glitchWords = [
     "x7z_k0d3_9q",
-    "rmh#b!ru_xx",
-    "jlns0r3_zz9",
-    "t3h_h4ng4t__x",
+    "c0d3_fl0w_99",
+    "d3v_m0d3_xx",
+    "n3t_runn3r_z",
   ];
 
   function handleStickyNavbar(element) {
@@ -375,7 +375,7 @@ const skillProjectSection = () => {
   const projectsData = [
     {
       title: "Fast React Pizza",
-      description: "Aplikasi restoran pizza interaktif dengan live cart management dan routing SPA.",
+      description: "Interactive pizza ordering application featuring live cart management and SPA client-side routing.",
       skills: ["React 18", "Redux Toolkit", "React Router", "Tailwind CSS", "Vite"],
       url: "https://rayhandev9.github.io/fast-pizza/menu",
       img: "asset/img/project/fast-pizza.avif",
@@ -383,7 +383,7 @@ const skillProjectSection = () => {
     },
     {
       title: "Siap Kerja",
-      description: "Platform karier & persiapan kerja interaktif dengan integrasi rekomendasi karir yang populer dan course pilihan yang sesuai dengan kebutuhan work yang anda pilih.",
+      description: "Interactive career preparation platform integrated with AI-driven career recommendations and curated courses.",
       skills: ["React", "Redux Toolkit", "Gemini AI", "Framer Motion", "Vite"],
       url: "https://rayhandev9.github.io/siap-kerja/#/landingPage",
       img: "asset/img/project/siap-kerja.avif",
@@ -391,7 +391,7 @@ const skillProjectSection = () => {
     },
     {
       title: "Danu Satya Portfolio",
-      description: "Website portofolio resmi production untuk seorang Graphic & Simple Motion Designer.",
+      description: "Official production portfolio website built for a Graphic and Motion Designer.",
       skills: ["React 19", "TypeScript", "Tailwind CSS v4", "Lucide Icons", "Vite"],
       url: "https://danusatya.my.id/",
       img: "asset/img/project/portfolio-danu.avif",
@@ -399,7 +399,7 @@ const skillProjectSection = () => {
     },
     {
       title: "TK PAUD Permata",
-      description: "Website profil institusi pendidikan anak usia dini dengan custom domain live.",
+      description: "Official educational institutional web profile with custom live domain and responsive design.",
       skills: ["Front-End Arch", "HTML5/CSS3", "JavaScript", "Responsive UI", "SEO"],
       url: "https://permatabelajar.my.id/",
       img: "asset/img/project/tk.avif",
@@ -407,7 +407,7 @@ const skillProjectSection = () => {
     },
     {
       title: "Mading Kampus",
-      description: "Web portal digital majalah dinding kampus untuk publikasi artikel dan berita mahasiswa.",
+      description: "Digital campus magazine web portal for publishing student articles, news, and campus announcements.",
       skills: ["Tailwind CSS", "HTML5 Semantic", "JavaScript", "Responsive Design"],
       url: "https://rayhandev9.github.io/mading-kampus/",
       img: "asset/img/project/mading-kampus.avif",
@@ -415,7 +415,7 @@ const skillProjectSection = () => {
     },
     {
       title: "Store Radeva",
-      description: "Landing page katalog toko online modern dengan etalase produk dan navigasi responsif.",
+      description: "Modern e-commerce catalog landing page featuring interactive product showcases and navigation.",
       skills: ["CSS Layout", "Flexbox/Grid", "DOM Manipulation", "Interactive UI"],
       url: "https://rayhandev9.github.io/radeva/",
       img: "asset/img/project/store-radeva.avif",
@@ -423,7 +423,7 @@ const skillProjectSection = () => {
     },
     {
       title: "Company Profile ISC",
-      description: "Website profil komunitas untuk menampilkan identitas komunitas, dan kontak resmi.",
+      description: "Community profile website showcasing community identity, tech events, and contact channels.",
       skills: ["Semantic HTML", "Responsive Web", "CSS Animation", "Clean Layout"],
       url: "https://rayhandev9.github.io/company-profile-isc/",
       img: "asset/img/project/isc.avif",
@@ -431,7 +431,7 @@ const skillProjectSection = () => {
     },
     {
       title: "Pig Game",
-      description: "Game dadu 2 pemain interaktif berbasis logika giliran pemain hingga mencapai 100 poin.",
+      description: "Interactive 2-player dice game with turn-based state logic and 100-point winning condition.",
       skills: ["JavaScript Logic", "State Management", "DOM Events", "CSS Transition"],
       url: "https://pig-game-virid-delta.vercel.app/",
       img: "asset/img/project/game.avif",
@@ -439,8 +439,8 @@ const skillProjectSection = () => {
     },
     {
       title: "First Portfolio",
-      description: "Rekam jejak portofolio pertama sebagai fondasi awal perjalanan pembelajaran web development.",
-      skills: ["HTML5", "CSS3", "Flexbox", "JavaScript Dasar"],
+      description: "My first web development milestone representing the foundation of my coding journey.",
+      skills: ["HTML5", "CSS3", "Flexbox", "Vanilla JavaScript"],
       url: "https://first-portfolio-hkyum9qh0-rayhans-projects-6dbf92f1.vercel.app/",
       img: "asset/img/project/portfolio-frist.avif",
       alt: "First Portfolio",
@@ -569,7 +569,7 @@ const contactSection = () => {
       const message = document.getElementById("message").value;
 
       const waNumber = "6285692097048";
-      const textWA = `Halo, nama saya *${name}*.\n\n*Subjek:* ${subject}\n\n*Pesan:*\n${message}`;
+      const textWA = `Hello, my name is *${name}*.\n\n*Subject:* ${subject}\n\n*Message:*\n${message}`;
 
       window.open(
         `https://wa.me/${waNumber}?text=${encodeURIComponent(textWA)}`,
