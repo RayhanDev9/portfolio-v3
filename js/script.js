@@ -517,7 +517,25 @@ const skillProjectSection = () => {
       .join("");
   }
 
+  // Event listener untuk menghentikan animasi track secara independen saat di-hover
+  function initCarouselHoverPause() {
+    const carousels = document.querySelectorAll("#skill-project .carousel");
+    carousels.forEach((carousel) => {
+      const track = carousel.querySelector(".track");
+      if (!track) return;
+
+      carousel.addEventListener("mouseenter", () => {
+        track.style.animationPlayState = "paused";
+      });
+
+      carousel.addEventListener("mouseleave", () => {
+        track.style.animationPlayState = "running";
+      });
+    });
+  }
+
   renderCarouselTracks();
+  initCarouselHoverPause();
 };
 
 const contactSection = () => {

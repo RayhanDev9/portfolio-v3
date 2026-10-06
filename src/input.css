@@ -45,6 +45,14 @@
   animation: marquee-reverse 20s linear infinite; /* Sedikit lebih cepat dari foto */
 }
 
+/* Pause carousel tracks independently on hover */
+.carousel:hover .track,
+.carousel:hover .animate-marquee,
+.carousel:hover .animate-marquee-reverse,
+.track:hover {
+  animation-play-state: paused !important;
+}
+
 /* Rain */
 
 @theme {
