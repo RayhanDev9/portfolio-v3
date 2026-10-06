@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import sharp from "sharp";
 
-const TARGET_DIR = path.resolve("asset/img");
+const TARGET_DIR = path.resolve("assets/images");
 const SUPPORTED_EXTS = [".png", ".jpg", ".jpeg", ".webp"];
 const shouldDeleteSource = process.argv.includes("--delete-source");
 

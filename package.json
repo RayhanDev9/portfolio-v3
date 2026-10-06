@@ -3,8 +3,8 @@
   "scripts": {
     "dev": "tailwindcss -i ./src/input.css -o ./css/output.css --watch",
     "build": "tailwindcss -i ./src/input.css -o ./css/output.css --minify",
-    "convert:avif": "node convert-to-avif.js",
-    "convert:avif:clean": "node convert-to-avif.js --delete-source"
+    "convert:avif": "node scripts/convert-to-avif.js",
+    "convert:avif:clean": "node scripts/convert-to-avif.js --delete-source"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.3.1",

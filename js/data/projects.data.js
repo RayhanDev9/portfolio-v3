@@ -1,0 +1,93 @@
+/**
+ * =============================================================================
+ * PROJECTS DATA
+ * Sumber data showcase proyek, kategori filter, dan metadata kolaborasi tim.
+ * =============================================================================
+ */
+export const projectsData = [
+  {
+    title: "Fast React Pizza",
+    category: "app",
+    description: "Interactive pizza ordering application featuring live cart management, SPA client-side routing, and real-time order tracking.",
+    skills: ["React 18", "Redux Toolkit", "React Router", "Tailwind CSS", "Vite"],
+    url: "https://rayhandev9.github.io/fast-pizza",
+    img: "assets/images/projects/fast-pizza.avif",
+    alt: "Fast React Pizza",
+  },
+  {
+    title: "Siap Kerja",
+    category: "app",
+    collab: "Team: FE • BE • UI/UX",
+    role: "Front-End",
+    description: "Interactive career platform built in a cross-functional team (FE, BE & UI/UX). Implemented responsive UI, integrated AI-driven career recommendations, and interactive skill modules.",
+    skills: ["React", "Redux Toolkit", "Gemini AI", "Framer Motion", "Team Collab"],
+    url: "https://rayhandev9.github.io/siap-kerja/#/landingPage",
+    img: "assets/images/projects/siap-kerja.avif",
+    alt: "Siap Kerja",
+  },
+  {
+    title: "Danu Satya Portfolio",
+    category: "landing",
+    description: "Official production portfolio website built for a Graphic & Motion Designer with bespoke typography and dark aesthetics.",
+    skills: ["React 19", "TypeScript", "Tailwind CSS v4", "Lucide Icons", "Vite"],
+    url: "https://danusatya.my.id/",
+    img: "assets/images/projects/portfolio-danu.avif",
+    alt: "Danu Satya Portfolio",
+  },
+  {
+    title: "TK PAUD Permata",
+    category: "landing",
+    description: "Official educational institutional web profile with custom live domain and responsive interactive design.",
+    skills: ["Front-End Arch", "HTML5/CSS3", "JavaScript", "Responsive UI", "SEO"],
+    url: "https://permatabelajar.my.id/",
+    img: "assets/images/projects/tk.avif",
+    alt: "TK PAUD Permata",
+  },
+  {
+    title: "Mading Kampus",
+    category: "app",
+    collab: "Team: FE • BE • UI/UX",
+    role: "Front-End",
+    description: "Digital campus magazine & announcement portal developed in collaboration with BE & UI/UX teams. Built responsive magazine layout, article upload flows, and student tools.",
+    skills: ["Tailwind CSS", "HTML5 Semantic", "JavaScript", "Team Collab", "Responsive Design"],
+    url: "https://rayhandev9.github.io/mading-kampus/",
+    img: "assets/images/projects/mading-kampus.avif",
+    alt: "Mading Kampus",
+  },
+  {
+    title: "Store Radeva",
+    category: "landing",
+    description: "Modern e-commerce catalog landing page featuring interactive product showcases and intuitive navigation.",
+    skills: ["CSS Layout", "Flexbox/Grid", "DOM Manipulation", "Interactive UI"],
+    url: "https://rayhandev9.github.io/radeva/",
+    img: "assets/images/projects/store-radeva.avif",
+    alt: "Store Radeva",
+  },
+  {
+    title: "Company Profile ISC",
+    category: "landing",
+    description: "Community profile website showcasing community identity, tech events, and contact channels.",
+    skills: ["Semantic HTML", "Responsive Web", "CSS Animation", "Clean Layout"],
+    url: "https://rayhandev9.github.io/company-profile-isc/",
+    img: "assets/images/projects/isc.avif",
+    alt: "Company Profile ISC",
+  },
+  {
+    title: "Pig Game",
+    category: "interactive",
+    description: "Interactive 2-player dice game with turn-based state logic and 100-point winning condition.",
+    skills: ["JavaScript Logic", "State Management", "DOM Events", "CSS Transition"],
+    url: "https://pig-game-virid-delta.vercel.app/",
+    img: "assets/images/projects/game.avif",
+    alt: "Pig Game",
+  },
+  {
+    title: "First Portfolio",
+    category: "landing",
+    description: "My first web development milestone representing the foundation of my coding journey.",
+    skills: ["HTML5", "CSS3", "Flexbox", "Vanilla JavaScript"],
+    url: "https://first-portfolio-hkyum9qh0-rayhans-projects-6dbf92f1.vercel.app/",
+    img: "assets/images/projects/portfolio-frist.avif",
+    alt: "First Portfolio",
+  },
+];
