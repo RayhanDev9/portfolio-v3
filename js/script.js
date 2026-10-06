@@ -567,7 +567,7 @@ const projectsSection = () => {
     },
     {
       title: "Mading Kampus",
-      category: "landing",
+      category: "app",
       description: "Digital campus magazine web portal for publishing student articles, news, and campus announcements.",
       skills: ["Tailwind CSS", "HTML5 Semantic", "JavaScript", "Responsive Design"],
       url: "https://rayhandev9.github.io/mading-kampus/",
