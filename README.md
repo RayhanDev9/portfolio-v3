@@ -1,144 +1,124 @@
-# Rencana Pengembangan: Penambahan Detail Project & Kontribusi Skill (Portfolio-v3)
+# Rencana Perbaikan: Teks Project Tajam & Pemisahan Hover Pause Carousel (Portfolio-v3)
 
-Dokumen ini berisi rencana komprehensif untuk meningkatkan bagian **Project Carousel** agar setiap project memiliki identitas yang jelas: **apa fungsi proyek tersebut**, serta **skill dan peran apa saja yang Anda kontribusikan** dalam pembuatannya.
+Dokumen ini berisi analisis akar masalah dan rencana perbaikan terperinci untuk 2 kendala yang ditemukan pada portofolio.
 
 ---
 
-## 1. Analisis Kebutuhan
+## 1. Analisis & Akar Masalah
 
-### Kondisi Saat Ini
-- Di [js/script.js](js/script.js), data project hanya berisi `url`, `img`, dan `alt`:
-  ```javascript
-  {
-    url: "https://rayhandev9.github.io/fast-pizza/menu",
-    img: "asset/img/project/fast-pizza.avif",
-    alt: "Fast Pizza"
-  }
+### Kendala 1: Teks Project Ikut Buram Saat Hover
+- **Gejala:** Saat kartu project di-hover, teks judul, deskripsi, dan badge skill terlihat kabur (*fuzzy/blurry*) dan tidak tajam.
+- **Akar Masalah Teknis:**
+  1. **`backdrop-blur-[2px]` pada container teks:** Filter `backdrop-filter: blur(...)` pada Chromium/browser memaksa seluruh elemen anak (termasuk teks) masuk ke layer rasterisasi komposit GPU, yang sering merusak *subpixel font rendering*.
+  2. **Subpixel Transform (`translate-y-3` ke `translate-y-0`):** Transformasi vertikal pada teks ukuran kecil (`text-[11px]`, `text-xs`) menyebabkan teks berhenti di koordinat piksel pecahan (*fractional pixel*), sehingga huruf tampak buram.
+  3. **Gradien kurang kontras:** Gradien sebelumnya (`to-transparent/20`) membiarkan detail gambar di belakang teks tetap tembus, mengurangi ketajaman kontras tulisan.
+
+- **Solusi Perbaikan:**
+  1. Hapus `backdrop-blur-[2px]` dari container teks.
+  2. Gunakan gradien gelap solid beresolusi tinggi: `bg-gradient-to-t from-gray-950 via-gray-950/95 to-transparent` agar latar belakang teks gelap pekat dan kontras 100% tanpa efek blur GPU.
+  3. Hindari *fractional transform* pada teks, gunakan transisi opasitas murni (`transition-opacity duration-300`) atau `transform-none` dengan `-webkit-font-smoothing: antialiased`.
+  4. Tingkatkan warna teks deskripsi dari `text-gray-300` menjadi `text-gray-200` atau `text-white/90` agar sangat tajam dan mudah dibaca.
+
+---
+
+### Kendala 2: Carousel Skill & Project Berhenti Bersamaan Saat Di-Hover
+- **Gejala:** Ketika kursor diarahkan ke icon skill, track project di bawahnya ikut berhenti. Sebaliknya, saat project di-hover, track skill di atasnya ikut berhenti.
+- **Akar Masalah Teknis:**
+  Di [index.html](index.html#L434), kelas `group` diletakkan di elemen induk section:
+  ```html
+  <section id="skill-project" class="py-24 overflow-hidden group">
+    <!-- Track 1 Skill -->
+    <div class="track ... group-hover:[animation-play-state:paused]"></div>
+    
+    <!-- Track 2 Project -->
+    <div class="track ... group-hover:[animation-play-state:paused]"></div>
+  </section>
   ```
-- Di layar, pengunjung hanya melihat gambar yang meluncur pada carousel. Pengunjung (terutama recruiter/klien) **tidak mengetahui**:
-  1. Web/aplikasi tersebut dibuat untuk apa (*problem statement & features*).
-  2. Teknologi apa saja yang dipakai.
-  3. Bagian mana yang dikerjakan oleh Anda (*your role & contribution*).
+  Karena kedua track mendengarkan `group-hover` dari section yang sama, maka hover di area mana pun di section tersebut akan menghentikan **kedua track secara bersamaan**.
 
-### Tujuan Peningkatan
-- Setiap kartu project memberikan informasi instan dan jelas mengenai **nama**, **tujuan proyek**, dan **tag skill/teknologi** yang Anda gunakan.
-- Portofolio beralih dari sekadar *"galeri screenshot"* menjadi *"portofolio rekayasa web yang profesional"*.
-
----
-
-## 2. Inventaris Data Project (9 Project Lengkap)
-
-Berikut adalah pemetaan data detail untuk masing-masing proyek yang akan dimasukkan ke dalam `projectsData`:
-
-| No | Project | Kategori | Deskripsi Proyek (*Apa Proyek Ini?*) | Skill / Kontribusi Anda |
-|:---|:---|:---|:---|:---|
-| 1 | **Fast React Pizza** | Web App / E-Commerce | Aplikasi restoran interaktif untuk eksplorasi menu, pemesanan pizza real-time, dan manajemen keranjang belanja. | `React 18`, `Redux Toolkit`, `React Router`, `Tailwind CSS`, `Vite` |
-| 2 | **Siap Kerja** | Web Platform / AI | Platform karier & persiapan kerja dengan pengalaman UI interaktif dan integrasi kecerdasan buatan (LLM). | `React`, `Redux Toolkit`, `Google Gemini AI SDK`, `Framer Motion`, `Headless UI`, `Vite` |
-| 3 | **Danu Satya Portfolio** | Client Portfolio (Live) | Website portofolio resmi production untuk seorang Graphic & Simple Motion Designer profesional. | `React 19`, `TypeScript`, `Tailwind CSS v4`, `Lucide Icons`, `Vite`, `Responsive UI` |
-| 4 | **TK Permata Belajar** | School Profile (Live) | Website profil institusi pendidikan anak usia dini resmi dengan custom domain aktif (`permatabelajar.my.id`). | `Front-End Architecture`, `HTML5/CSS3`, `Vanilla JS`, `Mobile First`, `SEO & Deployment` |
-| 5 | **Mading Kampus** | Portal Informasi | Web portal digital majalah dinding kampus untuk publikasi artikel, pengumuman, dan berita mahasiswa. | `Tailwind CSS`, `HTML5 Semantic`, `JavaScript`, `Card Grid Layout`, `Responsive Design` |
-| 6 | **Store Radeva** | Landing Page Catalog | Landing page katalog toko online modern dengan etalase produk dan navigasi responsif. | `Modern CSS Layout`, `Flexbox/Grid`, `JavaScript DOM`, `Interactive UI` |
-| 7 | **Company Profile ISC** | Corporate Web | Website profil perusahaan untuk menampilkan identitas bisnis, layanan, dan saluran kontak resmi. | `Semantic Markup`, `Responsive Web Design`, `CSS Animation`, `Clean Architecture` |
-| 8 | **Pig Game** | Interactive Web Game | Game dadu 2 pemain berbasis logika giliran pemain (*turn-based state*) hingga mencapai target 100 poin. | `JavaScript Game Logic`, `State Management (Vanilla)`, `DOM Manipulation`, `CSS Transition` |
-| 9 | **First Portfolio** | Personal Website | Rekam jejak portofolio pertama sebagai fondasi awal perjalanan pembelajaran web development. | `HTML5`, `CSS3`, `Flexbox`, `JavaScript Dasar` |
+- **Solusi Perbaikan:**
+  Pisahkan kontrol hover dengan **Named Groups** Tailwind CSS (`group/skills` dan `group/projects`) di masing-masing kontainer carousel:
+  1. Hapus `group` dari `<section id="skill-project">`.
+  2. Berikan `group/skills` pada carousel skill, dan pasang `group-hover/skills:[animation-play-state:paused]` pada track skill.
+  3. Berikan `group/projects` pada carousel project, dan pasang `group-hover/projects:[animation-play-state:paused]` pada track project.
+  4. **Hasilnya:** Hover pada skill hanya menghentikan carousel skill (project tetap jalan). Hover pada project hanya menghentikan carousel project (skill tetap jalan).
 
 ---
 
-## 3. Pilihan Pendekatan Desain UI / UX
+## 2. Rencana Perubahan Kode
 
-### Opsi A: Modern Glassmorphism Hover Overlay (Sangat Direkomendasikan ⭐)
-- **Mekanisme:**
-  - Kartu di track carousel tetap berjalan otomatis dan berhenti saat di-hover (`group-hover:[animation-play-state:paused]`).
-  - Saat kartu di-hover, muncul lapisan **Glassmorphism Overlay** gelap dari bawah dengan transisi *slide-up* dan *fade-in* yang halus:
-    - **Header:** Nama Project + Ikon panah eksternal (`↗`).
-    - **Deskripsi:** Ringkasan 1–2 kalimat yang padat dan informatif.
-    - **Skill Badges:** Tag kecil berbentuk pill berisi skill yang Anda kontribusikan (misal: `React`, `TypeScript`, `Tailwind`).
-    - **Aksi:** Tombol "Kunjungi Website ↗".
-- **Kelebihan:**
-  - Tidak merusak tata letak carousel yang sudah rapi dan elegan.
-  - Sangat memukau (*visually stunning*) di desktop dan responsif di mobile.
-  - Langsung menyajikan informasi tanpa perlu navigasi halaman baru.
+### A. Berkas `index.html`
+Perbarui markup bagian `#skill-project`:
+```html
+<!-- SEBELUM: -->
+<section id="skill-project" class="py-24 overflow-hidden group">
+  ...
+  <div class="carousel w-full overflow-hidden py-6 -my-2">
+    <div class="track ... group-hover:[animation-play-state:paused]"></div>
+  </div>
+  <div class="carousel w-full overflow-hidden">
+    <div class="track ... group-hover:[animation-play-state:paused]"></div>
+  </div>
+</section>
 
----
+<!-- SESUDAH: -->
+<section id="skill-project" class="py-24 overflow-hidden">
+  ...
+  <!-- Track 1: Skill Carousel (Hanya berhenti jika skill di-hover) -->
+  <div class="carousel group/skills w-full overflow-hidden py-6 -my-2">
+    <div class="track flex gap-6 w-max px-4 animate-marquee-reverse group-hover/skills:[animation-play-state:paused]"></div>
+  </div>
 
-### Opsi B: Interactive Project Detail Modal / Popup
-- **Mekanisme:**
-  - Di carousel hanya ada thumbnail + judul kecil.
-  - Saat kartu diklik, browser membuka modal pop-up mewah di tengah layar:
-    - Gambar project berukuran besar.
-    - Deskripsi lengkap & tantangan teknis.
-    - Daftar lengkap teknologi dan kontribusi spesifik.
-    - Dua tombol aksi: "Live Demo ↗" dan "Source Code (jika ada) ↗".
-- **Kelebihan:** Memberikan ruang penjelasan yang sangat mendalam layaknya studi kasus (*case study*).
-- **Kekurangan:** Memerlukan klik ekstra bagi pengunjung yang hanya ingin membaca kilat.
-
----
-
-### Opsi C: Hybrid (Hover Card Overlay + Modal Detail)
-- Saat di-hover, muncul rangkuman cepat (Opsi A).
-- Dilengkapi tombol "Detail Proyek" jika ingin membaca studi kasus di dalam modal (Opsi B).
-
----
-
-## 4. Rencana Perubahan Kode (Menggunakan Opsi A)
-
-### 1. File `js/script.js`
-Perbarui array `projectsData` dengan metadata lengkap:
-```javascript
-const projectsData = [
-  {
-    title: "Fast React Pizza",
-    description: "Aplikasi restoran pizza interaktif dengan live cart management dan routing SPA.",
-    skills: ["React 18", "Redux Toolkit", "React Router", "Tailwind CSS", "Vite"],
-    url: "https://rayhandev9.github.io/fast-pizza/menu",
-    img: "asset/img/project/fast-pizza.avif",
-    alt: "Fast Pizza",
-  },
-  {
-    title: "Siap Kerja",
-    description: "Platform karier interaktif dengan integrasi Generative AI dan animasi fluid.",
-    skills: ["React", "Redux Toolkit", "Gemini AI", "Framer Motion", "Vite"],
-    url: "https://rayhandev9.github.io/siap-kerja/#/landingPage",
-    img: "asset/img/project/siap-kerja.avif",
-    alt: "Siap Kerja",
-  },
-  // ... project lainnya
-];
+  <!-- Track 2: Project Carousel (Hanya berhenti jika project di-hover) -->
+  <div class="carousel group/projects w-full overflow-hidden">
+    <div class="track flex gap-4 w-max px-4 animate-marquee group-hover/projects:[animation-play-state:paused]"></div>
+  </div>
+</section>
 ```
 
-Perbarui template rendering `tracks[1]` (Track Project):
-```html
-<div class="item group/proj relative h-44 sm:h-56 md:h-72 w-[85vw] xs:w-[75vw] sm:w-[420px] md:w-[480px] shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-gray-900 shadow-xl">
-  <!-- Gambar Project -->
-  <img src="${project.img}" alt="${project.alt}" class="w-full h-full object-cover aspect-[16/9] transition-transform duration-500 group-hover/proj:scale-105" />
+---
 
-  <!-- Glassmorphism Hover Overlay -->
-  <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/85 to-transparent/30 p-5 flex flex-col justify-end opacity-0 group-hover/proj:opacity-100 transition-all duration-300">
-    <div class="translate-y-4 group-hover/proj:translate-y-0 transition-transform duration-300">
-      <div class="flex items-center justify-between mb-1.5">
-        <h4 class="text-base sm:text-lg font-bold text-white tracking-wide">${project.title}</h4>
-        <a href="${project.url}" target="_blank" class="p-1.5 rounded-full bg-white/10 hover:bg-purple-600 text-white transition-colors" title="Kunjungi Website">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-        </a>
-      </div>
-      <p class="text-xs sm:text-sm text-gray-300 line-clamp-2 mb-3 leading-relaxed">${project.description}</p>
-      
-      <!-- Badges Skill -->
-      <div class="flex flex-wrap gap-1.5">
-        ${project.skills.map(s => `<span class="px-2 py-0.5 text-[10px] sm:text-xs font-medium rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30">${s}</span>`).join('')}
+### B. Berkas `js/script.js`
+Perbarui template markup rendering `tracks[1]` (Track Project):
+```html
+<div class="item group/proj relative h-52 sm:h-64 md:h-72 w-[280px] sm:w-[380px] md:w-[460px] shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-gray-900 shadow-xl">
+  <a href="${project.url}" target="_blank" class="block w-full h-full relative" title="${project.title}">
+    <!-- Thumbnail Image -->
+    <img src="${project.img}" alt="${project.alt}" class="w-full h-full object-cover aspect-[16/9] transition-transform duration-500 ease-out group-hover/proj:scale-105" />
+
+    <!-- Sharp Solid Gradient Overlay (Tanpa backdrop-blur, Teks 100% Tajam) -->
+    <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/90 to-transparent p-4 sm:p-5 flex flex-col justify-end opacity-0 group-hover/proj:opacity-100 transition-opacity duration-300">
+      <div class="antialiased">
+        <!-- Title & Icon -->
+        <div class="flex items-center justify-between mb-1.5">
+          <h4 class="text-sm sm:text-base md:text-lg font-bold text-white tracking-wide truncate pr-2">${project.title}</h4>
+          <span class="p-1 sm:p-1.5 rounded-full bg-white/10 text-white/90 shrink-0 group-hover/proj:bg-purple-600 transition-colors duration-200">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </span>
+        </div>
+
+        <!-- Description (Teks Kontras Tinggi & Bersih) -->
+        <p class="text-[11px] sm:text-xs md:text-sm text-gray-200 line-clamp-2 mb-2 sm:mb-3 leading-relaxed">${project.description}</p>
+        
+        <!-- Skill Badges -->
+        <div class="flex flex-wrap gap-1 sm:gap-1.5">
+          ${project.skills.map((s) => `<span class="px-2 py-0.5 text-[9px] sm:text-[11px] font-medium rounded-md bg-purple-500/25 text-purple-200 border border-purple-500/40 whitespace-nowrap">${s}</span>`).join("")}
+        </div>
       </div>
     </div>
-  </div>
+  </a>
 </div>
 ```
 
 ---
 
-## 5. Tahapan Eksekusi (Action Checklist)
+## 3. Tahapan Eksekusi (Action Checklist)
 
-- [x] **Langkah 1**: Perbarui struktur array `projectsData` di `js/script.js` dengan judul, deskripsi, dan array skill kontribusi.
-- [x] **Langkah 2**: Perbarui template markup rendering `tracks[1]` di `js/script.js` untuk menyematkan overlay glassmorphism dan badge skill.
-- [x] **Langkah 3**: Sesuaikan dimensi kartu carousel agar proporsional dan nyaman dibaca di layar HP maupun laptop.
-- [x] **Langkah 4**: Jalankan `npm run build` untuk mengompilasi utility Tailwind CSS yang baru digunakan.
-- [x] **Langkah 5**: Lakukan pengujian visual dan interaksi hover di browser.
-- [x] **Langkah 6**: Lakukan git commit dan push ke GitHub.
+- [x] **Langkah 1**: Perbarui `index.html` untuk memisahkan hover pause antara carousel skill (`group/skills`) dan project (`group/projects`).
+- [x] **Langkah 2**: Perbarui `js/script.js` untuk menghilangkan `backdrop-blur` dan subpixel transform pada overlay project, menggantinya dengan gradien pekat kontras tinggi dan rendering antialiased yang tajam.
+- [x] **Langkah 3**: Jalankan `npm run build` untuk mengompilasi utility Tailwind CSS.
+- [x] **Langkah 4**: Uji coba visual di browser untuk memastikan:
+  - Teks project terlihat sangat tajam tanpa ada efek buram.
+  - Hover pada skill hanya menghentikan skill (project tetap jalan).
+  - Hover pada project hanya menghentikan project (skill tetap jalan).
+- [x] **Langkah 5**: Lakukan git commit dan push ke GitHub.

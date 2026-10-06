@@ -390,7 +390,7 @@ const skillProjectSection = () => {
     },
     {
       title: "Siap Kerja",
-      description: "Platform karier & persiapan kerja interaktif dengan integrasi Generative AI dan animasi fluid.",
+      description: "Platform karier & persiapan kerja interaktif dengan integrasi rekomendasi karir yang populer dan course pilihan yang sesuai dengan kebutuhan work yang anda pilih.",
       skills: ["React", "Redux Toolkit", "Gemini AI", "Framer Motion", "Vite"],
       url: "https://rayhandev9.github.io/siap-kerja/#/landingPage",
       img: "asset/img/project/siap-kerja.avif",
@@ -405,12 +405,12 @@ const skillProjectSection = () => {
       alt: "Danu Satya Portfolio",
     },
     {
-      title: "TK Permata Belajar",
+      title: "TK PAUD Permata",
       description: "Website profil institusi pendidikan anak usia dini dengan custom domain live.",
       skills: ["Front-End Arch", "HTML5/CSS3", "JavaScript", "Responsive UI", "SEO"],
       url: "https://permatabelajar.my.id/",
       img: "asset/img/project/tk.avif",
-      alt: "TK Permata Belajar",
+      alt: "TK PAUD Permata",
     },
     {
       title: "Mading Kampus",
@@ -430,7 +430,7 @@ const skillProjectSection = () => {
     },
     {
       title: "Company Profile ISC",
-      description: "Website profil perusahaan untuk menampilkan identitas bisnis, layanan, dan kontak resmi.",
+      description: "Website profil komunitas untuk menampilkan identitas komunitas, dan kontak resmi.",
       skills: ["Semantic HTML", "Responsive Web", "CSS Animation", "Clean Layout"],
       url: "https://rayhandev9.github.io/company-profile-isc/",
       img: "asset/img/project/isc.avif",
@@ -490,11 +490,11 @@ const skillProjectSection = () => {
           <!-- Thumbnail Image -->
           <img src="${project.img}" alt="${project.alt}" class="w-full h-full object-cover aspect-[16/9] transition-transform duration-500 ease-out group-hover/proj:scale-105" />
 
-          <!-- Glassmorphism Hover Overlay -->
-          <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/85 to-transparent/20 p-4 sm:p-5 flex flex-col justify-end opacity-0 group-hover/proj:opacity-100 transition-opacity duration-300 backdrop-blur-[2px]">
-            <div class="translate-y-3 group-hover/proj:translate-y-0 transition-transform duration-300 ease-out">
+          <!-- Sharp Solid Gradient Overlay (Tanpa backdrop-blur, Teks 100% Tajam) -->
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/90 to-transparent p-4 sm:p-5 flex flex-col justify-end opacity-0 group-hover/proj:opacity-100 transition-opacity duration-300">
+            <div class="antialiased">
               <!-- Title & External Link Icon -->
-              <div class="flex items-center justify-between mb-1">
+              <div class="flex items-center justify-between mb-1.5">
                 <h4 class="text-sm sm:text-base md:text-lg font-bold text-white tracking-wide truncate pr-2">${project.title}</h4>
                 <span class="p-1 sm:p-1.5 rounded-full bg-white/10 text-white/90 shrink-0 group-hover/proj:bg-purple-600 transition-colors duration-200">
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
@@ -502,11 +502,11 @@ const skillProjectSection = () => {
               </div>
 
               <!-- Description -->
-              <p class="text-[11px] sm:text-xs md:text-sm text-gray-300 line-clamp-2 mb-2 sm:mb-3 leading-relaxed">${project.description}</p>
+              <p class="text-[11px] sm:text-xs md:text-sm text-gray-200 line-clamp-2 mb-2 sm:mb-3 leading-relaxed">${project.description}</p>
               
               <!-- Skill Badges -->
               <div class="flex flex-wrap gap-1 sm:gap-1.5">
-                ${project.skills.map((s) => `<span class="px-2 py-0.5 text-[9px] sm:text-[11px] font-medium rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30 whitespace-nowrap">${s}</span>`).join("")}
+                ${project.skills.map((s) => `<span class="px-2 py-0.5 text-[9px] sm:text-[11px] font-medium rounded-md bg-purple-500/25 text-purple-200 border border-purple-500/40 whitespace-nowrap">${s}</span>`).join("")}
               </div>
             </div>
           </div>
