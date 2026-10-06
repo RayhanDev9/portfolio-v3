@@ -1,0 +1,160 @@
+<!-- =============================================================================
+     HEADER & NAVIGATION COMPONENT
+     Desktop sticky navigation pill & Mobile drawer navigation.
+     ============================================================================= -->
+<header class="relative z-50">
+  <!-- Desktop -->
+  <nav
+    class="hidden absolute left-1/2 top-7 z-30 lg:flex -translate-x-1/2 items-center gap-5 xl:gap-7 rounded-full border border-white/10 px-3.5 py-2 text-sm text-white/80 top-bar-dekstop"
+  >
+    <span
+      class="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black shrink-0"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="h-6 w-6 #0000"
+      >
+        <polyline points="16 18 22 12 16 6"></polyline>
+        <polyline points="8 6 2 12 8 18"></polyline>
+      </svg>
+    </span>
+    <div class="flex gap-4 xl:gap-6 items-center nav-menu">
+      <a
+        href="#home"
+        class="transition opacity-65 hover:text-white leading-relaxed active-link-nav"
+        >Home</a
+      >
+      <a
+        href="#about"
+        class="transition hover:text-white opacity-65 leading-relaxed"
+        >About</a
+      >
+      <a
+        href="#journey"
+        class="transition hover:text-white opacity-65 leading-relaxed"
+        >Journey</a
+      >
+      <a
+        href="#skills"
+        class="transition hover:text-white opacity-65 leading-relaxed"
+        >Skills</a
+      >
+      <a
+        href="#projects"
+        class="transition hover:text-white opacity-65 leading-relaxed"
+        >Projects</a
+      >
+      <a
+        href="#contact"
+        class="transition hover:text-white opacity-65 leading-relaxed"
+        >Contact</a
+      >
+      <button
+        onclick="document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })"
+        class="whitespace-nowrap shrink-0 rounded-full bg-white px-5 py-2 font-medium text-black transition hover:bg-white/90 cursor-pointer"
+      >
+        Work With Me
+      </button>
+    </div>
+  </nav>
+
+  <!-- Top bar mobile -->
+  <div
+    class="lg:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-4 transition-transform duration-300 ease-in-out top-bar-mobile"
+  >
+    <div class="flex items-center gap-2 text-base font-semibold">
+      <span
+        class="flex h-6 w-6 items-center justify-center rounded-full bg-white text-black"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-3 w-3 #0000"
+        >
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+      </span>
+      <span class="font-bold text-white bg-clip-text text-transparent">
+        Rayhan.
+      </span>
+    </div>
+
+    <button
+      type="button"
+      aria-label="Toggle Navigation Menu"
+      class="lg:hidden text-sm text-white/80 hover:text-white transition-all duration-200 px-3.5 py-1.5 rounded-xl border border-white/10 bg-white/5 active:scale-95 cursor-pointer open-menu"
+    >
+      Menu
+    </button>
+  </div>
+
+  <!-- Mobile Navigation Drawer -->
+  <nav
+    class="lg:hidden fixed inset-0 z-40 bg-gray-950/90 backdrop-blur-2xl flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 ease-out nav-mobile"
+  >
+    <div
+      class="w-[85%] max-w-sm p-8 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl flex flex-col items-center text-center transform scale-95 transition-transform duration-300 ease-out nav-mobile-content"
+    >
+      <div class="flex flex-col items-center gap-5 w-full nav-menu">
+        <a
+          href="#home"
+          class="transition hover:text-white text-2xl font-semibold opacity-60 active-link-nav hover:opacity-100"
+        >
+          Home
+        </a>
+
+        <a
+          href="#about"
+          class="transition hover:text-white text-2xl font-semibold opacity-60 hover:opacity-100"
+        >
+          About
+        </a>
+
+        <a
+          href="#journey"
+          class="transition hover:text-white text-2xl font-semibold opacity-60 hover:opacity-100"
+        >
+          Journey
+        </a>
+
+        <a
+          href="#skills"
+          class="transition hover:text-white text-2xl font-semibold opacity-60 hover:opacity-100"
+        >
+          Skills
+        </a>
+        <a
+          href="#projects"
+          class="transition hover:text-white text-2xl font-semibold opacity-60 hover:opacity-100"
+        >
+          Projects
+        </a>
+        <a
+          href="#contact"
+          class="transition hover:text-white text-2xl font-semibold opacity-60 hover:opacity-100"
+        >
+          Contact
+        </a>
+      </div>
+
+      <a
+        href="#contact"
+        class="w-full block text-center bg-white rounded-xl px-5 py-2.5 mt-8 font-semibold text-black transition hover:bg-white/90 active:scale-95 shadow-md hire-talent-mobile"
+      >
+        Work With Me
+      </a>
+    </div>
+  </nav>
+</header>

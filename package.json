@@ -1,8 +1,11 @@
 {
   "type": "module",
   "scripts": {
-    "dev": "tailwindcss -i ./src/input.css -o ./css/output.css --watch",
-    "build": "tailwindcss -i ./src/input.css -o ./css/output.css --minify",
+    "dev": "vite",
+    "dev:css": "tailwindcss -i ./src/input.css -o ./css/output.css --watch",
+    "build:css": "tailwindcss -i ./src/input.css -o ./css/output.css --minify",
+    "build": "tailwindcss -i ./src/input.css -o ./css/output.css --minify && vite build",
+    "preview": "vite preview",
     "convert:avif": "node scripts/convert-to-avif.js",
     "convert:avif:clean": "node scripts/convert-to-avif.js --delete-source"
   },
@@ -11,6 +14,8 @@
     "tailwindcss": "^4.3.1"
   },
   "devDependencies": {
-    "sharp": "^0.35.5"
+    "sharp": "^0.35.5",
+    "vite": "^8.3.3",
+    "vite-plugin-html-inject": "^1.1.2"
   }
 }
