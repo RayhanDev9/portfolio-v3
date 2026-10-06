@@ -436,8 +436,16 @@ const skillProjectSection = () => {
     tracks[0].innerHTML = combinedSkills
       .map(
         (skill) => `
-      <div class="item-logo h-12 w-24 md:h-16 md:w-32 shrink-0 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl p-3">
-        <img src="${skill.src}" alt="${skill.name}" class="h-full object-contain max-w-full" />
+      <div class="item-logo group/skill relative h-12 w-24 md:h-16 md:w-32 shrink-0 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl p-3 hover:border-purple-500/50 hover:bg-white/10 transition-all duration-300 cursor-pointer" title="${skill.name}">
+        <img src="${skill.src}" alt="${skill.name}" class="h-full object-contain max-w-full transition-transform duration-300 group-hover/skill:scale-110" />
+
+        <!-- Floating Tooltip -->
+        <div class="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 scale-90 group-hover/skill:opacity-100 group-hover/skill:scale-100 group-hover/skill:-top-11 transition-all duration-200 ease-out z-30">
+          <div class="px-2.5 py-1 text-xs font-medium text-white bg-gray-900/95 border border-white/15 rounded-md shadow-xl backdrop-blur-md whitespace-nowrap">
+            ${skill.name}
+          </div>
+          <div class="w-0 h-0 mx-auto border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-4 border-t-gray-900/95"></div>
+        </div>
       </div>
     `,
       )
