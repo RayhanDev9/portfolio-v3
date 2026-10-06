@@ -401,7 +401,7 @@ const aboutSection = () => {
           }
         });
       },
-      { threshold: 0.15 },
+      { threshold: 0.08, rootMargin: "0px 0px -30px 0px" },
     );
 
     revealEl.forEach((element) => observer.observe(element));
