@@ -378,51 +378,79 @@ const skillProjectSection = () => {
     { name: "C++", src: "asset/svg/skill/cplusplus.svg" },
   ];
 
+
   const projectsData = [
     {
-      url: "https://pig-game-virid-delta.vercel.app/",
-      img: "asset/img/project/game.avif",
-      alt: "Game",
-    },
-    {
-      url: "https://rayhandev9.github.io/company-profile-isc/",
-      img: "asset/img/project/isc.avif",
-      alt: "Isc",
-    },
-    {
-      url: "https://first-portfolio-hkyum9qh0-rayhans-projects-6dbf92f1.vercel.app/",
-      img: "asset/img/project/portfolio-frist.avif",
-      alt: "Portfolio First",
-    },
-    {
-      url: "https://rayhandev9.github.io/radeva/",
-      img: "asset/img/project/store-radeva.avif",
-      alt: "store-radeva",
-    },
-    {
-      url: "https://permatabelajar.my.id/",
-      img: "asset/img/project/tk.avif",
-      alt: "TK",
-    },
-    {
-      url: "https://danusatya.my.id/",
-      img: "asset/img/project/portfolio-danu.avif",
-      alt: "Danu Satya",
-    },
-    {
+      title: "Fast React Pizza",
+      description: "Aplikasi restoran pizza interaktif dengan live cart management dan routing SPA.",
+      skills: ["React 18", "Redux Toolkit", "React Router", "Tailwind CSS", "Vite"],
       url: "https://rayhandev9.github.io/fast-pizza/menu",
       img: "asset/img/project/fast-pizza.avif",
-      alt: "Fast Pizza",
+      alt: "Fast React Pizza",
     },
     {
+      title: "Siap Kerja",
+      description: "Platform karier & persiapan kerja interaktif dengan integrasi Generative AI dan animasi fluid.",
+      skills: ["React", "Redux Toolkit", "Gemini AI", "Framer Motion", "Vite"],
       url: "https://rayhandev9.github.io/siap-kerja/#/landingPage",
       img: "asset/img/project/siap-kerja.avif",
       alt: "Siap Kerja",
     },
     {
+      title: "Danu Satya Portfolio",
+      description: "Website portofolio resmi production untuk seorang Graphic & Simple Motion Designer.",
+      skills: ["React 19", "TypeScript", "Tailwind CSS v4", "Lucide Icons", "Vite"],
+      url: "https://danusatya.my.id/",
+      img: "asset/img/project/portfolio-danu.avif",
+      alt: "Danu Satya Portfolio",
+    },
+    {
+      title: "TK Permata Belajar",
+      description: "Website profil institusi pendidikan anak usia dini dengan custom domain live.",
+      skills: ["Front-End Arch", "HTML5/CSS3", "JavaScript", "Responsive UI", "SEO"],
+      url: "https://permatabelajar.my.id/",
+      img: "asset/img/project/tk.avif",
+      alt: "TK Permata Belajar",
+    },
+    {
+      title: "Mading Kampus",
+      description: "Web portal digital majalah dinding kampus untuk publikasi artikel dan berita mahasiswa.",
+      skills: ["Tailwind CSS", "HTML5 Semantic", "JavaScript", "Responsive Design"],
       url: "https://rayhandev9.github.io/mading-kampus/",
       img: "asset/img/project/mading-kampus.avif",
       alt: "Mading Kampus",
+    },
+    {
+      title: "Store Radeva",
+      description: "Landing page katalog toko online modern dengan etalase produk dan navigasi responsif.",
+      skills: ["CSS Layout", "Flexbox/Grid", "DOM Manipulation", "Interactive UI"],
+      url: "https://rayhandev9.github.io/radeva/",
+      img: "asset/img/project/store-radeva.avif",
+      alt: "Store Radeva",
+    },
+    {
+      title: "Company Profile ISC",
+      description: "Website profil perusahaan untuk menampilkan identitas bisnis, layanan, dan kontak resmi.",
+      skills: ["Semantic HTML", "Responsive Web", "CSS Animation", "Clean Layout"],
+      url: "https://rayhandev9.github.io/company-profile-isc/",
+      img: "asset/img/project/isc.avif",
+      alt: "Company Profile ISC",
+    },
+    {
+      title: "Pig Game",
+      description: "Game dadu 2 pemain interaktif berbasis logika giliran pemain hingga mencapai 100 poin.",
+      skills: ["JavaScript Logic", "State Management", "DOM Events", "CSS Transition"],
+      url: "https://pig-game-virid-delta.vercel.app/",
+      img: "asset/img/project/game.avif",
+      alt: "Pig Game",
+    },
+    {
+      title: "First Portfolio",
+      description: "Rekam jejak portofolio pertama sebagai fondasi awal perjalanan pembelajaran web development.",
+      skills: ["HTML5", "CSS3", "Flexbox", "JavaScript Dasar"],
+      url: "https://first-portfolio-hkyum9qh0-rayhans-projects-6dbf92f1.vercel.app/",
+      img: "asset/img/project/portfolio-frist.avif",
+      alt: "First Portfolio",
     },
   ];
 
@@ -436,12 +464,12 @@ const skillProjectSection = () => {
     tracks[0].innerHTML = combinedSkills
       .map(
         (skill) => `
-      <div class="item-logo group/skill relative h-12 w-24 md:h-16 md:w-32 shrink-0 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl p-3 hover:border-purple-500/50 hover:bg-white/10 transition-all duration-300 cursor-pointer" title="${skill.name}">
+      <div class="item-logo rounded-2xl group/skill relative h-12 w-24 md:h-16 md:w-32 shrink-0 flex items-center justify-center bg-white/5 border border-white/10  p-3 hover:border-purple-500/50 hover:bg-white/10 transition-all duration-300 cursor-pointer" title="${skill.name}">
         <img src="${skill.src}" alt="${skill.name}" class="h-full object-contain max-w-full transition-transform duration-300 group-hover/skill:scale-110" />
 
         <!-- Floating Tooltip -->
-        <div class="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 scale-90 group-hover/skill:opacity-100 group-hover/skill:scale-100 group-hover/skill:-top-11 transition-all duration-200 ease-out z-30">
-          <div class="px-2.5 py-1 text-xs font-medium text-white bg-gray-900/95 border border-white/15 rounded-md shadow-xl backdrop-blur-md whitespace-nowrap">
+        <div class="pointer-events-none rounded-2xl absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 scale-90 group-hover/skill:opacity-100 group-hover/skill:scale-100 group-hover/skill:-top-11 transition-all duration-200 ease-out z-30">
+          <div class="px-2.5 py-1 text-xs rounded-2xl font-medium text-white bg-gray-900/95 border border-white/15 rounded-md shadow-xl backdrop-blur-md whitespace-nowrap">
             ${skill.name}
           </div>
           <div class="w-0 h-0 mx-auto border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-4 border-t-gray-900/95"></div>
@@ -457,9 +485,31 @@ const skillProjectSection = () => {
     tracks[1].innerHTML = combinedProjects
       .map(
         (project) => `
-      <div class="item h-32 sm:h-48 md:h-64 w-[calc((100vw-48px)/3)] md:w-[455px] shrink-0 overflow-hidden rounded-xl md:rounded-2xl">
-        <a href="${project.url}" target="_blank">
-          <img src="${project.img}" alt="${project.alt}" class="w-full h-full object-cover aspect-[16/9]" />
+      <div class="item group/proj relative h-52 sm:h-64 md:h-72 w-[280px] sm:w-[380px] md:w-[460px] shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-gray-900 shadow-xl">
+        <a href="${project.url}" target="_blank" class="block w-full h-full relative" title="${project.title}">
+          <!-- Thumbnail Image -->
+          <img src="${project.img}" alt="${project.alt}" class="w-full h-full object-cover aspect-[16/9] transition-transform duration-500 ease-out group-hover/proj:scale-105" />
+
+          <!-- Glassmorphism Hover Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/85 to-transparent/20 p-4 sm:p-5 flex flex-col justify-end opacity-0 group-hover/proj:opacity-100 transition-opacity duration-300 backdrop-blur-[2px]">
+            <div class="translate-y-3 group-hover/proj:translate-y-0 transition-transform duration-300 ease-out">
+              <!-- Title & External Link Icon -->
+              <div class="flex items-center justify-between mb-1">
+                <h4 class="text-sm sm:text-base md:text-lg font-bold text-white tracking-wide truncate pr-2">${project.title}</h4>
+                <span class="p-1 sm:p-1.5 rounded-full bg-white/10 text-white/90 shrink-0 group-hover/proj:bg-purple-600 transition-colors duration-200">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                </span>
+              </div>
+
+              <!-- Description -->
+              <p class="text-[11px] sm:text-xs md:text-sm text-gray-300 line-clamp-2 mb-2 sm:mb-3 leading-relaxed">${project.description}</p>
+              
+              <!-- Skill Badges -->
+              <div class="flex flex-wrap gap-1 sm:gap-1.5">
+                ${project.skills.map((s) => `<span class="px-2 py-0.5 text-[9px] sm:text-[11px] font-medium rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30 whitespace-nowrap">${s}</span>`).join("")}
+              </div>
+            </div>
+          </div>
         </a>
       </div>
     `,
