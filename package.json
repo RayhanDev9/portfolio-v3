@@ -4,7 +4,8 @@
     "dev": "vite",
     "dev:css": "tailwindcss -i ./src/input.css -o ./css/output.css --watch",
     "build:css": "tailwindcss -i ./src/input.css -o ./css/output.css --minify",
-    "build": "tailwindcss -i ./src/input.css -o ./css/output.css --minify && vite build",
+    "build:html": "node scripts/build-html.js",
+    "build": "tailwindcss -i ./src/input.css -o ./css/output.css --minify && node scripts/build-html.js && vite build",
     "preview": "vite preview",
     "convert:avif": "node scripts/convert-to-avif.js",
     "convert:avif:clean": "node scripts/convert-to-avif.js --delete-source"

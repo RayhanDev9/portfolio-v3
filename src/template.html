@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta Tags -->
+    <title>Muhamad Rayhan — Frontend Web Developer</title>
+    <meta
+      name="description"
+      content="Official portfolio of Muhamad Rayhan, a Frontend Web Developer specializing in React and TypeScript. Building modern, high-performance, and responsive web applications."
+    />
+    <meta name="author" content="Muhamad Rayhan" />
+    <meta
+      name="keywords"
+      content="Muhamad Rayhan, Rayhan, Frontend Developer, Web Developer, React Developer, TypeScript, Tailwind CSS, Portfolio, Frontend Indonesia"
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://rayhandev.my.id/" />
+
+    <!-- Open Graph / Facebook / LinkedIn Meta Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://rayhandev.my.id/" />
+    <meta
+      property="og:site_name"
+      content="Muhamad Rayhan — Frontend Web Developer"
+    />
+    <meta
+      property="og:title"
+      content="Muhamad Rayhan — Frontend Web Developer"
+    />
+    <meta
+      property="og:description"
+      content="Official portfolio of Muhamad Rayhan, a Frontend Web Developer specializing in React and TypeScript. Available for Remote, Freelance, and Hybrid opportunities."
+    />
+    <meta property="og:image" content="assets/images/profile/rayhan.avif" />
+
+    <!-- Twitter Card Meta -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Muhamad Rayhan — Frontend Web Developer" />
+    <meta
+      name="twitter:description"
+      content="Official portfolio of Muhamad Rayhan, a Frontend Web Developer specializing in React and TypeScript."
+    />
+    <meta name="twitter:image" content="assets/images/profile/rayhan.avif" />
+
+    <!-- Schema.org JSON-LD (Google Knowledge Graph & Rich Results) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Muhamad Rayhan",
+        "alternateName": ["Rayhan", "RayhanDev", "RayhanDev9"],
+        "url": "https://rayhandev.my.id/",
+        "image": "https://rayhandev.my.id/assets/images/profile/rayhan.avif",
+        "jobTitle": "Frontend Web Developer",
+        "description": "Muhamad Rayhan is a Frontend Web Developer specializing in React, TypeScript, and modern responsive web applications.",
+        "sameAs": [
+          "https://github.com/RayhanDev9",
+          "https://www.instagram.com/m.rayhanoi26"
+        ],
+        "knowsAbout": [
+          "Frontend Web Development",
+          "React.js",
+          "TypeScript",
+          "JavaScript",
+          "Tailwind CSS",
+          "Web Design",
+          "Responsive Design"
+        ]
+      }
+    </script>
+
+    <link
+      rel="shortcut icon"
+      href="assets/images/profile/rayhan.avif"
+      type="image/x-icon"
+    />
+
+    <!-- CSS hasil build Tailwind CLI: npm run build -->
+    <link rel="stylesheet" href="css/output.css" />
+  </head>
+  <body class="text-white antialiased bg-gray-950 overflow-x-hidden relative">
+    <!-- Background Effects -->
+    <div
+      class="container-rain fixed inset-0 w-full h-screen pointer-events-none -z-50 overflow-hidden"
+    ></div>
+
+    <!-- GRID CURSOR -->
+    <div
+      id="gridCursor"
+      class="pointer-events-none -z-10 inset-0 fixed h-96 w-96 -translate-x-1/2 -translate-y-1/2 opacity-0 scale-0 transition-all duration-500 ease-out overflow-hidden [background-image:linear-gradient(rgba(255,255,255,0.12)_2px,transparent_2px),linear-gradient(90deg,rgba(255,255,255,0.12)_2px,transparent_2px)] [background-size:80px_80px] [mask-image:radial-gradient(circle,white_40%,transparent_80%)] [-webkit-mask-image:radial-gradient(circle,white_40%,transparent_80%)]"
+    ></div>
+
+    <!-- 1. Header & Navigation -->
+    <load src="src/components/header.html" />
+
+    <main class="overflow-hidden z-10">
+      <!-- 2. Home / Hero Section -->
+      <load src="src/components/hero.html" />
+
+      <!-- 3. About Section -->
+      <load src="src/components/about.html" />
+
+      <!-- 4. Journey Section -->
+      <load src="src/components/journey.html" />
+
+      <!-- 5. Skills Section -->
+      <load src="src/components/skills.html" />
+
+      <!-- 6. Projects Section -->
+      <load src="src/components/projects.html" />
+
+      <!-- 7. Contact Section -->
+      <load src="src/components/contact.html" />
+    </main>
+
+    <!-- 8. Footer Component -->
+    <load src="src/components/footer.html" />
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
