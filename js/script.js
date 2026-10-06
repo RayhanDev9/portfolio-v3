@@ -457,7 +457,7 @@ const skillProjectSection = () => {
     tracks[0].innerHTML = combinedSkills
       .map(
         (skill) => `
-      <div class="item-logo rounded-2xl group/skill relative h-12 w-24 md:h-16 md:w-32 shrink-0 flex items-center justify-center bg-white/5 border border-white/10  p-3 hover:border-purple-500/50 hover:bg-white/10 transition-all duration-300 cursor-pointer" title="${skill.name}">
+      <div class="item-logo rounded-2xl group/skill relative h-12 w-24 md:h-16 md:w-32 shrink-0 flex items-center justify-center bg-white/5 border border-white/10 p-3 hover:border-purple-500/50 hover:bg-white/10 transition-all duration-300 cursor-pointer">
         <img src="${skill.src}" alt="${skill.name}" class="h-full object-contain max-w-full transition-transform duration-300 group-hover/skill:scale-110" />
 
         <!-- Floating Tooltip -->
