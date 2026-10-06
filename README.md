@@ -1,135 +1,207 @@
-# Analisis & Rekomendasi Desain: Pemisahan Section Skill & Project
+# 🚀 Portfolio Architecture & Codebase Refactoring Plan
 
-Dokumen ini berisi evaluasi mendalam mengenai tata letak section **Skills & Projects** saat ini, alasan psikologi visual dan UX mengapa layout saat ini terasa kurang rapi, serta **3 opsi rekomendasi desain** terbaik untuk portofolio profesional kelas atas.
+Dokumen ini berisi rencana strategis (*blueprint plan*) untuk merapikan dan menstandarisasi struktur folder serta arsitektur kode **Portfolio v3** (`rayhandev.my.id`) agar memenuhi standar **Enterprise / Senior Front-End Developer**.
 
 ---
 
-## 1. Evaluasi Kondisi Saat Ini (Apa yang Sedang Terjadi?)
+## 1. Evaluasi Struktur Saat Ini vs Target Profesional
 
-Saat ini pada `#skill-project`, terdapat dua jenis konten yang digabung dalam satu section dengan dua infinite horizontal marquee carousel:
-* **Track Atas:** Logo-logo Skill bergerak ke **kanan** (`animate-marquee-reverse`).
-* **Track Bawah:** Kartu-kartu Project bergerak ke **kiri** (`animate-marquee`).
+### A. Kondisi Saat Ini (Current State)
+Saat ini proyek berjalan dengan baik, namun struktur file masih memiliki beberapa karakteristik yang bisa ditingkatkan:
+* **Script Utilitas Mengambang di Root**: `convert-to-avif.js` berada langsung di root folder bersama file konfigurasi.
+* **JavaScript Monolitik (780+ Baris)**: Seluruh data (project, skills, journey), DOM rendering, event listeners, form handling, dan animasi berada dalam satu file `js/script.js`.
+* **Penamaan Folder Aset Tunggal (*Singular*)**: Menggunakan `asset/` alih-alih konvensi standar industri `assets/`.
+* **Typo pada Nama Aset**: `asset/svg/peploe.svg` (seharusnya `people.svg`).
+* **Pencampuran Data & Presentasi**: Data proyek dan keahlian di-hardcode di dalam fungsi rendering JavaScript.
 
 ```text
-+----------------------------------------------------------------------------------------------------+
-|  [Skills & Projects]                                                                               |
-|                                                                                                    |
-|  [Track 1: SKILL LOGOS]    --->  [React] [TS] [Tailwind] [Vite] [Next]  ---> (Bergerak ke Kanan)    |
-|                                                                                                    |
-|  [Track 2: PROJECT CARDS]  <---  [Fast Pizza]  [Siap Kerja]  [Danu Satya] <--- (Bergerak ke Kiri) |
-+----------------------------------------------------------------------------------------------------+
+📁 portfolio-v3/ (Kondisi Saat Ini)
+├── 📄 CNAME
+├── 📄 README.md
+├── 📄 convert-to-avif.js          <-- Script utilitas di root
+├── 📄 googlead7f7ffb81753b79.html
+├── 📄 index.html
+├── 📄 package.json
+├── 📄 robots.txt
+├── 📄 sitemap.xml
+├── 📁 asset/                     <-- Singular naming
+│   ├── 📁 img/
+│   │   ├── 📁 profile/
+│   │   └── 📁 project/
+│   └── 📁 svg/
+│       ├── 📄 location.svg
+│       ├── 📄 peploe.svg         <-- Typo nama file
+│       ├── 📁 skill/
+│       └── 📁 social-media/
+├── 📁 css/
+│   └── 📄 output.css
+├── 📁 js/
+│   └── 📄 script.js              <-- Monolitik (780 baris: Data + Logic + DOM)
+└── 📁 src/
+    └── 📄 input.css
 ```
 
 ---
 
-## 2. Mengapa Terasa "Kurang Rapih" & Kurang Sreg? (Analisis UX & Visual)
-
-### 1. Tabrakan Arah Gerak (*Visual Friction & Fatigue*)
-Secara neuro-visual, mata manusia kesulitan fokus ketika dua baris objek besar bergerak ke **arah yang saling berlawanan** (satu ke kanan, satu ke kiri) pada kecepatan konstan. Hal ini menimbulkan rasa "sibuk", melelahkan di mata, dan membuat layout terasa tidak tenang (*cluttered*).
-
-### 2. Mismatch Hierarki Nilai (*Value Hierarchy*)
-* **Skill** hanyalah *tools* (alat pendukung).
-* **Project** adalah *bukti nyata / mahakarya* yang dinilai oleh recruiter, HR, dan calon klien.
-Ketika digabung berdempetan, Project kehilangan panggung utamanya (*spotlight*). Klien yang ingin mengevaluasi keahlian teknis Anda terdistraksi oleh logo-logo skill yang terus melintas di atasnya.
-
-### 3. Kendala Interaksi pada Objek Bergerak
-Project card memuat informasi penting (screenshot, judul, deskripsi, tech stack, link demo). Ketika card terus berjalan:
-* Pengunjung harus "mengejar" card dengan jari atau mouse.
-* Membaca deskripsi project terasa terburu-buru.
-* Pola *single-click untuk baca* dan *double-click untuk buka* di mobile adalah solusi darurat untuk carousel bergerak, tetapi pada kartu statis biasa, pengunjung bisa langsung melihat teks tanpa trik klik ganda.
-
-### 4. Recruiter Behavior (Kebiasaan HR & Klien)
-Rata-rata recruiter hanya meluangkan **10–15 detik** di sebuah portofolio. Mereka ingin melihat:
-1. *Apa saja project terbaiknya?*
-2. *Bagaimana tampilannya secara sekilas?*
-3. *Di mana tombol Live Demo & Source Code GitHub-nya?*
-Format carousel membuat recruiter harus menunggu project favorit mereka muncul bergantian.
-
----
-
-## 3. Tiga (3) Opsi Rekomendasi Solusi
-
----
-
-### OPSI 1 (SANGAT DIREKOMENDASIKAN): Pisahkan Menjadi 2 Section Mandiri
-
-> **Konsep:** Pisahkan secara tegas menjadi section **Skills & Technologies** dan section **Featured Projects**.
-
-#### A. Section Skills: Clean Categorized Grid atau Minimal Logo Strip
-* **Pilihan A1 (Categorized Bento Grid):** Kelompokkan skill ke dalam 3 kartu bersih:
-  * **Frontend Core:** React, TypeScript, Next.js, JavaScript, HTML5, CSS3.
-  * **Styling & Animation:** Tailwind CSS, Framer Motion, Sass.
-  * **Tools & Ecosystem:** Vite, Git, GitHub, Redux Toolkit, React Query.
-  * *Kelebihan:* Teks nama skill langsung terbaca (tidak perlu hover/tap), rapi, terlihat sangat matang dan profesional.
-* **Pilihan A2 (Infinite Marquee Single-Row):** Tetap gunakan marquee, tapi **hanya 1 baris logo skill yang berjalan lambat dan elegan** sebagai aksen pembatas antar-section.
-
-#### B. Section Projects: Modern Showcase Grid (2 Kolom Desktop, 1 Kolom Mobile)
-* Tampilkan project dalam **Grid Statis** yang kokoh (misal: 6 project unggulan).
-* Setiap kartu memiliki:
-  * Screenshot project tajam dengan efek hover zoom halus.
-  * Judul & badge kategori.
-  * Ringkasan solusi/fitur utama (langsung terbaca tanpa perlu diklik dulu).
-  * Tech stack pills.
-  * **Dua tombol aksi jelas:** `[ Live Demo ↗ ]` dan `[ GitHub ↗ ]`.
-* Ada tombol filter opsional di atas: `[ All ] [ React & SPA ] [ Landing Page ] [ Games ]`.
-
----
-
-### OPSI 2: Tetap 1 Section, tetapi Gunakan Sistem Tab Switcher
-
-> **Konsep:** Tetap hemat ruang vertikal dengan 1 section bernama **"Work & Expertise"**, tetapi kontennya dipisah via Tab.
+### B. Target Struktur Profesional (Target State)
+Struktur yang modular, bersih, mudah dimaintain, dan memisahkan antara **Data**, **Logic**, **Styles**, dan **Assets**:
 
 ```text
-+----------------------------------------------------------------------------------------------------+
-|  Work & Expertise                                                                                  |
-|                                                                                                    |
-|              [ 📁 Featured Projects (Aktif) ]      [ ⚡ Skills & Tools ]                           |
-|                                                                                                    |
-|  +-------------------------------------+   +-------------------------------------+                 |
-|  | [Project 1: Fast React Pizza]       |   | [Project 2: Siap Kerja Platform]    |                 |
-|  | Screenshot Preview                  |   | Screenshot Preview                  |                 |
-|  | Deskripsi & Tech Stack              |   | Deskripsi & Tech Stack              |                 |
-|  | [Live Demo ↗]  [Source Code]        |   | [Live Demo ↗]  [Source Code]        |                 |
-|  +-------------------------------------+   +-------------------------------------+                 |
-+----------------------------------------------------------------------------------------------------+
+📁 portfolio-v3/ (Target Profesional)
+├── 📁 .github/                   # (Opsional) CI/CD Automation
+│   └── 📁 workflows/
+│       └── 📄 deploy.yml
+│
+├── 📁 assets/                    # Konvensi standar industri (plural)
+│   ├── 📁 icons/                 # Ikon SVG terorganisir
+│   │   ├── 📁 tech/              # Logo skill & tech stack (21 SVGs)
+│   │   ├── 📁 social/            # Ikon social media
+│   │   └── 📁 ui/                # Ikon antarmuka (location.svg, people.svg, dll.)
+│   └── 📁 images/                # Gambar raster / format AVIF
+│       ├── 📁 profile/           # Foto profil personal
+│       └── 📁 projects/          # Screenshot showcase karya
+│
+├── 📁 css/                       # Output bundle hasil kompilasi
+│   └── 📄 output.css
+│
+├── 📁 js/                        # Modular ES6 Architecture (Clean Code)
+│   ├── 📄 main.js                # App Bootstrap / Entrypoint utama
+│   │
+│   ├── 📁 data/                  # Single Source of Truth (Mudah di-update)
+│   │   ├── 📄 projects.data.js   # Daftar showcase proyek & metadata collab
+│   │   ├── 📄 skills.data.js     # Kategori & daftar keahlian
+│   │   └── 📄 journey.data.js    # Data timeline pengalaman & pendidikan
+│   │
+│   └── 📁 modules/               # Modul UI & Fitur Terpisah (Single Responsibility)
+│       ├── 📄 navigation.js      # Active link scroll, navbar desktop & mobile
+│       ├── 📄 projects.js        # Filter kategori & rendering kartu proyek
+│       ├── 📄 skills.js          # Rendering kartu bento keahlian
+│       ├── 📄 contact.js         # Form handling & validasi pesan
+│       └── 📄 animations.js      # Scroll reveal, observer, efek interaktif
+│
+├── 📁 scripts/                   # Utility & automation scripts
+│   └── 📄 convert-to-avif.js     # Script kompresi gambar Sharp
+│
+├── 📁 src/                       # Source stylesheet
+│   └── 📄 input.css              # Custom Tailwind CSS rules & base styles
+│
+├── 📄 .gitignore
+├── 📄 CNAME                      # Custom domain (rayhandev.my.id)
+├── 📄 googlead7f7ffb81753b79.html
+├── 📄 index.html                 # Struktur semantik HTML
+├── 📄 package.json               # Config & NPM build scripts
+├── 📄 package-lock.json
+├── 📄 robots.txt                 # Konfigurasi perayap search engine
+├── 📄 sitemap.xml                # SEO sitemap
+└── 📄 README.md                  # Dokumentasi arsitektur proyek
 ```
 
-* **Kelebihan:** Halaman tidak bertambah panjang, pengunjung bisa memilih apa yang ingin dilihat, tidak ada dua baris animasi yang saling bertabrakan.
-* **Kekurangan:** Pengunjung yang malas mengklik tab mungkin tidak melihat daftar skill.
+---
+
+## 2. Analisis Keuntungan Refaktorisasi
+
+| Aspek | Sebelum Refaktorisasi | Sesudah Refaktorisasi | Dampak Positif |
+| :--- | :--- | :--- | :--- |
+| **Maintainability** | Edit 1 fitur harus membuka file 780 baris | Modul terisolasi per fitur (50–120 baris/file) | Mengurangi risiko konflik kode (*merge conflict*) & bug |
+| **Update Konten** | Tambah proyek baru harus mengedit kode render | Cukup tambah objek di `projects.data.js` | Sangat cepat menambah karya baru tanpa sentuh DOM |
+| **Keterbacaan (Clean Code)** | File script campur aduk | Menerapkan prinsip *Single Responsibility Principle* | Menunjukkan kedewasaan arsitektur kode ke recruiter |
+| **Konsistensi Aset** | Nama singular & folder berserak | Standar plural `assets/icons/` & `assets/images/` | Memudahkan optimasi dan manajemen aset web |
+| **Struktur Root** | Script build bercampur dengan config | Root bersih, utilitas masuk folder `scripts/` | Standar repositori open-source kelas atas |
 
 ---
 
-### OPSI 3: Infinite Marquee Khusus Skills, Swiper / Slider Interaktif untuk Projects
+## 3. Rencana Eksekusi Bertahap (Safe Migration Roadmap)
 
-> **Konsep:** Skill tetap memakai marquee 1 baris, sedangkan Project menggunakan slider horizontal interaktif bertombol panah (Next/Prev) atau swipe sentuh.
+Karena situs ini sudah aktif secara langsung (*production*) di domain `rayhandev.my.id` melalui GitHub Pages, refaktorisasi wajib dilakukan secara **aman tanpa merusak jalur aset (*zero 404 broken links*)**.
 
-* Skill berjalan otomatis di atas sebagai *banner teknologi*.
-* Di bawahnya, Project ditampilkan dalam card carousel besar bertombol `[ < ]` dan `[ > ]` atau indikator titik dots.
-* Card tidak bergerak otomatis tanpa izin user (*user-driven scrolling*).
-
----
-
-## 4. Perbandingan Lengkap Ketiga Opsi
-
-| Kriteria Evaluasi | Opsi 1: Pisahkan Section (Grid) | Opsi 2: Tab Switcher | Opsi 3: Slider Bertombol | Kondisi Saat Ini (2 Marquee) |
-|:---|:---:|:---:|:---:|:---:|
-| **Kerapian Visual** | ⭐⭐⭐⭐⭐ (Sangat Rapi) | ⭐⭐⭐⭐ (Rapi) | ⭐⭐⭐ (Cukup) | ⭐⭐ (Kurang Rapi) |
-| **Kenyamanan Mobile (UX)** | ⭐⭐⭐⭐⭐ (Sangat Alami) | ⭐⭐⭐⭐ (Mudah) | ⭐⭐⭐⭐ (Mudah) | ⭐⭐ (Butuh trick klik) |
-| **Kesan Recruiter / Klien** | ⭐⭐⭐⭐⭐ (Standar Top Dev) | ⭐⭐⭐⭐ (Interaktif) | ⭐⭐⭐ (Standar) | ⭐⭐⭐ (Terlalu ramai) |
-| **Kejelasan Info Project** | ⭐⭐⭐⭐⭐ (Langsung Terlihat) | ⭐⭐⭐⭐⭐ (Langsung Terlihat) | ⭐⭐⭐⭐ (Cukup Jelas) | ⭐⭐ (Tertutup overlay) |
-| **Kemudahan Maintenance** | ⭐⭐⭐⭐⭐ (Sangat Mudah) | ⭐⭐⭐⭐ (Mudah) | ⭐⭐⭐ (Medium) | ⭐⭐⭐ (Kompleks) |
+### 🔹 Fase 1: Pembersihan Root & Folder Scripts
+1. Buat folder `scripts/`.
+2. Pindahkan `convert-to-avif.js` ke dalam `scripts/convert-to-avif.js`.
+3. Sesuaikan script di `package.json`:
+   ```json
+   "scripts": {
+     "dev": "tailwindcss -i ./src/input.css -o ./css/output.css --watch",
+     "build": "tailwindcss -i ./src/input.css -o ./css/output.css --minify",
+     "convert:avif": "node scripts/convert-to-avif.js",
+     "convert:avif:clean": "node scripts/convert-to-avif.js --delete-source"
+   }
+   ```
+4. Pastikan path `TARGET_DIR` di dalam `scripts/convert-to-avif.js` tetap akurat.
 
 ---
 
-## 5. Rekomendasi Langkah Selanjutnya
+### 🔹 Fase 2: Modularisasi JavaScript (ES6 Modules)
+Pisahkan `js/script.js` menjadi struktur modular berbasis ES6:
 
-Saran terbaik dari kami adalah **Opsi 1 (Pemisahan Total)**:
-1. **Buat `#skills` sebagai section tersendiri**:
-   - Berupa kartu bento bersih yang mengelompokkan skill Anda (*Frontend Core, Styling & Animation, Tools & State Management*).
-2. **Buat `#projects` sebagai section utama portofolio**:
-   - Berupa kartu grid 2 kolom yang mewah, lengkap dengan tombol langsung ke Live Demo dan Source Code.
-   - Di mobile, kartu berderet ke bawah secara vertikal natural, sehingga user cukup scroll santai dan langsung membaca deskripsi tanpa kebingungan.
+1. **Folder `js/data/`**:
+   * `projects.data.js`: Berisi array `projectsData` (termasuk tag `collab`, `role`, link, dan screenshot).
+   * `skills.data.js`: Berisi array `skillCategories` (3 kategori rapi).
+   * `journey.data.js`: Berisi array timeline `journeyData`.
+
+2. **Folder `js/modules/`**:
+   * `navigation.js`: Mengatur scrollspy active nav, smooth scroll, dan mobile drawer toggle.
+   * `projects.js`: Mengatur render grid kartu proyek dan filter klik (`all`, `app`, `landing`, `interactive`).
+   * `skills.js`: Mengatur render kartu keahlian.
+   * `contact.js`: Mengatur submit contact form dan notifikasi.
+   * `animations.js`: Mengatur `IntersectionObserver` untuk animasi reveal dan scroll loop.
+
+3. **File `js/main.js`**:
+   * Mengimpor dan menginisialisasi modul setelah event `DOMContentLoaded`:
+   ```javascript
+   import { initNavigation } from './modules/navigation.js';
+   import { initSkills } from './modules/skills.js';
+   import { initProjects } from './modules/projects.js';
+   import { initContact } from './modules/contact.js';
+   import { initAnimations } from './modules/animations.js';
+
+   document.addEventListener('DOMContentLoaded', () => {
+     initNavigation();
+     initSkills();
+     initProjects();
+     initContact();
+     initAnimations();
+   });
+   ```
+
+4. **Update `index.html`**:
+   Ganti tag script menjadi:
+   ```html
+   <script type="module" src="js/main.js"></script>
+   ```
 
 ---
 
-*Silakan pelajari rekomendasi di atas. Jika Anda setuju dengan Opsi 1 (atau lebih menyukai opsi lainnya), beri tahu saya dan kita bisa langsung mengimplementasikannya!*
+### 🔹 Fase 3: Restrukturisasi Folder Aset & Migrasi Path
+1. Buat struktur folder baru di bawah `assets/`:
+   * `assets/images/profile/` & `assets/images/projects/`
+   * `assets/icons/tech/`, `assets/icons/social/`, `assets/icons/ui/`
+2. Pindahkan file aset dari `asset/` ke `assets/`.
+3. Perbaiki nama typo: `asset/svg/peploe.svg` ➔ `assets/icons/ui/people.svg`.
+4. Lakukan pembaruan path referensi di:
+   * `index.html` (gambar profil, favicon, ikon).
+   * `js/data/projects.data.js` (thumbnail proyek).
+   * `js/data/skills.data.js` (ikon skill SVG).
+   * `scripts/convert-to-avif.js` (target directory).
+
+---
+
+### 🔹 Fase 4: Pengujian & Build Validasi
+1. Jalankan `npm run build` untuk memvalidasi Tailwind CSS bundle.
+2. Uji fungsionalitas lokal:
+   * [ ] Seluruh gambar thumbnail proyek dan profil termuat sempurna (tidak ada 404).
+   * [ ] Seluruh filter proyek (`All`, `Web Apps`, `Landing & Profile`, `Games & Logic`) berjalan mulus.
+   * [ ] Fitur navigasi desktop & mobile drawer berfungsi normal.
+   * [ ] Contact form event berjalan lancar.
+3. Commit dan push perubahan terstruktur ke branch `main`.
+
+---
+
+## 4. Status Implementasi
+
+- [ ] **Fase 1**: Relokasi Script Utilitas ke `scripts/`
+- [ ] **Fase 2**: Pemisahan Data & Modul ES6 JavaScript
+- [ ] **Fase 3**: Standarisasi Folder `assets/` & Audit Path
+- [ ] **Fase 4**: Verifikasi Akhir & Production Release
+
+---
+*Dokumen ini diperbarui secara berkala sebagai panduan resmi peningkatan kualitas kode RayhanDev Portfolio.*
