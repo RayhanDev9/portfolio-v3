@@ -55,39 +55,31 @@
 
 /* Rain */
 
-@theme {
-  /* Jika Anda menggunakan Tailwind v4, atau biarkan di CSS biasa jika v3 */
-}
-
 .rain {
-  @apply w-[1px] h-[12px] absolute opacity-80;
-
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), skyblue);
-  top: var(--top);
-
-  /* 1. Tetap miringkan bentuk air hujannya */
+  position: absolute;
+  width: 1.5px;
+  height: 16px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), #38bdf8);
   border-radius: 50% 50% 50% 0;
-  transform: rotate(-45deg);
-
-  box-shadow:
-    0 0 3px #faffff,
-    0 0 8px #faffff;
-  animation:
-    jalan var(--speed) linear infinite,
-    fadeOut 3s linear infinite;
+  transform: rotate(-35deg);
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+  pointer-events: none;
+  animation: jalanHujan var(--speed) linear infinite;
 }
 
-@keyframes jalan {
-  from {
-    /* 2. Gunakan left untuk posisi X awal, dan mulai dari atas */
-    left: var(--geserX);
-    top: calc(var(--top) - 50px);
-    opacity: 1;
+@keyframes jalanHujan {
+  0% {
+    top: -25px;
+    opacity: 0;
   }
-
-  to {
-    /* 3. Gerakkan top-nya saja ke bawah secara lurus, tanpa merusak rotasi bentuk */
-    left: var(--geserX);
-    top: 100%;
+  15% {
+    opacity: 0.75;
+  }
+  85% {
+    opacity: 0.75;
+  }
+  100% {
+    top: 105vh;
+    opacity: 0;
   }
 }

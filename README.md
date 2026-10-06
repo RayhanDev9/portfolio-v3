@@ -1,136 +1,242 @@
-# Rencana Perbaikan: Menghilangkan Efek Gradient pada Background & Tombol Kirim Pesan di Section Contact (Portfolio-v3)
+# Rencana Perbaikan: Animasi Hujan Stabil & Bebas Penumpukan di Bagian Bawah (Portfolio-v3)
 
-Dokumen ini berisi analisis letak kode gradient di **Section Contact** dan rencana teknis untuk menghilangkannya sesuai permintaan pengguna:
-1. Menemukan dan menghapus efek pendaran warna gradasi (*ambient blur glow*) di latar belakang Section Contact.
-2. Mengubah tombol **Kirim Pesan** agar menggunakan warna solid (tanpa gradient).
-3. Menjelaskan lokasi tepat setiap baris kode yang menghasilkan efek gradient tersebut di dalam proyek.
+Dokumen ini berisi analisis akar masalah dan rencana teknis terperinci untuk mengatasi masalah penumpukan (*accumulation*) dan ketidakkonsistenan kecepatan animasi hujan (*matrix rain background*).
 
 ---
 
-## 1. Analisis & Identifikasi Letak Kode Gradient
+## 1. Analisis Akar Masalah (Kenapa Hujan Menumpuk di Bawah?)
 
-Berdasarkan tangkapan layar (*screenshot*) yang dikirimkan, terdapat elemen gradient yang tampak di Section Contact:
+Setelah menganalisis berkas [js/script.js](js/script.js#L104-L150) dan [src/input.css](src/input.css#L62-L93), ditemukan **3 akar masalah teknis** yang menyebabkan hujan menumpuk dan melambat di bagian bawah:
 
-### A. Gradient 1: Pendaran Warna Latar Belakang (Ambient Blur Glow)
-- **Letak Berkas:** [index.html](index.html#L464-L469)
-- **Potongan Kode Saat Ini:**
-  ```html
-  <!-- CONTACT SECTION START -->
-  <section id="contact" class="py-24 text-white relative overflow-hidden">
-    <!-- INI DIA LETAK GRADIENT LATAR BELAKANGNYA: -->
-    <div
-      class="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"
-    ></div>
-    <div
-      class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"
-    ></div>
+### Akar Masalah 1: Jarak Tempuh Berbeda, Tetapi Durasi Waktu Sama (Kecepatan Tidak Stabil)
+- Pada [js/script.js](js/script.js#L116-L137):
+  - `--top` diacak di sepanjang tinggi dokumen (`Math.random() * document.documentElement.scrollHeight`), misalnya dari 0px hingga 3500px.
+  - Setiap tetesan diberikan durasi animasi `--speed` yang hampir seragam (~25 hingga 30 detik).
+- Pada [src/input.css](src/input.css#L80-L93):
+  ```css
+  @keyframes jalan {
+    from {
+      top: calc(var(--top) - 50px);
+    }
+    to {
+      top: 100%; /* Dasar dokumen */
+    }
+  }
   ```
-- **Penjelasan Masalah:**
-  Dua tag `<div>` di atas memiliki kelas `bg-purple-600/10` (ungu) dan `bg-blue-600/10` (biru) dengan filter `blur-3xl`. Elemen inilah yang menciptakan lingkaran gradasi pendaran cahaya ungu/biru di belakang kotak formulir dan kursor grid yang terlihat di screenshot.
-- **Solusi:**
-  Hapus kedua tag `<div>` ini sepenuhnya dari `index.html`. Dengan begitu, Section Contact menjadi 100% bersih, murni warna dasar `bg-gray-950` dari `<body>` tanpa bias warna ungu/biru.
+- **Dampak Matematis:**
+  - Tetesan di bagian atas (`--top = 100px`): Menempuh jarak ~3400px dalam 28 detik = **~121 px/detik** (Cepat).
+  - Tetesan di bagian bawah (`--top = 3300px`): Menempuh jarak hanya 200px dalam 28 detik = **~7.1 px/detik** (Sangat Lambat / Bergerak seperti siput).
+  - Tetesan air yang di-spawn di bawah bergerak **17x lebih lambat** dibanding di atas!
 
 ---
 
-### B. Gradient 2: Tombol "Kirim Pesan"
-- **Letak Berkas:** [index.html](index.html#L654-L661)
-- **Potongan Kode Saat Ini:**
+### Akar Masalah 2: Loop Animasi Terperangkap di Bagian Bawah
+- Pada `@keyframes jalan`, titik awal animasi (`from`) adalah `top: calc(var(--top) - 50px)`.
+- Ketika tetesan mencapai dasar (`to: 100%`), animasi mengulang kembali ke `from`.
+- Akibatnya, tetesan yang memiliki nilai `--top` tinggi **TIDAK PERNAH kembali ke atas halaman**! Tetesan tersebut hanya berputar-putar di area sempit di dasar halaman.
+- Ratusan tetesan yang dibuat di area bawah akhirnya terperangkap dan terus menumpuk di dasar halaman (Contact / Footer).
+
+---
+
+### Akar Masalah 3: Wadah `.container-rain` Bersifat `absolute` di Seluruh Dokumen (Performa Berat & Tidak Realistis)
+- Di [index.html](index.html#L17-L19):
   ```html
-  <button
-    type="submit"
-    class="w-full mx-auto sm:w-auto px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-medium rounded-xl shadow-lg shadow-purple-600/20 active:scale-98 transition-all cursor-pointer flex items-center justify-center gap-2"
-  >
-    <span>Kirim Pesan</span>
-    <i class="fa-solid fa-paper-plane text-xs"></i>
-  </button>
+  <div class="container-rain absolute inset-0 w-screen h-full pointer-events-none -z-50 overflow-hidden"></div>
   ```
-- **Penjelasan Masalah:**
-  Tombol menggunakan kelas `bg-gradient-to-r from-purple-600 to-blue-600` dan efek hover `hover:from-purple-500 hover:to-blue-500`.
-- **Solusi:**
-  Ganti kelas gradient tersebut dengan warna solid:
-  - **Opsi A (Solid White - Direkomendasikan & Paling Konsisten):**
-    Menggunakan gaya solid putih seperti tombol "Hire Talent" di navbar:
-    `bg-white text-black hover:bg-white/90 font-medium rounded-xl shadow-lg active:scale-98 transition-all`
-  - **Opsi B (Solid Purple Tema Portofolio):**
-    Menggunakan solid ungu tanpa campuran biru:
-    `bg-purple-600 hover:bg-purple-500 text-white font-medium rounded-xl shadow-lg shadow-purple-600/25 active:scale-98 transition-all`
+- Ukuran wadah mengikuti tinggi total dokumen (~3500px–4000px).
+- Hujan di dunia nyata (dan animasi modern) adalah efek atmosferik yang bergerak melintasi **viewport (layar pandang)** pengguna, bukan menempel kaku memanjang di seluruh dokumen web.
 
 ---
 
-### C. Gradient 3 (Opsional): Teks Judul Section Contact
-- **Letak Berkas:** [index.html](index.html#L478-L482)
-- **Potongan Kode Saat Ini:**
-  ```html
-  <h2
-    class="text-3xl md:text-4xl font-bold tracking-tight mb-4 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent opacity-0 translate-y-10 transition-all duration-1000 contact-animasi"
-  >
-    Mari Bekerja Sama & Bangun Sesuatu yang Luar Biasa
-  </h2>
-  ```
-- **Keterangan:** Judul ini menggunakan gradasi putih ke abu-abu (`bg-gradient-to-r ... bg-clip-text text-transparent`). Jika ingin dibuat solid dan seragam, kelas gradient ini dapat diganti dengan `text-white font-bold`.
+## 2. Rencana Solusi Teknis
 
+Untuk membuat kecepatan hujan **100% stabil dari atas ke bawah** dan **tanpa penumpukan**:
+
+### Solusi 1: Ubah Wadah Hujan Menjadi `fixed` (Viewport-Based Atmospheric Rain)
+- Ubah `.container-rain` dari `absolute` menjadi `fixed inset-0 w-full h-full pointer-events-none -z-50 overflow-hidden`.
+- **Keuntungan:**
+  1. Hujan jatuh alami melintasi layar pandang pengguna yang sedang aktif, di section mana pun pengguna berada (Home, About, Journey, Work, atau Contact).
+  2. Jarak tempuh untuk SEMUA tetesan selalu sama (dari `-20px` di atas layar hingga `105vh` di bawah layar).
+  3. Mengurangi beban DOM dan GPU browser secara drastis (hanya butuh ~30–45 tetesan aktif di layar dibanding ratusan elemen statis di dokumen panjang).
 
 ---
 
-## 2. Rencana Perubahan Kode
+### Solusi 2: Standardisasi Jalur Jatuh di `@keyframes` (Dari Atas Layar ke Bawah Layar)
+- Ubah `@keyframes jalan` di [src/input.css](src/input.css):
+  ```css
+  @keyframes jalan {
+    0% {
+      top: -20px;
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.8;
+    }
+    90% {
+      opacity: 0.8;
+    }
+    100% {
+      top: 105vh;
+      opacity: 0;
+    }
+  }
+  ```
+- Setiap tetesan jatuh dari atas layar (`-20px`) hingga keluar dari bawah layar (`105vh`), lalu memudar (*fade out*) dan me-loop kembali dari atas. Tidak ada lagi tetesan yang diam atau tersangkut di bawah.
 
-### A. Berkas `index.html` (Bagian Awal Section Contact)
+---
+
+### Solusi 3: Sebar Tetesan Secara Instan Menggunakan `animation-delay` Negatif
+- Di [js/script.js](js/script.js):
+  - Hapus perhitungan posisi acak `getRandomY()` dan durasi yang bergantung pada tinggi dokumen.
+  - Tentukan kecepatan jatuh konstan yang alami: misalnya **1.8 detik hingga 3.0 detik** untuk melintasi layar.
+  - Untuk menyebarkan tetesan air secara merata di layar saat pertama kali halaman dimuat (agar tidak ada jeda kosong), gunakan **delay negatif**:
+    ```javascript
+    const duration = 1.8 + Math.random() * 1.2; // 1.8s - 3.0s (stabil dan natural)
+    rainDrop.style.setProperty("--speed", `${duration.toFixed(2)}s`);
+    rainDrop.style.animationDelay = `-${(Math.random() * duration).toFixed(2)}s`;
+    ```
+  - **Efek Delay Negatif:** Browser langsung memulai animasi di posisi acak di tengah-tengah jalur jatuhnya saat halaman pertama kali dibuka, namun dengan kecepatan konstan yang sama persis dan loop yang selalu kembali ke atas layar!
+
+---
+
+## 3. Rencana Perubahan Kode
+
+### A. Berkas `index.html` (Baris ~17)
 
 ```html
 <!-- SEBELUM: -->
-<section
-  id="contact"
-  class="py-24 text-white relative overflow-hidden"
->
-  <div
-    class="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"
-  ></div>
-  <div
-    class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"
-  ></div>
+<div
+  class="container-rain absolute inset-0 w-screen h-full pointer-events-none -z-50 overflow-hidden"
+></div>
 
-  <div class="max-w-6xl mx-auto px-4 relative z-10">
-
-<!-- SESUDAH (Hapus kedua div blur ambient glow): -->
-<section
-  id="contact"
-  class="py-24 text-white relative overflow-hidden"
->
-  <div class="max-w-6xl mx-auto px-4 relative z-10">
+<!-- SESUDAH: -->
+<div
+  class="container-rain fixed inset-0 w-full h-screen pointer-events-none -z-50 overflow-hidden"
+></div>
 ```
 
 ---
 
-### B. Berkas `index.html` (Tombol Kirim Pesan)
+### B. Berkas `src/input.css` (Baris ~62–93)
 
-```html
-<!-- SEBELUM: -->
-<button
-  type="submit"
-  class="w-full mx-auto sm:w-auto px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-medium rounded-xl shadow-lg shadow-purple-600/20 active:scale-98 transition-all cursor-pointer flex items-center justify-center gap-2"
->
-  <span>Kirim Pesan</span>
-  <i class="fa-solid fa-paper-plane text-xs"></i>
-</button>
+```css
+/* SEBELUM: */
+.rain {
+  @apply w-[1px] h-[12px] absolute opacity-80;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), skyblue);
+  top: var(--top);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  box-shadow:
+    0 0 3px #faffff,
+    0 0 8px #faffff;
+  animation:
+    jalan var(--speed) linear infinite,
+    fadeOut 3s linear infinite;
+}
 
-<!-- SESUDAH (Warna Solid Putih Bersih / Solid Purple): -->
-<button
-  type="submit"
-  class="w-full mx-auto sm:w-auto px-8 py-3 bg-white hover:bg-white/90 text-black font-semibold rounded-xl shadow-lg active:scale-98 transition-all cursor-pointer flex items-center justify-center gap-2"
->
-  <span>Kirim Pesan</span>
-  <i class="fa-solid fa-paper-plane text-xs"></i>
-</button>
+@keyframes jalan {
+  from {
+    left: var(--geserX);
+    top: calc(var(--top) - 50px);
+    opacity: 1;
+  }
+  to {
+    left: var(--geserX);
+    top: 100%;
+  }
+}
+
+/* SESUDAH: */
+.rain {
+  position: absolute;
+  width: 1.5px;
+  height: 16px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), #38bdf8);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-35deg);
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+  pointer-events: none;
+  animation: jalanHujan var(--speed) linear infinite;
+}
+
+@keyframes jalanHujan {
+  0% {
+    top: -25px;
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.75;
+  }
+  85% {
+    opacity: 0.75;
+  }
+  100% {
+    top: 105vh;
+    opacity: 0;
+  }
+}
 ```
 
 ---
 
-## 3. Tahapan Eksekusi (Action Checklist)
+### C. Berkas `js/script.js` (Fungsi `initBackgroundRainEffect`)
 
-- [x] **Langkah 1**: Hapus 2 elemen `<div>` ambient blur glow (`bg-purple-600/10` dan `bg-blue-600/10`) di bagian atas `<section id="contact">` pada [index.html](index.html).
-- [x] **Langkah 2**: Perbarui tombol "Kirim Pesan" di [index.html](index.html) dengan mengganti kelas `bg-gradient-to-r ...` menjadi warna solid (`bg-white text-black hover:bg-white/90`).
-- [x] **Langkah 3**: Jalankan `npm run build` untuk mengompilasi ulang CSS Tailwind.
-- [x] **Langkah 4**: Verifikasi visual di browser untuk memastikan:
-  - Background Section Contact bersih tanpa bias pendaran warna ungu/biru di belakang grid kursor.
-  - Tombol Kirim Pesan tampil solid, kontras, dan bersih tanpa gradient.
-- [x] **Langkah 5**: Lakukan git commit dan push ke repository GitHub.
+```javascript
+// SESUDAH:
+function initBackgroundRainEffect() {
+  const containerRain = document.querySelector(".container-rain");
+  if (!containerRain) return;
+
+  // Menyesuaikan kepadatan hujan berdasarkan lebar layar (responsif)
+  function getMaxRainCount() {
+    return Math.min(Math.floor(window.innerWidth / 28), 50);
+  }
+
+  function getRandomX() {
+    return Math.floor(Math.random() * window.innerWidth);
+  }
+
+  function spawnRainDrop() {
+    const currentRain = containerRain.querySelectorAll(".rain");
+    if (currentRain.length >= getMaxRainCount()) return;
+
+    const rainDrop = document.createElement("div");
+    rainDrop.classList.add("rain");
+
+    // Kecepatan stabil alami (2.0s - 3.2s melintasi seluruh tinggi viewport)
+    const duration = 2.0 + Math.random() * 1.2;
+    // Delay negatif agar langsung tersebar merata saat halaman dimuat
+    const delay = -(Math.random() * duration);
+
+    rainDrop.style.left = `${getRandomX()}px`;
+    rainDrop.style.setProperty("--speed", `${duration.toFixed(2)}s`);
+    rainDrop.style.animationDelay = `${delay.toFixed(2)}s`;
+
+    containerRain.appendChild(rainDrop);
+  }
+
+  const rainInterval = setInterval(() => {
+    const currentRain = containerRain.querySelectorAll(".rain");
+    if (currentRain.length >= getMaxRainCount()) {
+      clearInterval(rainInterval);
+    } else {
+      spawnRainDrop();
+    }
+  }, 30);
+}
+```
+
+---
+
+## 4. Tahapan Eksekusi (Action Checklist)
+
+- [x] **Langkah 1**: Perbarui wadah `.container-rain` di [index.html](index.html) menjadi `fixed inset-0 w-full h-screen`.
+- [x] **Langkah 2**: Perbarui gaya CSS `.rain` dan `@keyframes jalanHujan` di [src/input.css](src/input.css) agar jalur animasi bergerak dari `-25px` ke `105vh`.
+- [x] **Langkah 3**: Perbarui fungsi `initBackgroundRainEffect()` di [js/script.js](js/script.js) dengan kecepatan konstan stabil dan *negative animation delay*.
+- [x] **Langkah 4**: Jalankan `npm run build` untuk mengompilasi CSS terbaru.
+- [x] **Langkah 5**: Lakukan verifikasi visual di browser:
+  - Kecepatan hujan stabil dan konsisten dari atas hingga bawah layar.
+  - Tidak ada tetesan yang melambat, tertinggal, atau menumpuk di area bawah (Contact / Footer).
+  - Tetesan tersebar merata secara instan tanpa menunggu proses jatuh dari nol.
+- [x] **Langkah 6**: Lakukan git commit dan push ke repository GitHub.

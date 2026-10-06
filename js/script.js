@@ -106,21 +106,11 @@ function initBackgroundRainEffect() {
   if (!containerRain) return;
 
   function getMaxRainCount() {
-    return Math.floor(window.innerWidth / 10);
+    return Math.min(Math.floor(window.innerWidth / 28), 50);
   }
 
   function getRandomX() {
     return Math.floor(Math.random() * window.innerWidth);
-  }
-
-  function getRandomY() {
-    return Math.floor(Math.random() * document.documentElement.scrollHeight);
-  }
-
-  function getRainSpeed() {
-    const totalHeight = document.documentElement.scrollHeight;
-    const baseSpeed = (totalHeight / 1000) * 8;
-    return baseSpeed + Math.random() * 3;
   }
 
   function spawnRainDrop() {
@@ -130,11 +120,14 @@ function initBackgroundRainEffect() {
     const rainDrop = document.createElement("div");
     rainDrop.classList.add("rain");
 
-    rainDrop.style.setProperty("--speed", `${getRainSpeed()}s`);
-    rainDrop.style.setProperty("--geserX", `${getRandomX()}px`);
-    rainDrop.style.setProperty("--top", `${getRandomY()}px`);
-    rainDrop.style.setProperty("--geserY", `-20px`);
-    rainDrop.style.animationDelay = `${Math.random() * 0.5}s`;
+    // Kecepatan stabil alami (2.0s - 3.2s melintasi seluruh tinggi viewport)
+    const duration = 2.0 + Math.random() * 1.2;
+    // Delay negatif agar langsung tersebar merata saat halaman dimuat
+    const delay = -(Math.random() * duration);
+
+    rainDrop.style.left = `${getRandomX()}px`;
+    rainDrop.style.setProperty("--speed", `${duration.toFixed(2)}s`);
+    rainDrop.style.animationDelay = `${delay.toFixed(2)}s`;
 
     containerRain.appendChild(rainDrop);
   }
@@ -146,7 +139,7 @@ function initBackgroundRainEffect() {
     } else {
       spawnRainDrop();
     }
-  }, 40);
+  }, 30);
 }
 
 /**
