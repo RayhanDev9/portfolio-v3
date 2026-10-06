@@ -102,10 +102,10 @@
     <header class="relative z-50">
       <!-- Dekstop -->
       <nav
-        class="hidden absolute left-1/2 top-7 z-30 lg:flex -translate-x-1/2 items-center gap-7 rounded-full border border-white/10 px-3 py-2 text-sm text-white/80 nav-menu top-bar-dekstop"
+        class="hidden absolute left-1/2 top-7 z-30 lg:flex -translate-x-1/2 items-center gap-5 xl:gap-7 rounded-full border border-white/10 px-3.5 py-2 text-sm text-white/80 top-bar-dekstop"
       >
         <span
-          class="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black"
+          class="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black shrink-0"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +121,7 @@
             <polyline points="8 6 2 12 8 18"></polyline>
           </svg>
         </span>
-        <div class="flex gap-7 items-center nav-menu">
+        <div class="flex gap-4 xl:gap-6 items-center nav-menu">
           <a
             href="#home"
             class="transition opacity-65 hover:text-white leading-relaxed active-link-nav"
@@ -153,9 +153,10 @@
             >Contact</a
           >
           <button
-            class="rounded-full bg-white px-5 py-2 font-medium text-black transition hover:bg-white/90"
+            onclick="document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })"
+            class="whitespace-nowrap shrink-0 rounded-full bg-white px-5 py-2 font-medium text-black transition hover:bg-white/90 cursor-pointer"
           >
-           Work With Me
+            Work With Me
           </button>
         </div>
       </nav>
