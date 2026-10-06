@@ -433,35 +433,105 @@ const journeySection = () => {
   initJourneyReveal();
 };
 
-const skillProjectSection = () => {
-  // DATA DATA BERBENTUK OBJECT (Mencegah duplikasi manual di HTML)
-  const skillsData = [
-    { name: "HTML", src: "asset/svg/skill/html-5.svg" },
-    { name: "CSS", src: "asset/svg/skill/css-3.svg" },
-    { name: "JS", src: "asset/svg/skill/javascript.svg" },
-    { name: "TypeScript", src: "asset/svg/skill/typescript.svg" },
-    { name: "React", src: "asset/svg/skill/react.svg" },
-    { name: "Redux", src: "asset/svg/skill/redux.svg" },
-    { name: "React Query", src: "asset/svg/skill/react-query.svg" },
-    { name: "React Router", src: "asset/svg/skill/react-router.svg" },
-    { name: "Tailwind", src: "asset/svg/skill/tailwind.svg" },
-    { name: "Vite", src: "asset/svg/skill/vite.svg" },
-    { name: "Framer Motion", src: "asset/svg/skill/framer-motion.svg" },
-    { name: "Axios", src: "asset/svg/skill/axios.svg" },
-    { name: "Git", src: "asset/svg/skill/git.svg" },
-    { name: "GitHub", src: "asset/svg/skill/github.svg" },
-    { name: "Sass", src: "asset/svg/skill/sass.svg" },
-    { name: "Bootstrap-4", src: "asset/svg/skill/bootstrap-4.svg" },
-    { name: "Jquery", src: "asset/svg/skill/jquery.svg" },
-    { name: "Json", src: "asset/svg/skill/json.svg" },
-    { name: "C++", src: "asset/svg/skill/cplusplus.svg" },
+/**
+ * -----------------------------------------------------------------------------
+ * 5. SKILLS SECTION
+ * Menampilkan Categorized Bento Grid keahlian teknis (Core, Styling, Tools).
+ * -----------------------------------------------------------------------------
+ */
+const skillsSection = () => {
+  const skillCategories = [
+    {
+      title: "Frontend Core",
+      description: "Fundamental languages & core frameworks",
+      icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>`,
+      skills: [
+        { name: "React", src: "asset/svg/skill/react.svg" },
+        { name: "TypeScript", src: "asset/svg/skill/typescript.svg" },
+        { name: "JavaScript", src: "asset/svg/skill/javascript.svg" },
+        { name: "Vite", src: "asset/svg/skill/vite.svg" },
+        { name: "React Router", src: "asset/svg/skill/react-router.svg" },
+        { name: "HTML5", src: "asset/svg/skill/html-5.svg" },
+        { name: "CSS3", src: "asset/svg/skill/css-3.svg" },
+      ],
+    },
+    {
+      title: "Styling & Motion",
+      description: "Modern CSS architectures & animations",
+      icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>`,
+      skills: [
+        { name: "Tailwind CSS", src: "asset/svg/skill/tailwind.svg" },
+        { name: "Framer Motion", src: "asset/svg/skill/framer-motion.svg" },
+        { name: "Sass", src: "asset/svg/skill/sass.svg" },
+        { name: "Bootstrap-4", src: "asset/svg/skill/bootstrap-4.svg" },
+      ],
+    },
+    {
+      title: "State & Tools",
+      description: "Data orchestration, state & developer workflow",
+      icon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>`,
+      skills: [
+        { name: "Redux Toolkit", src: "asset/svg/skill/redux.svg" },
+        { name: "React Query", src: "asset/svg/skill/react-query.svg" },
+        { name: "Axios", src: "asset/svg/skill/axios.svg" },
+        { name: "Git", src: "asset/svg/skill/git.svg" },
+        { name: "GitHub", src: "asset/svg/skill/github.svg" },
+        { name: "JSON APIs", src: "asset/svg/skill/json.svg" },
+        { name: "C++", src: "asset/svg/skill/cplusplus.svg" },
+        { name: "jQuery", src: "asset/svg/skill/jquery.svg" },
+      ],
+    },
   ];
 
+  const container = document.getElementById("skillsContainer");
+  if (!container) return;
 
+  container.innerHTML = skillCategories
+    .map(
+      (cat) => `
+    <div class="p-6 md:p-7 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md hover:border-purple-500/40 hover:bg-white/[0.07] transition-all duration-300 flex flex-col justify-between group">
+      <div>
+        <div class="flex items-center gap-3.5 mb-6">
+          <div class="w-11 h-11 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:bg-purple-500/20 group-hover:scale-105 transition-all">
+            ${cat.icon}
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-white group-hover:text-purple-300 transition-colors">${cat.title}</h3>
+            <p class="text-xs text-gray-400">${cat.description}</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2.5">
+          ${cat.skills
+            .map(
+              (s) => `
+            <div class="flex items-center gap-2.5 p-2.5 rounded-xl bg-white/5 border border-white/5 hover:border-purple-500/40 hover:bg-white/10 transition-all duration-200 group/pill">
+              <img src="${s.src}" alt="${s.name}" class="w-5 h-5 object-contain shrink-0 transition-transform group-hover/pill:scale-110" loading="lazy" />
+              <span class="text-xs font-medium text-gray-300 group-hover/pill:text-white transition-colors truncate">${s.name}</span>
+            </div>
+          `,
+            )
+            .join("")}
+        </div>
+      </div>
+    </div>
+  `,
+    )
+    .join("");
+};
+
+/**
+ * -----------------------------------------------------------------------------
+ * 6. PROJECTS SECTION
+ * Menampilkan Showcase Grid karya/proyek dengan sistem filter kategori.
+ * -----------------------------------------------------------------------------
+ */
+const projectsSection = () => {
   const projectsData = [
     {
       title: "Fast React Pizza",
-      description: "Interactive pizza ordering application featuring live cart management and SPA client-side routing.",
+      category: "app",
+      description: "Interactive pizza ordering application featuring live cart management, SPA client-side routing, and real-time order tracking.",
       skills: ["React 18", "Redux Toolkit", "React Router", "Tailwind CSS", "Vite"],
       url: "https://rayhandev9.github.io/fast-pizza",
       img: "asset/img/project/fast-pizza.avif",
@@ -469,7 +539,8 @@ const skillProjectSection = () => {
     },
     {
       title: "Siap Kerja",
-      description: "Interactive career preparation platform integrated with AI-driven career recommendations and curated courses.",
+      category: "app",
+      description: "Interactive career preparation platform integrated with AI-driven career recommendations and curated skill modules.",
       skills: ["React", "Redux Toolkit", "Gemini AI", "Framer Motion", "Vite"],
       url: "https://rayhandev9.github.io/siap-kerja/#/landingPage",
       img: "asset/img/project/siap-kerja.avif",
@@ -477,7 +548,8 @@ const skillProjectSection = () => {
     },
     {
       title: "Danu Satya Portfolio",
-      description: "Official production portfolio website built for a Graphic and Motion Designer.",
+      category: "landing",
+      description: "Official production portfolio website built for a Graphic & Motion Designer with bespoke typography and dark aesthetics.",
       skills: ["React 19", "TypeScript", "Tailwind CSS v4", "Lucide Icons", "Vite"],
       url: "https://danusatya.my.id/",
       img: "asset/img/project/portfolio-danu.avif",
@@ -485,7 +557,8 @@ const skillProjectSection = () => {
     },
     {
       title: "TK PAUD Permata",
-      description: "Official educational institutional web profile with custom live domain and responsive design.",
+      category: "landing",
+      description: "Official educational institutional web profile with custom live domain and responsive interactive design.",
       skills: ["Front-End Arch", "HTML5/CSS3", "JavaScript", "Responsive UI", "SEO"],
       url: "https://permatabelajar.my.id/",
       img: "asset/img/project/tk.avif",
@@ -493,6 +566,7 @@ const skillProjectSection = () => {
     },
     {
       title: "Mading Kampus",
+      category: "landing",
       description: "Digital campus magazine web portal for publishing student articles, news, and campus announcements.",
       skills: ["Tailwind CSS", "HTML5 Semantic", "JavaScript", "Responsive Design"],
       url: "https://rayhandev9.github.io/mading-kampus/",
@@ -501,7 +575,8 @@ const skillProjectSection = () => {
     },
     {
       title: "Store Radeva",
-      description: "Modern e-commerce catalog landing page featuring interactive product showcases and navigation.",
+      category: "landing",
+      description: "Modern e-commerce catalog landing page featuring interactive product showcases and intuitive navigation.",
       skills: ["CSS Layout", "Flexbox/Grid", "DOM Manipulation", "Interactive UI"],
       url: "https://rayhandev9.github.io/radeva/",
       img: "asset/img/project/store-radeva.avif",
@@ -509,6 +584,7 @@ const skillProjectSection = () => {
     },
     {
       title: "Company Profile ISC",
+      category: "landing",
       description: "Community profile website showcasing community identity, tech events, and contact channels.",
       skills: ["Semantic HTML", "Responsive Web", "CSS Animation", "Clean Layout"],
       url: "https://rayhandev9.github.io/company-profile-isc/",
@@ -517,6 +593,7 @@ const skillProjectSection = () => {
     },
     {
       title: "Pig Game",
+      category: "interactive",
       description: "Interactive 2-player dice game with turn-based state logic and 100-point winning condition.",
       skills: ["JavaScript Logic", "State Management", "DOM Events", "CSS Transition"],
       url: "https://pig-game-virid-delta.vercel.app/",
@@ -525,6 +602,7 @@ const skillProjectSection = () => {
     },
     {
       title: "First Portfolio",
+      category: "landing",
       description: "My first web development milestone representing the foundation of my coding journey.",
       skills: ["HTML5", "CSS3", "Flexbox", "Vanilla JavaScript"],
       url: "https://first-portfolio-hkyum9qh0-rayhans-projects-6dbf92f1.vercel.app/",
@@ -533,219 +611,78 @@ const skillProjectSection = () => {
     },
   ];
 
-  function renderCarouselTracks() {
-    const tracks = document.querySelectorAll("#skill-project .carousel .track");
-    if (tracks.length < 2) return;
+  const grid = document.getElementById("projectsGrid");
+  const filterBtns = document.querySelectorAll(".project-filter-btn");
+  if (!grid) return;
 
-    // Loop & Rendering data Skill (Track Pertama)
-    // Otomatis melakukan duplikasi array [...skillsData, ...skillsData] untuk infinite loop carousel
-    const combinedSkills = [...skillsData, ...skillsData];
-    tracks[0].innerHTML = combinedSkills
+  function renderProjects(filter = "all") {
+    const filtered =
+      filter === "all"
+        ? projectsData
+        : projectsData.filter((p) => p.category === filter);
+
+    grid.innerHTML = filtered
       .map(
-        (skill) => `
-      <div class="item-logo rounded-2xl group/skill relative h-12 w-24 md:h-16 md:w-32 shrink-0 flex items-center justify-center bg-white/5 border border-white/10 p-3 hover:border-purple-500/50 hover:bg-white/10 transition-all duration-300 cursor-pointer" data-skill="${skill.name}">
-        <img src="${skill.src}" alt="${skill.name}" class="h-full object-contain max-w-full transition-transform duration-300 group-hover/skill:scale-110" />
+        (project) => `
+      <div class="project-card group rounded-3xl bg-white/5 border border-white/10 overflow-hidden hover:border-purple-500/40 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-500 flex flex-col justify-between">
+        <!-- Thumbnail (16:9) -->
+        <a href="${project.url}" target="_blank" rel="noopener noreferrer" class="block aspect-[16/9] overflow-hidden relative bg-gray-900 border-b border-white/10 cursor-pointer" title="${project.title}">
+          <img src="${project.img}" alt="${project.alt}" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
+          <span class="absolute top-3.5 right-3.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-gray-950/85 backdrop-blur-md border border-white/15 text-emerald-400 flex items-center gap-1.5 shadow-lg">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>Live Demo
+          </span>
+        </a>
 
-        <!-- Floating Tooltip -->
-        <div class="skill-tooltip pointer-events-none rounded-2xl absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 scale-90 group-hover/skill:opacity-100 group-hover/skill:scale-100 group-hover/skill:-top-11 transition-all duration-150 ease-out z-30">
-          <div class="px-2.5 py-1 text-xs rounded-2xl font-medium text-white bg-gray-900/95 border border-white/15 rounded-md shadow-xl backdrop-blur-md whitespace-nowrap">
-            ${skill.name}
+        <!-- Content -->
+        <div class="p-6 md:p-7 flex flex-col flex-grow justify-between gap-5">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <h3 class="text-xl md:text-2xl font-bold text-white group-hover:text-purple-300 transition-colors tracking-tight">
+                ${project.title}
+              </h3>
+            </div>
+            <p class="text-sm text-gray-300/80 leading-relaxed">
+              ${project.description}
+            </p>
+            
+            <!-- Tech Badges -->
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              ${project.skills.map((s) => `<span class="px-2.5 py-1 text-xs font-medium rounded-lg bg-purple-500/10 text-purple-300 border border-purple-500/20">${s}</span>`).join("")}
+            </div>
           </div>
-          <div class="w-0 h-0 mx-auto border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-4 border-t-gray-900/95"></div>
+
+          <!-- Action Button -->
+          <div class="pt-2">
+            <a href="${project.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-purple-600 border border-white/10 hover:border-purple-500 text-sm font-semibold text-white transition-all duration-300 group-hover:bg-purple-600 group-hover:border-purple-500 shadow-md">
+              <span>Visit Website</span>
+              <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     `,
       )
       .join("");
-
-    // Loop & Rendering data Project (Track Kedua)
-    // Otomatis melakukan duplikasi array [...projectsData, ...projectsData] untuk infinite loop carousel
-    const combinedProjects = [...projectsData, ...projectsData];
-    tracks[1].innerHTML = combinedProjects
-      .map(
-        (project) => `
-      <div class="item group/proj relative h-52 sm:h-64 md:h-72 w-[280px] sm:w-[380px] md:w-[460px] shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-gray-900 shadow-xl cursor-pointer" data-url="${project.url}">
-        <a href="${project.url}" target="_blank" rel="noopener noreferrer" class="project-card-link block w-full h-full relative" title="${project.title}">
-          <!-- Thumbnail Image -->
-          <img src="${project.img}" alt="${project.alt}" class="w-full h-full object-cover aspect-[16/9] transition-transform duration-500 ease-out group-hover/proj:scale-105" />
-
-          <!-- Sharp Solid Gradient Overlay (Tanpa backdrop-blur, Teks 100% Tajam) -->
-          <div class="project-overlay absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/90 to-transparent p-4 sm:p-5 flex flex-col justify-end opacity-0 group-hover/proj:opacity-100 transition-opacity duration-300">
-            <div class="antialiased">
-              <!-- Title & External Link Icon -->
-              <div class="flex items-center justify-between mb-1.5">
-                <h4 class="text-sm sm:text-base md:text-lg font-bold text-white tracking-wide truncate pr-2">${project.title}</h4>
-                <span class="p-1 sm:p-1.5 rounded-full bg-white/10 text-white/90 shrink-0 group-hover/proj:bg-purple-600 transition-colors duration-200">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                </span>
-              </div>
-
-              <!-- Description -->
-              <p class="text-[11px] sm:text-xs md:text-sm text-gray-200 line-clamp-2 mb-2 sm:mb-3 leading-relaxed">${project.description}</p>
-              
-              <!-- Skill Badges & Mobile Double-click Hint -->
-              <div class="flex items-center justify-between gap-2 flex-wrap">
-                <div class="flex flex-wrap gap-1 sm:gap-1.5">
-                  ${project.skills.map((s) => `<span class="px-2 py-0.5 text-[9px] sm:text-[11px] font-medium rounded-md bg-purple-500/25 text-purple-200 border border-purple-500/40 whitespace-nowrap">${s}</span>`).join("")}
-                </div>
-                <span class="inline-flex items-center gap-1 text-[10px] text-purple-300/90 bg-purple-500/20 px-2 py-0.5 rounded-full border border-purple-500/30 lg:hidden">
-                  Double click to visit ↗
-                </span>
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-    `,
-      )
-      .join("");
   }
 
-  // Event listener untuk menghentikan animasi track secara independen saat di-hover
-  function initCarouselHoverPause() {
-    const carousels = document.querySelectorAll("#skill-project .carousel");
-    carousels.forEach((carousel) => {
-      const track = carousel.querySelector(".track");
-      if (!track) return;
-
-      carousel.addEventListener("mouseenter", () => {
-        track.style.animationPlayState = "paused";
+  // Filter click events
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const filter = btn.getAttribute("data-filter");
+      filterBtns.forEach((b) => {
+        b.classList.remove("bg-purple-600", "text-white", "border-purple-500", "shadow-lg", "shadow-purple-500/20", "font-semibold");
+        b.classList.add("bg-white/5", "text-gray-300", "border-white/10", "font-medium");
       });
+      btn.classList.remove("bg-white/5", "text-gray-300", "border-white/10", "font-medium");
+      btn.classList.add("bg-purple-600", "text-white", "border-purple-500", "shadow-lg", "shadow-purple-500/20", "font-semibold");
 
-      carousel.addEventListener("mouseleave", () => {
-        // Jangan restart jika sedang ada item yang aktif
-        if (!track.classList.contains("is-paused")) {
-          track.style.animationPlayState = "running";
-        }
-      });
+      renderProjects(filter);
     });
-  }
+  });
 
-  // Interaksi Click di Mobile:
-  // - Klik pada skill logo: menampilkan tooltip teks nama skill.
-  // - Klik sekali pada project: menampilkan overlay detail teks project (title, desc, skills).
-  // - Klik dua kali (double click / double tap) pada project: membuka website project.
-  function initCardInteractions() {
-    const tracks = document.querySelectorAll("#skill-project .carousel .track");
-    const skillTrack = tracks[0];
-    const projectTrack = tracks[1];
-    const skillItems = document.querySelectorAll("#skill-project .item-logo");
-    const projectItems = document.querySelectorAll("#skill-project .item");
-
-    function updateTrackPauseState() {
-      const anySkillActive = document.querySelector("#skill-project .item-logo.is-active");
-      const anyProjectActive = document.querySelector("#skill-project .item.is-active");
-
-      if (skillTrack) {
-        if (anySkillActive) {
-          skillTrack.classList.add("is-paused");
-        } else {
-          skillTrack.classList.remove("is-paused");
-        }
-      }
-      if (projectTrack) {
-        if (anyProjectActive) {
-          projectTrack.classList.add("is-paused");
-        } else {
-          projectTrack.classList.remove("is-paused");
-        }
-      }
-    }
-
-    // 1. Skill items: click/tap toggle tooltip
-    skillItems.forEach((item) => {
-      item.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const wasActive = item.classList.contains("is-active");
-        skillItems.forEach((si) => si.classList.remove("is-active"));
-
-        if (!wasActive) {
-          item.classList.add("is-active");
-        }
-        updateTrackPauseState();
-      });
-    });
-
-    // 2. Project items: single click shows text, double click opens site
-    let lastTapTime = 0;
-    let lastTappedItem = null;
-
-    projectItems.forEach((item) => {
-      const url = item.getAttribute("data-url");
-
-      // Handler double click native (desktop & browser support)
-      item.addEventListener("dblclick", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (url) {
-          window.open(url, "_blank", "noopener,noreferrer");
-        }
-      });
-
-      // Handler click & double-tap mobile
-      item.addEventListener("click", (e) => {
-        const isMobileScreen =
-          window.innerWidth < 1024 ||
-          window.matchMedia("(hover: none)").matches ||
-          "ontouchstart" in window;
-
-        if (isMobileScreen) {
-          e.preventDefault();
-          e.stopPropagation();
-
-          const currentTime = Date.now();
-          const tapDelay = currentTime - lastTapTime;
-          const isSameItem = lastTappedItem === item;
-          const isAlreadyActive = item.classList.contains("is-active");
-
-          // Double tap terdeteksi jika tap kedua berturut-turut pada item yang sama (<500ms) ATAU card sudah aktif dan di-tap lagi
-          if ((isSameItem && tapDelay < 500 && tapDelay > 0) || isAlreadyActive) {
-            if (url) {
-              window.open(url, "_blank", "noopener,noreferrer");
-            }
-            lastTapTime = 0;
-            lastTappedItem = null;
-            item.classList.remove("is-active");
-          } else {
-            // Single click/tap: tampilkan overlay teks
-            projectItems.forEach((pi) => pi.classList.remove("is-active"));
-            item.classList.add("is-active");
-            lastTapTime = currentTime;
-            lastTappedItem = item;
-          }
-
-          updateTrackPauseState();
-        }
-      });
-    });
-
-    // Klik di luar area menutup card/tooltip aktif dan melanjutkan scroll carousel
-    document.addEventListener("click", () => {
-      let changed = false;
-      skillItems.forEach((si) => {
-        if (si.classList.contains("is-active")) {
-          si.classList.remove("is-active");
-          changed = true;
-        }
-      });
-      projectItems.forEach((pi) => {
-        if (pi.classList.contains("is-active")) {
-          pi.classList.remove("is-active");
-          changed = true;
-        }
-      });
-
-      if (changed) {
-        lastTapTime = 0;
-        lastTappedItem = null;
-        updateTrackPauseState();
-      }
-    });
-  }
-
-  renderCarouselTracks();
-  initCarouselHoverPause();
-  initCardInteractions();
+  renderProjects("all");
 };
 
 const contactSection = () => {
@@ -834,7 +771,8 @@ document.addEventListener("DOMContentLoaded", () => {
   homeSection();
   aboutSection();
   journeySection();
-  skillProjectSection();
+  skillsSection();
+  projectsSection();
   contactSection();
   footerModule();
 });
