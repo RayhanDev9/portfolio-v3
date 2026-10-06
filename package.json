@@ -1,7 +1,14 @@
 {
+  "type": "module",
+  "scripts": {
+    "convert:avif": "node convert-to-avif.js",
+    "convert:avif:clean": "node convert-to-avif.js --delete-source"
+  },
   "dependencies": {
     "@tailwindcss/cli": "^4.3.1",
     "tailwindcss": "^4.3.1"
-
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5"
   }
 }
