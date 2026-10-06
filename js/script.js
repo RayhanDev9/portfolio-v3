@@ -151,17 +151,146 @@ function initBackgroundRainEffect() {
 
 const navigationModule = () => {
   const openMenu = document.querySelector(".open-menu");
-  const closeMenu = document.querySelector(".close-menu");
   const navMobile = document.querySelector(".nav-mobile");
+  const navMobileContent = document.querySelector(".nav-mobile-content");
   const topBarMobileEl = document.querySelector(".top-bar-mobile");
   const topBarDekstopEl = document.querySelector(".top-bar-dekstop");
-  const glitchWords = [
-    "x7z_k0d3_9q",
-    "c0d3_fl0w_99",
-    "d3v_m0d3_xx",
-    "n3t_runn3r_z",
-  ];
+  let isMenuOpen = false;
 
+  const glitchWords = ["x7z_9q", "c0d3_99", "d3v_xx"];
+
+  // Efek teks glitch cepat & responsif untuk tombol menu
+  async function triggerButtonGlitch(finalText, buttonElement) {
+    if (!buttonElement) return;
+    for (let i = 0; i < glitchWords.length; i++) {
+      buttonElement.textContent = glitchWords[i];
+      await delay(30);
+    }
+    buttonElement.textContent = finalText;
+  }
+
+  // Buka Mobile Menu Drawer
+  function openMobileMenu() {
+    if (!navMobile) return;
+    isMenuOpen = true;
+    navMobile.classList.remove("opacity-0", "pointer-events-none");
+    navMobile.classList.add("opacity-100", "pointer-events-auto");
+    if (navMobileContent) {
+      navMobileContent.classList.remove("scale-95");
+      navMobileContent.classList.add("scale-100");
+    }
+    document.body.style.overflow = "hidden";
+    triggerButtonGlitch("Close", openMenu);
+  }
+
+  // Tutup Mobile Menu Drawer
+  function closeMobileMenu() {
+    if (!navMobile) return;
+    isMenuOpen = false;
+    navMobile.classList.remove("opacity-100", "pointer-events-auto");
+    navMobile.classList.add("opacity-0", "pointer-events-none");
+    if (navMobileContent) {
+      navMobileContent.classList.remove("scale-100");
+      navMobileContent.classList.add("scale-95");
+    }
+    document.body.style.overflow = "";
+    triggerButtonGlitch("Menu", openMenu);
+  }
+
+  // Toggle buka/tutup mobile menu
+  function toggleMobileMenu() {
+    if (isMenuOpen) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  }
+
+  if (openMenu) {
+    openMenu.addEventListener("click", toggleMobileMenu);
+  }
+
+  // Tutup jika klik area luar kartu menu (backdrop)
+  if (navMobile) {
+    navMobile.addEventListener("click", (e) => {
+      if (e.target === navMobile) {
+        closeMobileMenu();
+      }
+    });
+  }
+
+  // Tutup menu otomatis jika salah satu link navigasi mobile diklik
+  if (navMobile) {
+    const mobileLinks = navMobile.querySelectorAll("a");
+    mobileLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        closeMobileMenu();
+      });
+    });
+  }
+
+  // Auto-hide Top Bar Mobile saat scroll ke bawah & muncul kembali saat scroll ke atas (Mobile Only)
+  let lastScrollY = window.pageYOffset || document.documentElement.scrollTop;
+
+  function handleMobileScrollNavbar() {
+    // Hanya berlaku pada layar mobile (< 1024px)
+    if (window.innerWidth >= 1024) {
+      if (topBarMobileEl) {
+        topBarMobileEl.classList.remove("-translate-y-full");
+      }
+      return;
+    }
+
+    // Jangan sembunyikan top bar jika menu drawer sedang terbuka
+    if (isMenuOpen) return;
+
+    const currentScrollY =
+      window.pageYOffset || document.documentElement.scrollTop;
+    const scrollDelta = currentScrollY - lastScrollY;
+
+    if (!topBarMobileEl) return;
+
+    if (currentScrollY <= 20) {
+      // Dekat puncak halaman: selalu tampil & transparan
+      topBarMobileEl.classList.remove("-translate-y-full");
+      topBarMobileEl.classList.remove(
+        "bg-gray-950/80",
+        "backdrop-blur-md",
+        "border-b",
+        "border-white/5",
+        "shadow-lg",
+      );
+    } else {
+      // Saat digulir: beri background frosted glass halus
+      topBarMobileEl.classList.add(
+        "bg-gray-950/80",
+        "backdrop-blur-md",
+        "border-b",
+        "border-white/5",
+        "shadow-lg",
+      );
+
+      // Scroll ke bawah: sembunyikan navbar
+      if (scrollDelta > 8 && currentScrollY > 80) {
+        topBarMobileEl.classList.add("-translate-y-full");
+      }
+      // Scroll ke atas: munculkan navbar kembali
+      else if (scrollDelta < -8) {
+        topBarMobileEl.classList.remove("-translate-y-full");
+      }
+    }
+
+    lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
+  }
+
+  window.addEventListener("scroll", handleMobileScrollNavbar, {
+    passive: true,
+  });
+  window.addEventListener("resize", handleMobileScrollNavbar, {
+    passive: true,
+  });
+
+  // Desktop Navbar Sticky Handling
   function handleStickyNavbar(element) {
     if (!element) return;
     document.addEventListener("scroll", () => {
@@ -180,38 +309,6 @@ const navigationModule = () => {
         element.classList.remove("fixed", "bg-gray-950/40", "backdrop-blur-md");
       }
     });
-  }
-
-  async function executeMenuTransition(menuStateText) {
-    if (menuStateText === "Menu") {
-      navMobile.classList.remove("hidden");
-      openMenu.textContent = "";
-      closeMenu.textContent = "Close";
-      topBarMobileEl.classList.add("hidden", "opacity-0");
-      await delay(100);
-      requestAnimationFrame(() => {
-        navMobile.classList.remove("scale-y-0", "opacity-0");
-        navMobile.classList.add("scale-y-100", "opacity-100");
-      });
-    } else {
-      navMobile.classList.remove("scale-y-100", "opacity-100");
-      navMobile.classList.add("scale-y-0", "opacity-0");
-      await delay(100);
-      closeMenu.textContent = "";
-      openMenu.textContent = "Menu";
-      topBarMobileEl.classList.remove("hidden", "opacity-0");
-      requestAnimationFrame(() => navMobile.classList.add("hidden"));
-    }
-  }
-
-  async function triggerMenuGlitchEffect(finalText, buttonElement) {
-    for (let i = 0; i < glitchWords.length; i++) {
-      buttonElement.textContent =
-        i !== glitchWords.length - 1 ? glitchWords[i] : finalText;
-      await delay(50);
-    }
-    await delay(80);
-    executeMenuTransition(finalText);
   }
 
   function initNavigationActiveStateEventClick() {
@@ -257,18 +354,7 @@ const navigationModule = () => {
     sections.forEach((section) => observer.observe(section));
   }
 
-  // Event Listeners Mobile Toggle Menu
-  if (openMenu && closeMenu) {
-    openMenu.addEventListener("click", () =>
-      triggerMenuGlitchEffect("Menu", openMenu),
-    );
-    closeMenu.addEventListener("click", () =>
-      triggerMenuGlitchEffect("Close", closeMenu),
-    );
-  }
-
   // Execution Modul
-  handleStickyNavbar(topBarMobileEl);
   handleStickyNavbar(topBarDekstopEl);
   initNavigationActiveStateEventClick();
   initNavigationScrollSpy();
@@ -377,7 +463,7 @@ const skillProjectSection = () => {
       title: "Fast React Pizza",
       description: "Interactive pizza ordering application featuring live cart management and SPA client-side routing.",
       skills: ["React 18", "Redux Toolkit", "React Router", "Tailwind CSS", "Vite"],
-      url: "https://rayhandev9.github.io/fast-pizza/menu",
+      url: "https://rayhandev9.github.io/fast-pizza",
       img: "asset/img/project/fast-pizza.avif",
       alt: "Fast React Pizza",
     },
@@ -583,6 +669,24 @@ const contactSection = () => {
 };
 
 /**
+ * -----------------------------------------------------------------------------
+ * 7. FOOTER MODULE
+ * Mengelola fitur interaktif pada footer (Back to Top smooth scroll).
+ * -----------------------------------------------------------------------------
+ */
+const footerModule = () => {
+  const backToTopBtn = document.getElementById("backToTopBtn");
+  if (!backToTopBtn) return;
+
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+};
+
+/**
  * =========================================================================
  * APPLICATION KICKSTARTER
  * Menjalankan seluruh sistem script setelah DOMContentLoaded sepenuhnya siap.
@@ -601,4 +705,5 @@ document.addEventListener("DOMContentLoaded", () => {
   journeySection();
   skillProjectSection();
   contactSection();
+  footerModule();
 });
