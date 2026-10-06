@@ -1,124 +1,147 @@
-# Rencana Perbaikan: Teks Project Tajam & Pemisahan Hover Pause Carousel (Portfolio-v3)
+# Rencana Perbaikan: Konsistensi Background & Single-Trigger Reveal Section Contact (Portfolio-v3)
 
-Dokumen ini berisi analisis akar masalah dan rencana perbaikan terperinci untuk 2 kendala yang ditemukan pada portofolio.
+Dokumen ini berisi analisis detail dan rencana teknis untuk mengimplementasikan 2 kebutuhan perbaikan pada **Section Contact**:
+1. Menyelaraskan latar belakang (*background*) Section Contact agar konsisten dengan section lainnya.
+2. Mengubah animasi reveal Section Contact agar hanya muncul **sekali saja** (*trigger once*) saat pengguna pertama kali menggulir (*scroll*) ke section tersebut.
 
 ---
 
 ## 1. Analisis & Akar Masalah
 
-### Kendala 1: Teks Project Ikut Buram Saat Hover
-- **Gejala:** Saat kartu project di-hover, teks judul, deskripsi, dan badge skill terlihat kabur (*fuzzy/blurry*) dan tidak tajam.
-- **Akar Masalah Teknis:**
-  1. **`backdrop-blur-[2px]` pada container teks:** Filter `backdrop-filter: blur(...)` pada Chromium/browser memaksa seluruh elemen anak (termasuk teks) masuk ke layer rasterisasi komposit GPU, yang sering merusak *subpixel font rendering*.
-  2. **Subpixel Transform (`translate-y-3` ke `translate-y-0`):** Transformasi vertikal pada teks ukuran kecil (`text-[11px]`, `text-xs`) menyebabkan teks berhenti di koordinat piksel pecahan (*fractional pixel*), sehingga huruf tampak buram.
-  3. **Gradien kurang kontras:** Gradien sebelumnya (`to-transparent/20`) membiarkan detail gambar di belakang teks tetap tembus, mengurangi ketajaman kontras tulisan.
-
-- **Solusi Perbaikan:**
-  1. Hapus `backdrop-blur-[2px]` dari container teks.
-  2. Gunakan gradien gelap solid beresolusi tinggi: `bg-gradient-to-t from-gray-950 via-gray-950/95 to-transparent` agar latar belakang teks gelap pekat dan kontras 100% tanpa efek blur GPU.
-  3. Hindari *fractional transform* pada teks, gunakan transisi opasitas murni (`transition-opacity duration-300`) atau `transform-none` dengan `-webkit-font-smoothing: antialiased`.
-  4. Tingkatkan warna teks deskripsi dari `text-gray-300` menjadi `text-gray-200` atau `text-white/90` agar sangat tajam dan mudah dibaca.
+### Kebutuhan 1: Konsistensi Background Section Contact
+- **Kondisi Saat Ini:**
+  - Section lain (`#home`, `#about`, `#journey`, dan `#skill-project`) tidak menetapkan kelas warna latar belakang tersendiri (bersifat transparan). Semuanya mewarisi warna latar global dari `<body>` (`bg-gray-950`), sehingga efek hujan latar belakang (`.container-rain` dengan `-z-50`) dan efek *grid cursor* interaktif (`#gridCursor`) dapat terlihat mengalir mulus tanpa terputus.
+  - Section `#contact` saat ini didefinisikan dengan:
+    ```html
+    <section id="contact" class="py-24 bg-gray-950 text-white relative overflow-hidden z-20">
+    ```
+  - Deklarasi kelas `bg-gray-950` dan `z-20` pada `#contact` menciptakan lapisan latar belakang opak/padat yang **menutupi dan memutus efek hujan partikel**, sehingga saat pengguna mencapai area contact, transisi latar belakang tampak terpotong secara visual (*hard cut*).
+- **Solusi Teknis:**
+  - Hapus kelas `bg-gray-950` dari elemen `<section id="contact">`.
+  - Jadikan Section Contact transparan konsisten dengan section lainnya (`py-24 relative overflow-hidden`), sehingga mewarisi latar belakang global secara alami.
+  - Pertahankan elemen aksen pencahayaan lembut (*ambient glow*) di dalamnya (`bg-purple-600/10` dan `bg-blue-600/10` dengan `blur-3xl pointer-events-none`) agar tetap memiliki estetika visual premium yang menyatu indah dengan efek hujan dan kursor.
 
 ---
 
-### Kendala 2: Carousel Skill & Project Berhenti Bersamaan Saat Di-Hover
-- **Gejala:** Ketika kursor diarahkan ke icon skill, track project di bawahnya ikut berhenti. Sebaliknya, saat project di-hover, track skill di atasnya ikut berhenti.
-- **Akar Masalah Teknis:**
-  Di [index.html](index.html#L434), kelas `group` diletakkan di elemen induk section:
-  ```html
-  <section id="skill-project" class="py-24 overflow-hidden group">
-    <!-- Track 1 Skill -->
-    <div class="track ... group-hover:[animation-play-state:paused]"></div>
-    
-    <!-- Track 2 Project -->
-    <div class="track ... group-hover:[animation-play-state:paused]"></div>
-  </section>
-  ```
-  Karena kedua track mendengarkan `group-hover` dari section yang sama, maka hover di area mana pun di section tersebut akan menghentikan **kedua track secara bersamaan**.
-
-- **Solusi Perbaikan:**
-  Pisahkan kontrol hover dengan **Named Groups** Tailwind CSS (`group/skills` dan `group/projects`) di masing-masing kontainer carousel:
-  1. Hapus `group` dari `<section id="skill-project">`.
-  2. Berikan `group/skills` pada carousel skill, dan pasang `group-hover/skills:[animation-play-state:paused]` pada track skill.
-  3. Berikan `group/projects` pada carousel project, dan pasang `group-hover/projects:[animation-play-state:paused]` pada track project.
-  4. **Hasilnya:** Hover pada skill hanya menghentikan carousel skill (project tetap jalan). Hover pada project hanya menghentikan carousel project (skill tetap jalan).
+### Kebutuhan 2: Animasi Reveal Section Contact Hanya Muncul Sekali (Once)
+- **Kondisi Saat Ini:**
+  - Pada berkas `js/script.js` di dalam fungsi `contactSection()` -> `initContactReveal()`, terdapat logika pengamat persimpangan viewport (*IntersectionObserver*) berikut:
+    ```javascript
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove("opacity-0", "-translate-y-10");
+            entry.target.classList.add("opacity-100", "translate-y-0");
+          } else {
+            entry.target.classList.remove("opacity-100", "translate-y-0");
+            entry.target.classList.add("opacity-0", "-translate-y-10");
+          }
+        });
+      },
+      { rootMargin: "0px 0px -50px 0px", threshold: 0.15 },
+    );
+    ```
+  - **Kelemahan Logika:**
+    1. **Adanya blok `else`:** Setiap kali pengguna menggulir menjauhi section contact (ke atas atau ke bawah), elemen-elemen contact dipaksa kembali menjadi transparan (`opacity-0`) dan bergeser (`-translate-y-10`). Ketika pengguna kembali lagi, animasi berulang kembali secara berulang-ulang (*repetitive re-animation*).
+    2. **Tidak ada `observer.unobserve(entry.target)`:** Elemen terus diamati tanpa henti, bukannya dilepas setelah animasi pertama kali selesai.
+    3. **Ketidaksinkronan kelas inisial:** Di HTML, judul menggunakan `translate-y-10`, sedangkan kolom detail kontak dan kartu formulir menggunakan `translate-y-8`. Logika sebelumnya hanya menghapus `-translate-y-10`, bukan kelas aslinya.
+- **Solusi Teknis:**
+  - Hapus seluruh blok `else` pada observer.
+  - Hapus kelas inisial secara menyeluruh: `opacity-0`, `translate-y-10`, `translate-y-8`, dan `-translate-y-10`.
+  - Tambahkan kelas aktif: `opacity-100` dan `translate-y-0`.
+  - Panggil `observer.unobserve(entry.target)` segera setelah elemen mulai masuk ke viewport (`entry.isIntersecting`).
+  - Pola ini sejalan dan konsisten dengan implementasi `homeSection` dan `aboutSection` yang sudah berjalan dengan stabil.
 
 ---
 
 ## 2. Rencana Perubahan Kode
 
 ### A. Berkas `index.html`
-Perbarui markup bagian `#skill-project`:
+Ubah tag pembuka `<section id="contact">` pada baris ~460:
+
 ```html
 <!-- SEBELUM: -->
-<section id="skill-project" class="py-24 overflow-hidden group">
-  ...
-  <div class="carousel w-full overflow-hidden py-6 -my-2">
-    <div class="track ... group-hover:[animation-play-state:paused]"></div>
-  </div>
-  <div class="carousel w-full overflow-hidden">
-    <div class="track ... group-hover:[animation-play-state:paused]"></div>
-  </div>
-</section>
+<section
+  id="contact"
+  class="py-24 bg-gray-950 text-white relative overflow-hidden z-20"
+>
 
 <!-- SESUDAH: -->
-<section id="skill-project" class="py-24 overflow-hidden">
-  ...
-  <!-- Track 1: Skill Carousel (Hanya berhenti jika skill di-hover) -->
-  <div class="carousel group/skills w-full overflow-hidden py-6 -my-2">
-    <div class="track flex gap-6 w-max px-4 animate-marquee-reverse group-hover/skills:[animation-play-state:paused]"></div>
-  </div>
-
-  <!-- Track 2: Project Carousel (Hanya berhenti jika project di-hover) -->
-  <div class="carousel group/projects w-full overflow-hidden">
-    <div class="track flex gap-4 w-max px-4 animate-marquee group-hover/projects:[animation-play-state:paused]"></div>
-  </div>
-</section>
+<section
+  id="contact"
+  class="py-24 text-white relative overflow-hidden"
+>
 ```
+
+> **Catatan:** Menghapus `bg-gray-950` dan `z-20` agar partikel hujan latar belakang (`-z-50`) serta efek interaktif kursor tetap mengalir tembus secara konsisten seperti pada section-section sebelumnya.
 
 ---
 
 ### B. Berkas `js/script.js`
-Perbarui template markup rendering `tracks[1]` (Track Project):
-```html
-<div class="item group/proj relative h-52 sm:h-64 md:h-72 w-[280px] sm:w-[380px] md:w-[460px] shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-gray-900 shadow-xl">
-  <a href="${project.url}" target="_blank" class="block w-full h-full relative" title="${project.title}">
-    <!-- Thumbnail Image -->
-    <img src="${project.img}" alt="${project.alt}" class="w-full h-full object-cover aspect-[16/9] transition-transform duration-500 ease-out group-hover/proj:scale-105" />
+Perbarui fungsi `initContactReveal` di dalam modul `contactSection`:
 
-    <!-- Sharp Solid Gradient Overlay (Tanpa backdrop-blur, Teks 100% Tajam) -->
-    <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/90 to-transparent p-4 sm:p-5 flex flex-col justify-end opacity-0 group-hover/proj:opacity-100 transition-opacity duration-300">
-      <div class="antialiased">
-        <!-- Title & Icon -->
-        <div class="flex items-center justify-between mb-1.5">
-          <h4 class="text-sm sm:text-base md:text-lg font-bold text-white tracking-wide truncate pr-2">${project.title}</h4>
-          <span class="p-1 sm:p-1.5 rounded-full bg-white/10 text-white/90 shrink-0 group-hover/proj:bg-purple-600 transition-colors duration-200">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          </span>
-        </div>
+```javascript
+// SEBELUM:
+function initContactReveal() {
+  const revealElements = document.querySelectorAll(".contact-animasi");
+  if (revealElements.length === 0) return;
 
-        <!-- Description (Teks Kontras Tinggi & Bersih) -->
-        <p class="text-[11px] sm:text-xs md:text-sm text-gray-200 line-clamp-2 mb-2 sm:mb-3 leading-relaxed">${project.description}</p>
-        
-        <!-- Skill Badges -->
-        <div class="flex flex-wrap gap-1 sm:gap-1.5">
-          ${project.skills.map((s) => `<span class="px-2 py-0.5 text-[9px] sm:text-[11px] font-medium rounded-md bg-purple-500/25 text-purple-200 border border-purple-500/40 whitespace-nowrap">${s}</span>`).join("")}
-        </div>
-      </div>
-    </div>
-  </a>
-</div>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove("opacity-0", "-translate-y-10");
+          entry.target.classList.add("opacity-100", "translate-y-0");
+        } else {
+          entry.target.classList.remove("opacity-100", "translate-y-0");
+          entry.target.classList.add("opacity-0", "-translate-y-10");
+        }
+      });
+    },
+    { rootMargin: "0px 0px -50px 0px", threshold: 0.15 },
+  );
+
+  revealElements.forEach((el) => observer.observe(el));
+}
+
+// SESUDAH:
+function initContactReveal() {
+  const revealElements = document.querySelectorAll(".contact-animasi");
+  if (revealElements.length === 0) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove(
+            "opacity-0",
+            "translate-y-10",
+            "translate-y-8",
+            "-translate-y-10",
+          );
+          entry.target.classList.add("opacity-100", "translate-y-0");
+          // Menghentikan pengamatan agar animasi hanya terpicu SEKALI saja
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: "0px 0px -50px 0px", threshold: 0.15 },
+  );
+
+  revealElements.forEach((el) => observer.observe(el));
+}
 ```
 
 ---
 
 ## 3. Tahapan Eksekusi (Action Checklist)
 
-- [x] **Langkah 1**: Perbarui `index.html` untuk memisahkan hover pause antara carousel skill (`group/skills`) dan project (`group/projects`).
-- [x] **Langkah 2**: Perbarui `js/script.js` untuk menghilangkan `backdrop-blur` dan subpixel transform pada overlay project, menggantinya dengan gradien pekat kontras tinggi dan rendering antialiased yang tajam.
-- [x] **Langkah 3**: Jalankan `npm run build` untuk mengompilasi utility Tailwind CSS.
+- [x] **Langkah 1**: Perbarui elemen `<section id="contact">` di [index.html](index.html) dengan menghapus kelas `bg-gray-950` dan `z-20`.
+- [x] **Langkah 2**: Perbarui logika `initContactReveal` di [js/script.js](js/script.js) untuk menambahkan `observer.unobserve(entry.target)` dan menghapus blok reset `else`.
+- [x] **Langkah 3**: Jalankan `npm run build` untuk memastikan file stylesheet Tailwind tetap terkompilasi rapi.
 - [x] **Langkah 4**: Uji coba visual di browser untuk memastikan:
-  - Teks project terlihat sangat tajam tanpa ada efek buram.
-  - Hover pada skill hanya menghentikan skill (project tetap jalan).
-  - Hover pada project hanya menghentikan project (skill tetap jalan).
-- [x] **Langkah 5**: Lakukan git commit dan push ke GitHub.
+  - Efek hujan dan estetika latar belakang menyatu mulus tanpa batas patah (*seamless*) saat berpindah dari section Work/Project ke Contact.
+  - Elemen Section Contact (judul, deskripsi, info kontak, form) muncul dengan transisi halus saat pertama kali masuk ke layar.
+  - Saat pengguna scroll ke atas dan kembali ke Contact, elemen tetap terlihat dan tidak melakukan animasi ulang (*single trigger*).
+- [x] **Langkah 5**: Lakukan git commit dan push ke remote repository GitHub.

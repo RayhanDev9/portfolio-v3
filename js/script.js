@@ -468,7 +468,7 @@ const skillProjectSection = () => {
         <img src="${skill.src}" alt="${skill.name}" class="h-full object-contain max-w-full transition-transform duration-300 group-hover/skill:scale-110" />
 
         <!-- Floating Tooltip -->
-        <div class="pointer-events-none rounded-2xl absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 scale-90 group-hover/skill:opacity-100 group-hover/skill:scale-100 group-hover/skill:-top-11 transition-all duration-200 ease-out z-30">
+        <div class="pointer-events-none rounded-2xl absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 scale-90 group-hover/skill:opacity-100 group-hover/skill:scale-100 group-hover/skill:-top-11 transition-all duration-75 ease-out z-30">
           <div class="px-2.5 py-1 text-xs rounded-2xl font-medium text-white bg-gray-900/95 border border-white/15 rounded-md shadow-xl backdrop-blur-md whitespace-nowrap">
             ${skill.name}
           </div>
@@ -547,11 +547,14 @@ const contactSection = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.remove("opacity-0", "-translate-y-10");
+            entry.target.classList.remove(
+              "opacity-0",
+              "translate-y-10",
+              "translate-y-8",
+              "-translate-y-10",
+            );
             entry.target.classList.add("opacity-100", "translate-y-0");
-          } else {
-            entry.target.classList.remove("opacity-100", "translate-y-0");
-            entry.target.classList.add("opacity-0", "-translate-y-10");
+            observer.unobserve(entry.target);
           }
         });
       },
