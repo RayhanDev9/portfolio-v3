@@ -6,7 +6,7 @@
   <style>
     @page {
       size: A4 portrait;
-      margin: 8mm 12mm 8mm 12mm;
+      margin: 4mm 9mm 4mm 9mm;
     }
     * {
       box-sizing: border-box;
@@ -17,8 +17,8 @@
       font-family: "Times New Roman", Times, "Cambria", Georgia, serif;
       color: #111827;
       background: #ffffff;
-      font-size: 10pt;
-      line-height: 1.35;
+      font-size: 12pt;
+      line-height: 1.22;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
@@ -29,51 +29,51 @@
     }
     .header {
       text-align: center;
-      margin-bottom: 7px;
+      margin-bottom: 4px;
     }
     .header h1 {
-      font-size: 21pt;
+      font-size: 22.5pt;
       font-weight: bold;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      margin-bottom: 2px;
+      margin-bottom: 1px;
       color: #0f172a;
     }
     .header .subtitle {
-      font-size: 12.5pt;
+      font-size: 13pt;
       font-weight: bold;
       color: #1e293b;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
     .header .contact-info {
-      font-size: 9.6pt;
+      font-size: 11pt;
       color: #334155;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 3px 6px;
+      gap: 2px 6px;
     }
     .contact-sep {
       color: #64748b;
       margin: 0 1px;
     }
     .section {
-      margin-bottom: 7px;
+      margin-bottom: 3.5px;
     }
     .section-title {
-      font-size: 11pt;
+      font-size: 12.5pt;
       font-weight: bold;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      border-bottom: 1.2px solid #0f172a;
-      padding-bottom: 1px;
-      margin-bottom: 4px;
+      border-bottom: 1.5px solid #0f172a;
+      padding-bottom: 0.5px;
+      margin-bottom: 2.5px;
       color: #0f172a;
     }
     .summary-text {
       text-align: justify;
-      font-size: 9.8pt;
-      line-height: 1.36;
+      font-size: 12pt;
+      line-height: 1.22;
       color: #1f2937;
     }
     .item-header {
@@ -83,17 +83,17 @@
       margin-bottom: 1px;
     }
     .item-title {
-      font-size: 10.2pt;
+      font-size: 12.5pt;
       font-weight: bold;
       color: #0f172a;
     }
     .item-subtitle {
-      font-size: 9.8pt;
+      font-size: 11.5pt;
       font-style: italic;
       color: #334155;
     }
     .item-date, .item-location {
-      font-size: 9.5pt;
+      font-size: 11pt;
       font-style: italic;
       color: #475569;
       white-space: nowrap;
@@ -102,22 +102,22 @@
       font-style: italic;
       font-weight: normal;
       color: #334155;
-      font-size: 9.4pt;
+      font-size: 11pt;
     }
     .project-links {
-      font-size: 9.2pt;
+      font-size: 10.8pt;
       margin-bottom: 1px;
       color: #475569;
     }
     ul.bullet-list {
       list-style-type: disc;
-      padding-left: 15px;
+      padding-left: 17px;
       margin-top: 1px;
-      margin-bottom: 3.5px;
+      margin-bottom: 2.5px;
     }
     ul.bullet-list li {
-      font-size: 9.7pt;
-      line-height: 1.33;
+      font-size: 12pt;
+      line-height: 1.28;
       margin-bottom: 1px;
       color: #1f2937;
       text-align: justify;
@@ -125,11 +125,11 @@
     .skills-grid {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 1.5px;
     }
     .skill-row {
-      font-size: 9.8pt;
-      line-height: 1.34;
+      font-size: 12pt;
+      line-height: 1.28;
     }
     .skill-label {
       font-weight: bold;
@@ -190,7 +190,7 @@
     <div class="section-title">Featured Projects</div>
 
     <!-- Project 1: Siap Kerja -->
-    <div style="margin-bottom: 4px;">
+    <div style="margin-bottom: 3.5px;">
       <div class="item-header">
         <div>
           <span class="item-title">Siap Kerja — AI-Powered Career Platform</span>
@@ -202,14 +202,13 @@
         </div>
       </div>
       <ul class="bullet-list">
-        <li>Collaborated within a cross-functional team (FE, BE, UI/UX) to architect and engineer an interactive career-readiness web platform.</li>
-        <li>Integrated Google Gemini AI API to provide personalized career path recommendations and automated skill assessment modules.</li>
-        <li>Architected centralized global state with Redux Toolkit and designed fluid micro-interactions with Framer Motion.</li>
+        <li>Collaborated in a cross-functional team (FE, BE, UI/UX) to engineer an interactive career-readiness platform with Redux Toolkit and fluid Framer Motion animations.</li>
+        <li>Integrated Google Gemini AI API to automate skill assessments and generate personalized career recommendations.</li>
       </ul>
     </div>
 
     <!-- Project 2: Danu Satya -->
-    <div style="margin-bottom: 4px;">
+    <div style="margin-bottom: 3.5px;">
       <div class="item-header">
         <div>
           <span class="item-title">Danu Satya — Production Portfolio Website</span>
@@ -220,14 +219,13 @@
         </div>
       </div>
       <ul class="bullet-list">
-        <li>Engineered and deployed an official production portfolio for a professional Graphic &amp; Motion Designer on a custom live domain.</li>
-        <li>Implemented type-safe component architecture using TypeScript and leveraged modern React 19 and Tailwind CSS v4 capabilities.</li>
-        <li>Optimized core web vitals and image delivery, achieving instant page transitions and seamless cross-device responsiveness.</li>
+        <li>Engineered and launched an official production portfolio for a Graphic &amp; Motion Designer on a custom live domain using React 19 and Tailwind CSS v4.</li>
+        <li>Implemented type-safe architecture with TypeScript and optimized core web vitals for sub-second loading speeds.</li>
       </ul>
     </div>
 
     <!-- Project 3: Fast React Pizza -->
-    <div style="margin-bottom: 4px;">
+    <div style="margin-bottom: 3.5px;">
       <div class="item-header">
         <div>
           <span class="item-title">Fast React Pizza — E-Commerce Ordering App</span>
@@ -239,14 +237,13 @@
         </div>
       </div>
       <ul class="bullet-list">
-        <li>Engineered an interactive food ordering SPA with dynamic cart management, real-time pricing calculations, and order priority logic.</li>
-        <li>Implemented global cart state management with Redux Toolkit and multi-step client-side routing via React Router.</li>
-        <li>Integrated real-time order tracking with dynamic delivery estimation to enhance end-to-end user checkout experience.</li>
+        <li>Built an interactive food ordering SPA featuring real-time cart state synchronization with Redux Toolkit and multi-step React Router flows.</li>
+        <li>Implemented dynamic priority calculations and real-time order tracking with live delivery estimation.</li>
       </ul>
     </div>
 
     <!-- Project 4: Mading Kampus -->
-    <div style="margin-bottom: 4px;">
+    <div style="margin-bottom: 2px;">
       <div class="item-header">
         <div>
           <span class="item-title">Mading Kampus — Digital Campus Magazine Portal</span>
@@ -258,25 +255,8 @@
         </div>
       </div>
       <ul class="bullet-list">
-        <li>Partnered with an academic team to transform campus bulletin boards into a modern digital magazine and announcement portal.</li>
-        <li>Built an accessible article reader interface, dynamic category filters, and intuitive publication submission workflows.</li>
-      </ul>
-    </div>
-
-    <!-- Project 5: TK PAUD Permata -->
-    <div style="margin-bottom: 2px;">
-      <div class="item-header">
-        <div>
-          <span class="item-title">TK PAUD Permata — Educational Profile Website</span>
-          <span class="tech-stack">| HTML5, CSS3, JavaScript, Responsive UI, On-Page SEO</span>
-        </div>
-        <div class="project-links">
-          <a href="https://permatabelajar.my.id/" target="_blank">permatabelajar.my.id</a>
-        </div>
-      </div>
-      <ul class="bullet-list">
-        <li>Designed and launched the official website for an early childhood education institution on a live custom domain.</li>
-        <li>Structured semantic HTML and on-page SEO metadata, driving local search visibility and generating 20+ admission inquiries monthly.</li>
+        <li>Transformed campus bulletin boards into a modern digital portal with dynamic article categories and intuitive publication flows.</li>
+        <li>Collaborated with academic peers using Git/GitHub version control, managing 100+ commits and responsive layouts.</li>
       </ul>
     </div>
   </section>
