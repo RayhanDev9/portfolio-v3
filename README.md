@@ -126,14 +126,14 @@ Seluruh sertifikat telah dikonversi ke format generasi terbaru beresolusi tinggi
 | `javascript-mas-eko-udamy.avif` | *Pemrograman JavaScript: Pemula sampai Mahir* | Eko Kurniawan Khannedy (PZN) | Fondasi JavaScript, Standard Library, Web API |
 
 #### 🅱️ Kategori 2: Codepolitan (6 Kursus)
-| File Asset (.avif) | Judul Sertifikat / Kursus | Institusi | Topik Utama |
+| File Asset (.avif) | Judul Sertifikat / Kursus | Instruktur / Institusi | Topik Utama |
 | :--- | :--- | :--- | :--- |
-| `html-dasar.avif` | *Belajar Dasar HTML* | Codepolitan | Struktur Semantik HTML5 & Web Layout |
-| `css.avif` | *Belajar Dasar CSS* | Codepolitan | Styling Dasar, Box Model, Selector & Positioning |
-| `boostrap.avif` | *Belajar CSS Framework Bootstrap* | Codepolitan | Bootstrap Grid System & UI Components |
-| `git.avif` | *Belajar Git & GitHub untuk Pemula* | Codepolitan | Version Control, Branching & Git Flow |
-| `javascript.avif` | *Belajar JavaScript Dasar* | Codepolitan | Sintaks Dasar, Logika Percabangan & Loop |
-| `ajax.avif` | *Belajar AJAX & Asynchronous Web API* | Codepolitan | XMLHttpRequest, Fetch API & JSON Data Handling |
+| `html-dasar.avif` | *Belajar Dasar HTML* | Ahmad Hakim (Codepolitan) | Struktur Semantik HTML5 & Web Layout |
+| `css.avif` | *Belajar Dasar CSS* | Alucard (Codepolitan) | Styling Dasar, Box Model, Selector & Positioning |
+| `boostrap.avif` | *Belajar CSS Framework Bootstrap* | Ahmad Hakim (Codepolitan) | Bootstrap Grid System & UI Components |
+| `git.avif` | *Belajar Git & GitHub untuk Pemula* | Nusendra Hanggarawan (Codepolitan) | Version Control, Branching & Git Flow |
+| `javascript.avif` | *Belajar JavaScript Dasar* | Ahmad Hakim (Codepolitan) | Sintaks Dasar, Logika Percabangan & Loop |
+| `ajax.avif` | *Belajar AJAX & Asynchronous Web API* | Ahmad Hakim (Codepolitan) | XMLHttpRequest, Fetch API & JSON Data Handling |
 
 ---
 
