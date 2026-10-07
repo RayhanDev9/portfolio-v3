@@ -2,7 +2,7 @@
  * =============================================================================
  * CERTIFICATES MODULE
  * Menampilkan grid sertifikat terverifikasi (Udemy & Codepolitan), filter kategori,
- * dan modal lightbox pop-up untuk melihat sertifikat dalam resolusi penuh.
+ * pagination dinamis ("Load More" / "Show Less"), dan modal lightbox pop-up.
  * =============================================================================
  */
 import { certificatesData } from "../data/certificates.data.js";
@@ -18,7 +18,19 @@ export function initCertificates() {
   const modalIssuer = document.getElementById("certModalIssuer");
   const modalBadge = document.getElementById("certModalBadge");
 
+  const paginationContainer = document.getElementById("certsPagination");
+  const loadMoreBtn = document.getElementById("certsLoadMoreBtn");
+  const loadMoreText = document.getElementById("certsLoadMoreText");
+  const loadMoreIcon = document.getElementById("certsLoadMoreIcon");
+  const visibleCountEl = document.getElementById("certsVisibleCount");
+  const totalCountEl = document.getElementById("certsTotalCount");
+
   if (!grid) return;
+
+  const INITIAL_LIMIT = 6;
+  const STEP_LIMIT = 6;
+  let currentFilter = "all";
+  let visibleCount = INITIAL_LIMIT;
 
   function openModal(cert) {
     if (!modal) return;
@@ -81,13 +93,23 @@ export function initCertificates() {
     }
   });
 
-  function renderCertificates(filter = "all") {
-    const filtered =
-      filter === "all"
-        ? certificatesData
-        : certificatesData.filter((c) => c.platform === filter);
+  function getFilteredCertificates(filter) {
+    return filter === "all"
+      ? certificatesData
+      : certificatesData.filter((c) => c.platform === filter);
+  }
 
-    grid.innerHTML = filtered
+  function renderCertificates(filter = currentFilter, resetLimit = false) {
+    currentFilter = filter;
+    if (resetLimit) {
+      visibleCount = INITIAL_LIMIT;
+    }
+
+    const filtered = getFilteredCertificates(currentFilter);
+    const totalCount = filtered.length;
+    const displayed = filtered.slice(0, visibleCount);
+
+    grid.innerHTML = displayed
       .map((cert) => {
         const isUdemy = cert.platform === "udemy";
         const badgeClass = isUdemy
@@ -96,7 +118,7 @@ export function initCertificates() {
         const dotClass = isUdemy ? "bg-purple-400" : "bg-emerald-400";
 
         return `
-        <div class="cert-card group rounded-3xl bg-white/5 border border-white/10 overflow-hidden hover:border-purple-500/40 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-500 flex flex-col justify-between">
+        <div class="cert-card animate-card-enter group rounded-3xl bg-white/5 border border-white/10 overflow-hidden hover:border-purple-500/40 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-500 flex flex-col justify-between">
           <!-- Thumbnail Image (Clickable for Modal) -->
           <div
             data-id="${cert.id}"
@@ -185,6 +207,56 @@ export function initCertificates() {
         if (cert) openModal(cert);
       });
     });
+
+    // Update Pagination UI
+    if (paginationContainer) {
+      if (totalCount <= INITIAL_LIMIT) {
+        paginationContainer.classList.add("hidden");
+      } else {
+        paginationContainer.classList.remove("hidden");
+
+        const currentShown = Math.min(visibleCount, totalCount);
+        if (visibleCountEl) visibleCountEl.textContent = currentShown;
+        if (totalCountEl) totalCountEl.textContent = totalCount;
+
+        if (visibleCount < totalCount) {
+          const remaining = totalCount - visibleCount;
+          if (loadMoreText) {
+            loadMoreText.textContent = `Lihat Sertifikat Lainnya (+${remaining})`;
+          }
+          if (loadMoreIcon) {
+            loadMoreIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />`;
+          }
+        } else {
+          if (loadMoreText) {
+            loadMoreText.textContent = "Tampilkan Lebih Sedikit";
+          }
+          if (loadMoreIcon) {
+            loadMoreIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />`;
+          }
+        }
+      }
+    }
+  }
+
+  // Load More Button Event Listener
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener("click", () => {
+      const filtered = getFilteredCertificates(currentFilter);
+      const totalCount = filtered.length;
+
+      if (visibleCount < totalCount) {
+        visibleCount = Math.min(visibleCount + STEP_LIMIT, totalCount);
+        renderCertificates(currentFilter, false);
+      } else {
+        visibleCount = INITIAL_LIMIT;
+        renderCertificates(currentFilter, false);
+        const section = document.getElementById("certificates");
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    });
   }
 
   // Filter click events
@@ -222,9 +294,9 @@ export function initCertificates() {
         "font-semibold"
       );
 
-      renderCertificates(filter);
+      renderCertificates(filter, true);
     });
   });
 
-  renderCertificates("all");
+  renderCertificates("all", true);
 }

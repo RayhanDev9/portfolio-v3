@@ -1,8 +1,8 @@
 /**
  * =============================================================================
  * PROJECTS MODULE
- * Menampilkan Showcase Grid karya/proyek dengan sistem filter kategori dan
- * rendering metadata kolaborasi tim (FE, BE, UI/UX).
+ * Menampilkan Showcase Grid karya/proyek dengan sistem filter kategori,
+ * pagination dinamis ("Load More" / "Show Less"), dan metadata tim kolaboratif.
  * =============================================================================
  */
 import { projectsData } from "../data/projects.data.js";
@@ -10,20 +10,40 @@ import { projectsData } from "../data/projects.data.js";
 export function initProjects() {
   const grid = document.getElementById("projectsGrid");
   const filterBtns = document.querySelectorAll(".project-filter-btn");
+  const paginationContainer = document.getElementById("projectsPagination");
+  const loadMoreBtn = document.getElementById("projectsLoadMoreBtn");
+  const loadMoreText = document.getElementById("projectsLoadMoreText");
+  const loadMoreIcon = document.getElementById("projectsLoadMoreIcon");
+  const visibleCountEl = document.getElementById("projectsVisibleCount");
+  const totalCountEl = document.getElementById("projectsTotalCount");
+
   if (!grid) return;
 
-  function renderProjects(filter = "all") {
-    const filtered =
-      filter === "all"
-        ? projectsData
-        : filter === "collab"
-        ? projectsData.filter((p) => Boolean(p.collab))
-        : projectsData.filter((p) => p.category === filter);
+  const INITIAL_LIMIT = 4;
+  const STEP_LIMIT = 4;
+  let currentFilter = "all";
+  let visibleCount = INITIAL_LIMIT;
 
-    grid.innerHTML = filtered
+  function getFilteredProjects(filter) {
+    if (filter === "all") return projectsData;
+    if (filter === "collab") return projectsData.filter((p) => Boolean(p.collab));
+    return projectsData.filter((p) => p.category === filter);
+  }
+
+  function renderProjects(filter = currentFilter, resetLimit = false) {
+    currentFilter = filter;
+    if (resetLimit) {
+      visibleCount = INITIAL_LIMIT;
+    }
+
+    const filtered = getFilteredProjects(currentFilter);
+    const totalCount = filtered.length;
+    const displayed = filtered.slice(0, visibleCount);
+
+    grid.innerHTML = displayed
       .map(
         (project) => `
-      <div class="project-card group rounded-3xl bg-white/5 border border-white/10 overflow-hidden hover:border-purple-500/40 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-500 flex flex-col justify-between">
+      <div class="project-card animate-card-enter group rounded-3xl bg-white/5 border border-white/10 overflow-hidden hover:border-purple-500/40 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-500 flex flex-col justify-between">
         <!-- Thumbnail (16:9) -->
         <a href="${project.url}" target="_blank" rel="noopener noreferrer" class="block aspect-[16/9] overflow-hidden relative bg-gray-900 border-b border-white/10 cursor-pointer" title="${project.title}">
           <img src="${project.img}" alt="${project.alt}" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
@@ -91,6 +111,56 @@ export function initProjects() {
     `,
       )
       .join("");
+
+    // Update Pagination UI
+    if (paginationContainer) {
+      if (totalCount <= INITIAL_LIMIT) {
+        paginationContainer.classList.add("hidden");
+      } else {
+        paginationContainer.classList.remove("hidden");
+
+        const currentShown = Math.min(visibleCount, totalCount);
+        if (visibleCountEl) visibleCountEl.textContent = currentShown;
+        if (totalCountEl) totalCountEl.textContent = totalCount;
+
+        if (visibleCount < totalCount) {
+          const remaining = totalCount - visibleCount;
+          if (loadMoreText) {
+            loadMoreText.textContent = `Lihat Proyek Lainnya (+${remaining})`;
+          }
+          if (loadMoreIcon) {
+            loadMoreIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />`;
+          }
+        } else {
+          if (loadMoreText) {
+            loadMoreText.textContent = "Tampilkan Lebih Sedikit";
+          }
+          if (loadMoreIcon) {
+            loadMoreIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />`;
+          }
+        }
+      }
+    }
+  }
+
+  // Load More Button Event Listener
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener("click", () => {
+      const filtered = getFilteredProjects(currentFilter);
+      const totalCount = filtered.length;
+
+      if (visibleCount < totalCount) {
+        visibleCount = Math.min(visibleCount + STEP_LIMIT, totalCount);
+        renderProjects(currentFilter, false);
+      } else {
+        visibleCount = INITIAL_LIMIT;
+        renderProjects(currentFilter, false);
+        const section = document.getElementById("projects");
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    });
   }
 
   // Filter click events
@@ -128,9 +198,9 @@ export function initProjects() {
         "font-semibold",
       );
 
-      renderProjects(filter);
+      renderProjects(filter, true);
     });
   });
 
-  renderProjects("all");
+  renderProjects("all", true);
 }

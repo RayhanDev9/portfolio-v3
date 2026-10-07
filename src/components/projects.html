@@ -63,5 +63,22 @@
       id="projectsGrid"
       class="grid grid-cols-1 md:grid-cols-2 gap-8"
     ></div>
+
+    <!-- Projects Load More & Counter Container -->
+    <div id="projectsPagination" class="mt-12 flex flex-col items-center justify-center gap-3">
+      <button
+        type="button"
+        id="projectsLoadMoreBtn"
+        class="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-white/5 hover:bg-purple-600 active:scale-95 border border-white/10 hover:border-purple-500 text-sm font-semibold text-white shadow-lg shadow-purple-500/10 hover:shadow-purple-500/25 transition-all duration-300 cursor-pointer group"
+      >
+        <span id="projectsLoadMoreText">Lihat Proyek Lainnya</span>
+        <svg id="projectsLoadMoreIcon" class="w-4 h-4 text-purple-400 group-hover:text-white transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      <p id="projectsCountIndicator" class="text-xs text-gray-400 font-medium">
+        Menampilkan <span class="text-purple-300 font-semibold" id="projectsVisibleCount">0</span> dari <span class="text-white font-semibold" id="projectsTotalCount">0</span> proyek
+      </p>
+    </div>
   </div>
 </section>
