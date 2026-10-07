@@ -141,14 +141,14 @@
         >Skills</a
       >
       <a
-        href="#certificates"
-        class="transition hover:text-white opacity-65 leading-relaxed"
-        >Certificates</a
-      >
-      <a
         href="#projects"
         class="transition hover:text-white opacity-65 leading-relaxed"
         >Projects</a
+      >
+      <a
+        href="#certificates"
+        class="transition hover:text-white opacity-65 leading-relaxed"
+        >Certificates</a
       >
       <a
         href="#contact"
@@ -236,16 +236,16 @@
           Skills
         </a>
         <a
-          href="#certificates"
-          class="transition hover:text-white text-2xl font-semibold opacity-60 hover:opacity-100"
-        >
-          Certificates
-        </a>
-        <a
           href="#projects"
           class="transition hover:text-white text-2xl font-semibold opacity-60 hover:opacity-100"
         >
           Projects
+        </a>
+        <a
+          href="#certificates"
+          class="transition hover:text-white text-2xl font-semibold opacity-60 hover:opacity-100"
+        >
+          Certificates
         </a>
         <a
           href="#contact"
@@ -583,7 +583,77 @@
 </section>
 
 
-      <!-- 6. Certificates Section -->
+      <!-- 6. Projects Section -->
+      <!-- =============================================================================
+     PROJECTS SECTION COMPONENT
+     ============================================================================= -->
+<section id="projects" class="py-12 md:py-16 overflow-hidden">
+  <div class="max-w-6xl px-6 mx-auto">
+    <div class="mb-8 md:mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div class="text-center md:text-left">
+        <span
+          class="inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-purple-300 text-sm text-loop mb-4"
+        >
+          Featured Projects
+        </span>
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white mb-3">
+          Selected Works &amp; Real Projects
+        </h2>
+        <p class="text-gray-400 text-base max-w-xl mx-auto md:mx-0">
+          A showcase of web applications, production systems, and creative digital interfaces.
+        </p>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div id="projectFilters" class="flex flex-wrap justify-center md:justify-end gap-2">
+        <button
+          type="button"
+          data-filter="all"
+          class="project-filter-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-purple-600 text-white border border-purple-500 shadow-lg shadow-purple-500/20 transition-all cursor-pointer"
+        >
+          All (9)
+        </button>
+        <button
+          type="button"
+          data-filter="app"
+          class="project-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 text-gray-300 border border-white/10 hover:border-purple-500/40 hover:text-white transition-all cursor-pointer"
+        >
+          Web Apps
+        </button>
+        <button
+          type="button"
+          data-filter="landing"
+          class="project-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 text-gray-300 border border-white/10 hover:border-purple-500/40 hover:text-white transition-all cursor-pointer"
+        >
+          Landing &amp; Profile
+        </button>
+        <button
+          type="button"
+          data-filter="collab"
+          class="project-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 text-gray-300 border border-white/10 hover:border-purple-500/40 hover:text-white transition-all cursor-pointer"
+        >
+          Team Collab
+        </button>
+        <button
+          type="button"
+          data-filter="interactive"
+          class="project-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 text-gray-300 border border-white/10 hover:border-purple-500/40 hover:text-white transition-all cursor-pointer"
+        >
+          Games &amp; Logic
+        </button>
+      </div>
+    </div>
+
+    <!-- Projects Showcase Grid (Rendered dynamically by js/modules/projects.js) -->
+    <div
+      id="projectsGrid"
+      class="grid grid-cols-1 md:grid-cols-2 gap-8"
+    ></div>
+  </div>
+</section>
+
+
+      <!-- 7. Certificates Section -->
       <!-- =============================================================================
      CERTIFICATES SECTION COMPONENT
      Showcase sertifikat terverifikasi (Udemy & Codepolitan) dengan filter kategori
@@ -697,76 +767,6 @@
         <span class="text-[11px] text-gray-400 italic">Press ESC or click outside to close</span>
       </div>
     </div>
-  </div>
-</section>
-
-
-      <!-- 7. Projects Section -->
-      <!-- =============================================================================
-     PROJECTS SECTION COMPONENT
-     ============================================================================= -->
-<section id="projects" class="py-12 md:py-16 overflow-hidden">
-  <div class="max-w-6xl px-6 mx-auto">
-    <div class="mb-8 md:mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
-      <div class="text-center md:text-left">
-        <span
-          class="inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-purple-300 text-sm text-loop mb-4"
-        >
-          Featured Projects
-        </span>
-        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white mb-3">
-          Selected Works &amp; Real Projects
-        </h2>
-        <p class="text-gray-400 text-base max-w-xl mx-auto md:mx-0">
-          A showcase of web applications, production systems, and creative digital interfaces.
-        </p>
-      </div>
-
-      <!-- Filter Buttons -->
-      <div id="projectFilters" class="flex flex-wrap justify-center md:justify-end gap-2">
-        <button
-          type="button"
-          data-filter="all"
-          class="project-filter-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-purple-600 text-white border border-purple-500 shadow-lg shadow-purple-500/20 transition-all cursor-pointer"
-        >
-          All (9)
-        </button>
-        <button
-          type="button"
-          data-filter="app"
-          class="project-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 text-gray-300 border border-white/10 hover:border-purple-500/40 hover:text-white transition-all cursor-pointer"
-        >
-          Web Apps
-        </button>
-        <button
-          type="button"
-          data-filter="landing"
-          class="project-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 text-gray-300 border border-white/10 hover:border-purple-500/40 hover:text-white transition-all cursor-pointer"
-        >
-          Landing &amp; Profile
-        </button>
-        <button
-          type="button"
-          data-filter="collab"
-          class="project-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 text-gray-300 border border-white/10 hover:border-purple-500/40 hover:text-white transition-all cursor-pointer"
-        >
-          Team Collab
-        </button>
-        <button
-          type="button"
-          data-filter="interactive"
-          class="project-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 text-gray-300 border border-white/10 hover:border-purple-500/40 hover:text-white transition-all cursor-pointer"
-        >
-          Games &amp; Logic
-        </button>
-      </div>
-    </div>
-
-    <!-- Projects Showcase Grid (Rendered dynamically by js/modules/projects.js) -->
-    <div
-      id="projectsGrid"
-      class="grid grid-cols-1 md:grid-cols-2 gap-8"
-    ></div>
   </div>
 </section>
 
