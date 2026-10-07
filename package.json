@@ -8,7 +8,8 @@
     "build": "tailwindcss -i ./src/input.css -o ./css/output.css --minify && node scripts/build-html.js && vite build",
     "preview": "vite preview",
     "convert:avif": "node scripts/convert-to-avif.js",
-    "convert:avif:clean": "node scripts/convert-to-avif.js --delete-source"
+    "convert:avif:clean": "node scripts/convert-to-avif.js --delete-source",
+    "convert:sertifikat": "node scripts/convert-sertifikat-to-avif.js"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.3.1",

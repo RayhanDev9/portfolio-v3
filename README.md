@@ -13,11 +13,11 @@
     <a href="#-overview">Overview</a> •
     <a href="#-tech-stack">Tech Stack</a> •
     <a href="#-key-features">Key Features</a> •
+    <a href="#-certificates-showcase-plan">Certificates Plan</a> •
     <a href="#-project-structure">Project Structure</a> •
     <a href="#-getting-started">Getting Started</a> •
     <a href="#-contact--socials">Contact</a>
   </p>
-
 </div>
 
 ---
@@ -107,6 +107,87 @@ portfolio-v3/
 ├── 📄 robots.txt                  # Search engine crawler directives
 └── 📄 sitemap.xml                 # SEO search index sitemap
 ```
+
+---
+
+## 📜 🎯 Certificates Showcase Plan (Udemy & Codepolitan)
+
+Rencana arsitektur dan langkah implementasi fitur baru **Certificates & Credentials Showcase** pada portfolio, dibagi menjadi 2 platform utama: **Udemy** dan **Codepolitan**.
+
+### 1. 📁 Struktur Data & Pemetaan Aset (`assets/images/sertifikat/`)
+
+Seluruh sertifikat telah dikonversi ke format generasi terbaru beresolusi tinggi (`.avif`):
+
+#### 🅰️ Kategori 1: Udemy (3 Kursus)
+| File Asset (.avif) | Judul Sertifikat / Kursus | Instruktur / Institusi | Topik Utama |
+| :--- | :--- | :--- | :--- |
+| `html-css-bang-jonas-udamy.avif` | *Build Responsive Real-World Websites with HTML and CSS* | Jonas Schmedtmann | HTML5, CSS3 Modern, Flexbox, CSS Grid, Responsive Design |
+| `javascript-bang-jonas-udamy.avif` | *The Complete JavaScript Course 2024: From Zero to Expert!* | Jonas Schmedtmann | JavaScript ES6+, OOP, Asynchronous, Architecture, DOM |
+| `javascript-mas-eko-udamy.avif` | *Pemrograman JavaScript: Pemula sampai Mahir* | Eko Kurniawan Khannedy (PZN) | Fondasi JavaScript, Standard Library, Web API |
+
+#### 🅱️ Kategori 2: Codepolitan (6 Kursus)
+| File Asset (.avif) | Judul Sertifikat / Kursus | Institusi | Topik Utama |
+| :--- | :--- | :--- | :--- |
+| `html-dasar.avif` | *Belajar Dasar HTML* | Codepolitan | Struktur Semantik HTML5 & Web Layout |
+| `css.avif` | *Belajar Dasar CSS* | Codepolitan | Styling Dasar, Box Model, Selector & Positioning |
+| `boostrap.avif` | *Belajar CSS Framework Bootstrap* | Codepolitan | Bootstrap Grid System & UI Components |
+| `git.avif` | *Belajar Git & GitHub untuk Pemula* | Codepolitan | Version Control, Branching & Git Flow |
+| `javascript.avif` | *Belajar JavaScript Dasar* | Codepolitan | Sintaks Dasar, Logika Percabangan & Loop |
+| `ajax.avif` | *Belajar AJAX & Asynchronous Web API* | Codepolitan | XMLHttpRequest, Fetch API & JSON Data Handling |
+
+---
+
+### 2. 🏗️ Rencana Arsitektur Komponen & Alur Kode
+
+Mengikuti pola desain **Modular Clean Architecture** yang sudah diterapkan pada portfolio:
+
+```text
+portfolio-v3/
+├── 📁 assets/images/sertifikat/       # 9 file .avif (high-dpi, compressed)
+├── 📁 js/
+│   ├── 📁 data/
+│   │   └── 📄 certificates.data.js    # Single source of truth (kategori 'udemy' vs 'codepolitan')
+│   └── 📁 modules/
+│       └── 📄 certificates.js         # Filter render, active tabs, dan modal lightbox logic
+├── 📁 src/components/
+│   ├── 📄 certificates.html           # Komponen HTML section + filter tabs + modal overlay
+│   └── 📄 header.html                 # Tambah navigasi 'Certificates' di navbar desktop & mobile
+└── 📄 index.html                      # Injeksi <load src="src/components/certificates.html" />
+```
+
+---
+
+### 3. 🎨 Desain Tampilan & Fitur Interaktif (UI/UX)
+
+1. **Section Placement**:
+   - Ditempatkan tepat setelah section **Skills** (`#skills`) dan sebelum **Projects** (`#projects`), atau setelah **Projects** sebagai validasi keahlian teknis (*credentials proof*).
+2. **Kategori Filter Tabs (Pill Buttons)**:
+   - **All (9)**: Menampilkan seluruh sertifikat.
+   - **Udemy (3)**: Menampilkan kursus spesialisasi intensif dari Udemy (Jonas Schmedtmann & Programmer Zaman Now).
+   - **Codepolitan (6)**: Menampilkan sertifikasi fondasi pemrograman web & Git dari Codepolitan.
+3. **Desain Kartu Sertifikat (Bento / Grid Card)**:
+   - Thumbnail 16:9 / 4:3 berformat `.avif` dengan rounded corners (`rounded-2xl`) dan glassmorphism card (`bg-white/5 border border-white/10`).
+   - Badge platform unik:
+     - 🟣 **Udemy Badge**: Warna aksen ungu/fuchsia dengan ikon platform.
+     - 🟢 **Codepolitan Badge**: Warna aksen emerald/teal dengan ikon sertifikat.
+   - Judul kursus, nama instruktur/penerbit, dan tag keahlian terkait.
+4. **Fitur Modal Preview / Lightbox Interaktif**:
+   - Saat kartu atau tombol *"View Certificate"* diklik, muncul modal fullscreen/pop-up resolusi penuh dengan efek backdrop blur (`backdrop-blur-md`).
+   - Tombol tutup (`Close / ESC key`) dan klik di luar area modal untuk menutup tampilan preview.
+
+---
+
+### 4. 📝 Rincian Tahapan Eksekusi (Implementation Steps)
+
+- [x] **Step 1: Data Layer**: Buat `js/data/certificates.data.js` berisi array objek sertifikat (id, title, platform: 'udemy' | 'codepolitan', issuer, image, skills, issueDate).
+- [x] **Step 2: HTML Component**: Buat `src/components/certificates.html` dengan header section, tombol filter, kontainer grid responsif, dan elemen modal lightbox.
+- [x] **Step 3: JavaScript Module**: Buat `js/modules/certificates.js` yang mengelola `renderCertificates(filter)`, event listener tombol filter, dan fungsi buka/tutup modal gambar.
+- [x] **Step 4: Bootstrap Integration**: Daftarkan modul ke `js/main.js` via `initCertificates()`.
+- [x] **Step 5: Integrasi Navbar & Index**:
+  - Masukkan komponen ke dalam `index.html`.
+  - Tambahkan link `#certificates` pada desktop navbar dan mobile drawer di `src/components/header.html`.
+  - Tambahkan scrollspy target di `js/modules/navigation.js`.
+- [x] **Step 6: Build & Verification**: Jalankan `npm run build` untuk memvalidasi Tailwind output CSS dan responsivitas layar (mobile, tablet, desktop).
 
 ---
 
