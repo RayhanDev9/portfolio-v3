@@ -27,8 +27,8 @@ export function initCertificates() {
 
   if (!grid) return;
 
-  const INITIAL_LIMIT = 6;
-  const STEP_LIMIT = 6;
+  const INITIAL_LIMIT = 3;
+  const STEP_LIMIT = 3;
   let currentFilter = "all";
   let visibleCount = INITIAL_LIMIT;
 
@@ -43,10 +43,18 @@ export function initCertificates() {
       modalBadge.className =
         "px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-purple-500/20 text-purple-300 border border-purple-500/30";
       modalBadge.textContent = "Udemy";
-    } else {
+    } else if (cert.platform === "codepolitan") {
       modalBadge.className =
         "px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
       modalBadge.textContent = "Codepolitan";
+    } else if (cert.platform === "kompetisi") {
+      modalBadge.className =
+        "px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30";
+      modalBadge.textContent = "Kompetisi";
+    } else {
+      modalBadge.className =
+        "px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-purple-500/20 text-purple-300 border border-purple-500/30";
+      modalBadge.textContent = cert.platformName || cert.platform;
     }
 
     modal.classList.remove("hidden");
@@ -112,13 +120,37 @@ export function initCertificates() {
     grid.innerHTML = displayed
       .map((cert) => {
         const isUdemy = cert.platform === "udemy";
-        const badgeClass = isUdemy
-          ? "bg-purple-950/90 text-purple-300 border-purple-500/40"
-          : "bg-emerald-950/90 text-emerald-300 border-emerald-500/40";
-        const dotClass = isUdemy ? "bg-purple-400" : "bg-emerald-400";
+        const isCodepolitan = cert.platform === "codepolitan";
+        const isKompetisi = cert.platform === "kompetisi";
+
+        let badgeClass = "bg-purple-950/90 text-purple-300 border-purple-500/40";
+        let dotClass = "bg-purple-400";
+        let cardBorderHover = "hover:border-purple-500/40 hover:shadow-purple-500/10";
+        let titleHover = "group-hover:text-purple-300";
+        let issuerColor = "text-purple-300/90";
+        let issuerIconColor = "text-purple-400";
+        let btnHover = "hover:bg-purple-600 hover:border-purple-500";
+
+        if (isCodepolitan) {
+          badgeClass = "bg-emerald-950/90 text-emerald-300 border-emerald-500/40";
+          dotClass = "bg-emerald-400";
+          cardBorderHover = "hover:border-emerald-500/40 hover:shadow-emerald-500/10";
+          titleHover = "group-hover:text-emerald-300";
+          issuerColor = "text-emerald-300/90";
+          issuerIconColor = "text-emerald-400";
+          btnHover = "hover:bg-emerald-600 hover:border-emerald-500";
+        } else if (isKompetisi) {
+          badgeClass = "bg-amber-950/90 text-amber-300 border-amber-500/40";
+          dotClass = "bg-amber-400";
+          cardBorderHover = "hover:border-amber-500/40 hover:shadow-amber-500/10";
+          titleHover = "group-hover:text-amber-300";
+          issuerColor = "text-amber-300/90";
+          issuerIconColor = "text-amber-400";
+          btnHover = "hover:bg-amber-600 hover:border-amber-500";
+        }
 
         return `
-        <div class="cert-card animate-card-enter group rounded-3xl bg-white/5 border border-white/10 overflow-hidden hover:border-purple-500/40 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-500 flex flex-col justify-between">
+        <div class="cert-card animate-card-enter group rounded-3xl bg-white/5 border border-white/10 overflow-hidden ${cardBorderHover} hover:shadow-2xl transition-all duration-500 flex flex-col justify-between">
           <!-- Thumbnail Image (Clickable for Modal) -->
           <div
             data-id="${cert.id}"
@@ -151,13 +183,13 @@ export function initCertificates() {
           <div class="p-5 md:p-6 flex flex-col flex-grow justify-between gap-4">
             <div class="space-y-2.5">
               <div class="flex items-start justify-between gap-2">
-                <h3 class="text-base md:text-lg font-bold text-white group-hover:text-purple-300 transition-colors tracking-tight line-clamp-2">
+                <h3 class="text-base md:text-lg font-bold text-white ${titleHover} transition-colors tracking-tight line-clamp-2">
                   ${cert.title}
                 </h3>
               </div>
 
-              <p class="text-xs font-medium text-purple-300/90 flex items-center gap-1">
-                <svg class="w-3.5 h-3.5 text-purple-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <p class="text-xs font-medium ${issuerColor} flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 ${issuerIconColor} shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
                 <span class="truncate">${cert.issuer}</span>
@@ -184,7 +216,7 @@ export function initCertificates() {
               <button
                 type="button"
                 data-id="${cert.id}"
-                class="open-cert-preview w-full py-2 px-3 rounded-xl bg-white/10 hover:bg-purple-600 active:scale-[0.98] border border-white/10 hover:border-purple-500 text-xs font-semibold text-white transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
+                class="open-cert-preview w-full py-2 px-3 rounded-xl bg-white/10 ${btnHover} active:scale-[0.98] border border-white/10 text-xs font-semibold text-white transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
               >
                 <span>Preview Certificate</span>
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -296,6 +328,29 @@ export function initCertificates() {
 
       renderCertificates(filter, true);
     });
+  });
+
+  // Sinkronisasi angka filter button secara dinamis
+  filterBtns.forEach((btn) => {
+    const filter = btn.getAttribute("data-filter");
+    const count =
+      filter === "all"
+        ? certificatesData.length
+        : certificatesData.filter((c) => c.platform === filter).length;
+    const labelSpan = btn.querySelector("span:last-child");
+    if (labelSpan) {
+      const baseLabel =
+        filter === "udemy"
+          ? "Udemy"
+          : filter === "codepolitan"
+          ? "Codepolitan"
+          : filter === "kompetisi"
+          ? "Kompetisi"
+          : labelSpan.textContent.split(" ")[0];
+      labelSpan.textContent = `${baseLabel} (${count})`;
+    } else {
+      btn.textContent = `All (${count})`;
+    }
   });
 
   renderCertificates("all", true);

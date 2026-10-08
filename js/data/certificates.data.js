@@ -1,12 +1,25 @@
 /**
  * =============================================================================
  * CERTIFICATES DATA
- * Single source of truth untuk sertifikasi dan kursus yang telah diselesaikan,
- * dikelompokkan ke dalam platform Udemy dan Codepolitan.
+ * Single source of truth untuk sertifikasi, kursus, dan kompetisi yang telah diselesaikan,
+ * dikelompokkan ke dalam platform Udemy, Codepolitan, dan Kompetisi.
  * =============================================================================
  */
 export const certificatesData = [
-  // --- 1. UDEMY COURSES ---
+  // --- 1. KOMPETISI & HACKATHON ---
+  {
+    id: "hackathon-himtif",
+    title: "Hackathon: Innovating Beyond The Code",
+    platform: "kompetisi",
+    platformName: "Kompetisi",
+    issuer: "HIMTIF (Himpunan Mahasiswa Teknik Informatika)",
+    img: "assets/images/sertifikat/hackathon.avif",
+    alt: "Sertifikat Partisipasi Hackathon Innovating Beyond The Code HIMTIF",
+    skills: ["Hackathon", "Problem Solving", "Team Collaboration", "Web Development", "Innovation"],
+    desc: "Sertifikat partisipasi atas dedikasi dalam kompetisi Hackathon bertema 'Innovating Beyond The Code' yang diselenggarakan oleh HIMTIF.",
+  },
+
+  // --- 2. UDEMY COURSES ---
   {
     id: "udemy-js-jonas",
     title: "The Complete JavaScript Course 2024: From Zero to Expert!",

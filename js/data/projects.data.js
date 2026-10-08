@@ -14,17 +14,7 @@ export const projectsData = [
     img: "assets/images/projects/fast-pizza.avif",
     alt: "Fast React Pizza",
   },
-  {
-    title: "Siap Kerja",
-    category: "app",
-    collab: "Team: FE • BE • UI/UX",
-    role: "Front-End",
-    description: "Interactive career platform built in a cross-functional team (FE, BE & UI/UX). Implemented responsive UI, integrated AI-driven career recommendations, and interactive skill modules.",
-    skills: ["React", "Redux Toolkit", "Gemini AI", "Framer Motion", "Team Collab"],
-    url: "https://rayhandev9.github.io/siap-kerja/#/landingPage",
-    img: "assets/images/projects/siap-kerja.avif",
-    alt: "Siap Kerja",
-  },
+
   {
     title: "Danu Satya Portfolio",
     category: "landing",
@@ -42,6 +32,17 @@ export const projectsData = [
     url: "https://permatabelajar.my.id/",
     img: "assets/images/projects/tk.avif",
     alt: "TK PAUD Permata",
+  },
+    {
+    title: "Siap Kerja",
+    category: "app",
+    collab: "Team: FE • BE • UI/UX",
+    role: "Front-End",
+    description: "Interactive career platform built in a cross-functional team (FE, BE & UI/UX). Implemented responsive UI, integrated AI-driven career recommendations, and interactive skill modules.",
+    skills: ["React", "Redux Toolkit", "Gemini AI", "Framer Motion", "Team Collab"],
+    url: "https://rayhandev9.github.io/siap-kerja/#/landingPage",
+    img: "assets/images/projects/siap-kerja.avif",
+    alt: "Siap Kerja",
   },
   {
     title: "Mading Kampus",

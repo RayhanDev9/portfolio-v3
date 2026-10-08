@@ -19,8 +19,8 @@ export function initProjects() {
 
   if (!grid) return;
 
-  const INITIAL_LIMIT = 4;
-  const STEP_LIMIT = 4;
+  const INITIAL_LIMIT = 2;
+  const STEP_LIMIT = 2;
   let currentFilter = "all";
   let visibleCount = INITIAL_LIMIT;
 

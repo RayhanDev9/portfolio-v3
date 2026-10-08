@@ -38,12 +38,31 @@ export function initContact() {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const name = document.getElementById("name").value;
-      const subject = document.getElementById("subject").value;
-      const message = document.getElementById("message").value;
+      const name = document.getElementById("name")?.value.trim() || "";
+      const email = document.getElementById("email")?.value.trim() || "";
+      const subject = document.getElementById("subject")?.value.trim() || "";
+      const message = document.getElementById("message")?.value.trim() || "";
 
       const waNumber = "6285692097048";
-      const textWA = `Hello, my name is *${name}*.\n\n*Subject:* ${subject}\n\n*Message:*\n${message}`;
+      const textWA = [
+        `Halo Muhamad Rayhan! 👋`,
+        `Saya menghubungi Anda melalui website portfolio.`,
+        ``,
+        `━━━━━━━━━━━━━━━━━━━━`,
+        `📌 *DETAIL PENGIRIM*`,
+        `• *Nama:* ${name}`,
+        email ? `• *Email:* ${email}` : null,
+        `• *Subjek:* ${subject}`,
+        `━━━━━━━━━━━━━━━━━━━━`,
+        ``,
+        `💬 *PESAN:*`,
+        message,
+        ``,
+        `━━━━━━━━━━━━━━━━━━━━`,
+        `Terima kasih!`,
+      ]
+        .filter(Boolean)
+        .join("\n");
 
       window.open(
         `https://wa.me/${waNumber}?text=${encodeURIComponent(textWA)}`,
