@@ -45,21 +45,22 @@ export function initContact() {
 
       const waNumber = "6285692097048";
       const textWA = [
-        `Halo Muhamad Rayhan! 👋`,
-        `Saya menghubungi Anda melalui website portfolio.`,
+        `Halo Muhamad Rayhan,`,
         ``,
-        `━━━━━━━━━━━━━━━━━━━━`,
-        `📌 *DETAIL PENGIRIM*`,
+        `Saya menghubungi Anda melalui formulir kontak portfolio (rayhandev.my.id).`,
+        ``,
+        `────────────────────────`,
+        `*Informasi Kontak:*`,
         `• *Nama:* ${name}`,
         email ? `• *Email:* ${email}` : null,
-        `• *Subjek:* ${subject}`,
-        `━━━━━━━━━━━━━━━━━━━━`,
+        `• *Perihal:* ${subject}`,
+        `────────────────────────`,
         ``,
-        `💬 *PESAN:*`,
+        `*Pesan:*`,
         message,
         ``,
-        `━━━━━━━━━━━━━━━━━━━━`,
-        `Terima kasih!`,
+        `────────────────────────`,
+        `Terima kasih atas waktu dan perhatiannya.`,
       ]
         .filter(Boolean)
         .join("\n");
