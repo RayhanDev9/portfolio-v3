@@ -6,7 +6,20 @@
  * =============================================================================
  */
 export const certificatesData = [
-  // --- 1. KOMPETISI & HACKATHON ---
+  // --- 1. PENGHARGAAN ---
+  {
+    id: "penghargaan-isc",
+    title: "Sertifikat Penghargaan: Informatics Study Club (ISC)",
+    platform: "penghargaan",
+    platformName: "Penghargaan",
+    issuer: "Informatics Study Club (Universitas Pamulang)",
+    img: "assets/images/sertifikat/penghargaan-isc.avif",
+    alt: "Sertifikat Penghargaan Informatics Study Club Bidang Web Development",
+    skills: ["Web Development", "Informatics Study Club", "Dedikasi & Kontribusi", "Teknologi & Informatika"],
+    desc: "Bentuk apresiasi atas dedikasi, kontribusi, dan semangat belajar sebagai anggota Informatics Study Club (ISC) dalam bidang Web Development di Program Studi Teknik Informatika Universitas Pamulang.",
+  },
+
+  // --- 2. KOMPETISI & HACKATHON ---
   {
     id: "hackathon-himtif",
     title: "Hackathon: Innovating Beyond The Code",

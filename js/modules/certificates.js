@@ -51,6 +51,10 @@ export function initCertificates() {
       modalBadge.className =
         "px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30";
       modalBadge.textContent = "Kompetisi";
+    } else if (cert.platform === "penghargaan") {
+      modalBadge.className =
+        "px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-yellow-500/20 text-yellow-300 border border-yellow-500/30";
+      modalBadge.textContent = "Penghargaan";
     } else {
       modalBadge.className =
         "px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-purple-500/20 text-purple-300 border border-purple-500/30";
@@ -122,6 +126,7 @@ export function initCertificates() {
         const isUdemy = cert.platform === "udemy";
         const isCodepolitan = cert.platform === "codepolitan";
         const isKompetisi = cert.platform === "kompetisi";
+        const isPenghargaan = cert.platform === "penghargaan";
 
         let badgeClass = "bg-purple-950/90 text-purple-300 border-purple-500/40";
         let dotClass = "bg-purple-400";
@@ -131,7 +136,15 @@ export function initCertificates() {
         let issuerIconColor = "text-purple-400";
         let btnHover = "hover:bg-purple-600 hover:border-purple-500";
 
-        if (isCodepolitan) {
+        if (isPenghargaan) {
+          badgeClass = "bg-yellow-950/90 text-yellow-300 border-yellow-500/40";
+          dotClass = "bg-yellow-400";
+          cardBorderHover = "hover:border-yellow-500/40 hover:shadow-yellow-500/10";
+          titleHover = "group-hover:text-yellow-300";
+          issuerColor = "text-yellow-300/90";
+          issuerIconColor = "text-yellow-400";
+          btnHover = "hover:bg-yellow-600 hover:border-yellow-500";
+        } else if (isCodepolitan) {
           badgeClass = "bg-emerald-950/90 text-emerald-300 border-emerald-500/40";
           dotClass = "bg-emerald-400";
           cardBorderHover = "hover:border-emerald-500/40 hover:shadow-emerald-500/10";
@@ -340,7 +353,9 @@ export function initCertificates() {
     const labelSpan = btn.querySelector("span:last-child");
     if (labelSpan) {
       const baseLabel =
-        filter === "udemy"
+        filter === "penghargaan"
+          ? "Penghargaan"
+          : filter === "udemy"
           ? "Udemy"
           : filter === "codepolitan"
           ? "Codepolitan"

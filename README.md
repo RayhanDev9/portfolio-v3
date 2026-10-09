@@ -110,27 +110,32 @@ portfolio-v3/
 
 ---
 
-## 📜 🎯 Verified Credentials & Certificates Showcase (10 Sertifikat)
+## 📜 🎯 Verified Credentials & Certificates Showcase (11 Sertifikat)
 
-Fitur showcase sertifikasi dan kredensial terverifikasi pada portfolio, dikelompokkan ke dalam 3 kategori utama: **Kompetisi / Hackathon**, **Udemy**, dan **Codepolitan**.
+Fitur showcase sertifikasi dan kredensial terverifikasi pada portfolio, dikelompokkan ke dalam 4 kategori utama: **Penghargaan**, **Kompetisi / Hackathon**, **Udemy**, dan **Codepolitan**.
 
 ### 1. 📁 Struktur Data & Pemetaan Aset (`assets/images/sertifikat/`)
 
 Seluruh sertifikat dikonversi dan dioptimasi ke format generasi terbaru beresolusi tinggi (`.avif`):
 
-#### 🏆 Kategori 1: Kompetisi & Hackathon (1 Sertifikat)
+#### 🎖️ Kategori 1: Penghargaan (1 Sertifikat)
+| File Asset (.avif) | Judul Sertifikat / Kegiatan | Penyelenggara | Keterampilan Utama |
+| :--- | :--- | :--- | :--- |
+| `penghargaan-isc.avif` | *Sertifikat Penghargaan: Informatics Study Club (ISC)* | Informatics Study Club (Universitas Pamulang) | Web Development, Dedikasi & Kontribusi, Informatics Study Club, IT |
+
+#### 🏆 Kategori 2: Kompetisi & Hackathon (1 Sertifikat)
 | File Asset (.avif) | Judul Sertifikat / Kegiatan | Penyelenggara | Keterampilan Utama |
 | :--- | :--- | :--- | :--- |
 | `hackathon.avif` | *Hackathon: Innovating Beyond The Code* | HIMTIF (Himpunan Mahasiswa Teknik Informatika) | Hackathon, Problem Solving, Rapid Prototyping, Web Dev, Teamwork |
 
-#### 🅰️ Kategori 2: Udemy (3 Kursus)
+#### 🅰️ Kategori 3: Udemy (3 Kursus)
 | File Asset (.avif) | Judul Sertifikat / Kursus | Instruktur / Institusi | Topik Utama |
 | :--- | :--- | :--- | :--- |
 | `html-css-bang-jonas-udamy.avif` | *Build Responsive Real-World Websites with HTML and CSS* | Jonas Schmedtmann | HTML5, CSS3 Modern, Flexbox, CSS Grid, Responsive Design |
 | `javascript-bang-jonas-udamy.avif` | *The Complete JavaScript Course 2024: From Zero to Expert!* | Jonas Schmedtmann | JavaScript ES6+, OOP, Asynchronous, Architecture, DOM |
 | `javascript-mas-eko-udamy.avif` | *Pemrograman JavaScript: Pemula sampai Mahir* | Eko Kurniawan Khannedy (PZN) | Fondasi JavaScript, Standard Library, Web API |
 
-#### 🅱️ Kategori 3: Codepolitan (6 Kursus)
+#### 🅱️ Kategori 4: Codepolitan (6 Kursus)
 | File Asset (.avif) | Judul Sertifikat / Kursus | Instruktur / Institusi | Topik Utama |
 | :--- | :--- | :--- | :--- |
 | `html-dasar.avif` | *Belajar Dasar HTML* | Ahmad Hakim (Codepolitan) | Struktur Semantik HTML5 & Web Layout |
@@ -148,10 +153,10 @@ Mengikuti pola desain **Modular Clean Architecture**:
 
 ```text
 portfolio-v3/
-├── 📁 assets/images/sertifikat/       # 10 file .avif (high-dpi, lossless AVIF)
+├── 📁 assets/images/sertifikat/       # 11 file .avif (high-dpi, lossless AVIF)
 ├── 📁 js/
 │   ├── 📁 data/
-│   │   └── 📄 certificates.data.js    # Single source of truth ('kompetisi', 'udemy', 'codepolitan')
+│   │   └── 📄 certificates.data.js    # Single source of truth ('penghargaan', 'kompetisi', 'udemy', 'codepolitan')
 │   └── 📁 modules/
 │       ├── 📄 certificates.js         # Filter render, dynamic badge counter, dan modal lightbox
 │       └── 📄 contact.js              # WhatsApp direct message generator & form validation
@@ -166,7 +171,8 @@ portfolio-v3/
 ### 3. 🎨 Fitur Interaktif & Pengalaman Pengguna (UI/UX)
 
 1. **Filter Tabs Interaktif**:
-   - **All (10)**: Menampilkan seluruh sertifikat dengan pagination adaptif.
+   - **All (11)**: Menampilkan seluruh sertifikat dengan pagination adaptif.
+   - **Penghargaan (1)**: Filter khusus piagam/sertifikat penghargaan dengan aksen emas/yellow.
    - **Kompetisi (1)**: Filter khusus sertifikat hackathon dengan aksen warna amber/emas.
    - **Udemy (3)**: Kursus spesialisasi intensif dengan aksen ungu/fuchsia.
    - **Codepolitan (6)**: Sertifikasi pemrograman web dasar & Git dengan aksen emerald.

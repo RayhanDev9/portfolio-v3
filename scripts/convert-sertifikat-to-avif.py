@@ -45,7 +45,9 @@ import fs from 'fs';
 import path from 'path';
 import sharp from 'sharp';
 
-const files = JSON.parse(process.argv[2]);
+// Read payload from stdin for safe Windows handling
+const input = fs.readFileSync(0, 'utf-8');
+const files = JSON.parse(input);
 
 async function convertAll() {
   for (const item of files) {
@@ -57,11 +59,11 @@ async function convertAll() {
         .avif({ quality: 85, effort: 4 })
         .toFile(avifPath);
       
-      const pdfSize = fs.statSync(pdfPath).size;
+      const pdfSize = fs.existsSync(pdfPath) ? fs.statSync(pdfPath).size : fs.statSync(pngPath).size;
       const avifSize = fs.statSync(avifPath).size;
       const reduction = (((pdfSize - avifSize) / pdfSize) * 100).toFixed(1);
       
-      console.log(`[AVIF] ${baseName}.pdf (${(pdfSize/1024).toFixed(1)} KB) -> ${baseName}.avif (${(avifSize/1024).toFixed(1)} KB) [-${reduction}%]`);
+      console.log(`[AVIF] ${baseName} (${(pdfSize/1024).toFixed(1)} KB) -> ${baseName}.avif (${(avifSize/1024).toFixed(1)} KB) [-${reduction}%]`);
       
       // Hapus file temporary PNG
       if (fs.existsSync(pngPath)) {
@@ -79,7 +81,8 @@ convertAll();
 files_payload = json.dumps([{"pdfPath": p[0], "pngPath": p[1], "baseName": p[2]} for p in temp_pngs])
 
 result = subprocess.run(
-    ["node", "--input-type=module", "-e", node_script, files_payload],
+    ["node", "--input-type=module", "-e", node_script],
+    input=files_payload,
     cwd=os.getcwd(),
     capture_output=True,
     text=True,
