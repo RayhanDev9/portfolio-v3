@@ -140,63 +140,58 @@ export function initBackgroundRainEffect() {
   }, 30);
 }
 
-// Scroll Reveals for Home, About, Journey & Footer
+// Unified Scroll Reveals for All Sections (Hero, About, Journey, Skills, Projects, Certs, Contact, Footer)
 export function initScrollReveals() {
-  // Home Reveal
-  const homeElements = document.querySelectorAll(".home-animasi");
-  if (homeElements.length > 0) {
-    const homeObserver = new IntersectionObserver(
+  const revealElements = document.querySelectorAll(
+    ".reveal-on-scroll, .home-animasi, .reveal, .timeline-item, .timeline-item-mobile, .contact-animasi",
+  );
+
+  if (revealElements.length > 0) {
+    const revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.remove("opacity-0", "-translate-y-10");
-            entry.target.classList.add(
+            const el = entry.target;
+            // Clean up initial legacy utility classes
+            el.classList.remove(
+              "opacity-0",
+              "translate-y-8",
+              "translate-y-10",
+              "-translate-y-10",
+            );
+            // Apply standardized revealed state
+            el.classList.add(
               "opacity-100",
               "translate-y-0",
+              "is-revealed",
               "reveal-visible",
             );
-            homeObserver.unobserve(entry.target);
+            revealObserver.unobserve(el);
           }
         });
       },
-      { rootMargin: "0px 0px -50px 0px", threshold: 0.15 },
+      { rootMargin: "0px 0px -40px 0px", threshold: 0.1 },
     );
-    homeElements.forEach((el) => homeObserver.observe(el));
+
+    revealElements.forEach((el) => revealObserver.observe(el));
   }
 
-  // About Reveal
-  const aboutElements = document.querySelectorAll(".reveal");
-  if (aboutElements.length > 0) {
-    const aboutObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.remove("opacity-0", "translate-y-8");
-            aboutObserver.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.08, rootMargin: "0px 0px -30px 0px" },
-    );
-    aboutElements.forEach((element) => aboutObserver.observe(element));
-  }
-
-  // Journey Reveal
-  const journeyItems = document.querySelectorAll(
-    ".timeline-item, .timeline-item-mobile",
-  );
-  if (journeyItems.length > 0) {
+  // Journey Timeline Progress Animation
+  const journeySection = document.getElementById("journey");
+  const timelineProgress = document.getElementById("timeline-progress");
+  if (journeySection && timelineProgress) {
     const journeyObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.remove("opacity-0", "translate-y-8");
+            timelineProgress.style.width = "100%";
+            journeyObserver.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.3 },
+      { threshold: 0.25 },
     );
-    journeyItems.forEach((item) => journeyObserver.observe(item));
+    journeyObserver.observe(journeySection);
   }
 
   // Back to Top Button
@@ -210,3 +205,4 @@ export function initScrollReveals() {
     });
   }
 }
+

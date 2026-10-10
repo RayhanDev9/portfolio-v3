@@ -18,16 +18,16 @@ import {
 } from "./modules/animations.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Inisialisasi Efek Global & Animasi
+  // 1. Inisialisasi Modul Navigasi & Sections (Render Konten Dinamis)
+  initSkills();
+  initCertificates();
+  initProjects();
+  initNavigation();
+  initContact();
+
+  // 2. Inisialisasi Efek Global & Animasi Scroll Reveal Terpadu
   initGridCursorEffect();
   initBackgroundRainEffect();
   initTextScrambleAnimation();
   initScrollReveals();
-
-  // 2. Inisialisasi Modul Navigasi & Sections
-  initNavigation();
-  initSkills();
-  initCertificates();
-  initProjects();
-  initContact();
 });

@@ -12,8 +12,8 @@ export function initSkills() {
 
   container.innerHTML = skillCategories
     .map(
-      (cat) => `
-    <div class="p-6 md:p-7 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md hover:border-purple-500/40 hover:bg-white/[0.07] transition-all duration-300 flex flex-col justify-between group">
+      (cat, idx) => `
+    <div class="reveal-on-scroll p-6 md:p-7 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md hover:border-purple-500/40 hover:bg-white/[0.07] transition-all duration-300 flex flex-col justify-between group" style="--delay: ${100 + idx * 150}ms">
       <div>
         <div class="flex items-center gap-3.5 mb-6">
           <div class="w-11 h-11 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:bg-purple-500/20 group-hover:scale-105 transition-all">

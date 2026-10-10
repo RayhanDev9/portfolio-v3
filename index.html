@@ -300,7 +300,8 @@
   class="min-h-[85vh] lg:min-h-screen flex flex-col lg:flex-row items-center justify-center lg:justify-between w-full relative pt-24 pb-10 lg:py-0 px-6 xl:w-[80%] mx-auto gap-8 lg:gap-10"
 >
   <div
-    class="flex items-center justify-center lg:w-1/2 opacity-0 translate-y-8 transition-all duration-1000 home-animasi shrink-0"
+    class="flex items-center justify-center lg:w-1/2 reveal-on-scroll shrink-0"
+    style="--delay: 0ms"
   >
     <div class="border-[.2px] border-white/20 rounded-2xl">
       <div
@@ -318,7 +319,8 @@
   </div>
 
   <div
-    class="m-0 p-0 z-20 opacity-0 translate-y-8 transition-all duration-1000 lg:w-1/2 flex items-center justify-center home-animasi"
+    class="m-0 p-0 z-20 lg:w-1/2 flex items-center justify-center reveal-on-scroll"
+    style="--delay: 150ms"
   >
     <div
       class="w-full max-w-lg mx-auto flex items-center justify-center text-center"
@@ -371,8 +373,8 @@
   <div class="max-w-6xl mx-auto">
     <div class="mb-6 md:mb-8 text-center md:text-left">
       <span
-        class="reveal inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-purple-300 text-sm text-loop"
-        data-delay="0"
+        class="reveal-on-scroll inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-purple-300 text-sm text-loop"
+        style="--delay: 0ms"
       >
         About Me
       </span>
@@ -382,7 +384,8 @@
       class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
     >
       <div
-        class="lg:col-span-5 flex justify-center opacity-0 translate-y-8 transition-all duration-700 reveal z-20"
+        class="lg:col-span-5 flex justify-center reveal-on-scroll z-20"
+        style="--delay: 100ms"
       >
         <div
           class="w-full max-w-[280px] sm:max-w-xs p-5 bg-white/5 border border-white/10 rounded-3xl shadow-2xl backdrop-blur-md flex items-center justify-center hover:border-purple-500/30 transition-all duration-300"
@@ -396,7 +399,8 @@
       </div>
 
       <div
-        class="lg:col-span-7 space-y-4 text-center lg:text-left opacity-0 translate-y-8 transition-all duration-700 reveal"
+        class="lg:col-span-7 space-y-4 text-center lg:text-left reveal-on-scroll"
+        style="--delay: 200ms"
       >
         <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
           Crafting Modern, Intuitive &amp; Performant Interfaces
@@ -444,8 +448,8 @@
 <section id="journey" class="py-12 md:py-16 overflow-hidden">
   <div class="max-w-7xl mx-auto px-6">
     <span
-      class="inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-purple-300 text-sm text-loop"
-      data-delay="0"
+      class="reveal-on-scroll inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-purple-300 text-sm text-loop"
+      style="--delay: 0ms"
     >
       Learning Journey
     </span>
@@ -457,13 +461,14 @@
         <div class="absolute top-4 left-0 w-full h-1 bg-white/10">
           <div
             id="timeline-progress"
-            class="h-full bg-purple-500 w-0 transition-all duration-300"
+            class="h-full bg-purple-500 w-0 transition-all duration-1000 ease-out"
           ></div>
         </div>
 
         <div class="flex justify-between relative">
           <div
-            class="timeline-item text-center w-72 opacity-0 translate-y-8 transition-all duration-700"
+            class="timeline-item reveal-on-scroll text-center w-72"
+            style="--delay: 150ms"
           >
             <div
               class="w-5 h-5 mt-1 rounded-full bg-purple-500 mx-auto relative z-10"
@@ -479,7 +484,8 @@
           </div>
 
           <div
-            class="timeline-item text-center w-72 opacity-0 translate-y-8 transition-all duration-700"
+            class="timeline-item reveal-on-scroll text-center w-72"
+            style="--delay: 350ms"
           >
             <div
               class="w-5 h-5 mt-1 rounded-full bg-purple-500 mx-auto relative z-10"
@@ -496,7 +502,8 @@
           </div>
 
           <div
-            class="timeline-item text-center w-72 opacity-0 translate-y-8 transition-all duration-700"
+            class="timeline-item reveal-on-scroll text-center w-72"
+            style="--delay: 550ms"
           >
             <div
               class="w-5 h-5 mt-1 rounded-full bg-purple-500 mx-auto relative z-10"
@@ -524,7 +531,8 @@
 
       <div class="space-y-16">
         <div
-          class="timeline-item-mobile relative pl-14 opacity-0 translate-y-8 transition-all duration-700"
+          class="timeline-item-mobile reveal-on-scroll relative pl-14"
+          style="--delay: 100ms"
         >
           <div
             class="absolute left-[.55rem] top-0 w-4 h-4 rounded-full bg-purple-500"
@@ -541,7 +549,8 @@
         </div>
 
         <div
-          class="timeline-item-mobile relative pl-14 opacity-0 translate-y-8 transition-all duration-700"
+          class="timeline-item-mobile reveal-on-scroll relative pl-14"
+          style="--delay: 250ms"
         >
           <div
             class="absolute left-[.55rem] top-0 w-4 h-4 rounded-full bg-purple-500"
@@ -559,7 +568,8 @@
         </div>
 
         <div
-          class="timeline-item-mobile relative pl-14 opacity-0 translate-y-8 transition-all duration-700"
+          class="timeline-item-mobile reveal-on-scroll relative pl-14"
+          style="--delay: 400ms"
         >
           <div
             class="absolute left-[.55rem] top-0 w-4 h-4 rounded-full bg-purple-500"
@@ -587,7 +597,7 @@
      ============================================================================= -->
 <section id="skills" class="py-12 md:py-16 overflow-hidden">
   <div class="max-w-6xl px-6 mx-auto">
-    <div class="mb-8 md:mb-12 text-center md:text-left">
+    <div class="mb-8 md:mb-12 text-center md:text-left reveal-on-scroll" style="--delay: 0ms">
       <span
         class="inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-purple-300 text-sm text-loop mb-4"
       >
@@ -613,7 +623,7 @@
      ============================================================================= -->
 <section id="projects" class="py-12 md:py-16 overflow-hidden">
   <div class="max-w-6xl px-6 mx-auto">
-    <div class="mb-8 md:mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+    <div class="mb-8 md:mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 reveal-on-scroll" style="--delay: 0ms">
       <div class="text-center md:text-left">
         <span
           class="inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-purple-300 text-sm text-loop mb-4"
@@ -703,7 +713,7 @@
 <section id="certificates" class="py-12 md:py-16 overflow-hidden relative">
   <div class="max-w-6xl px-6 mx-auto">
     <!-- Header & Filter Tabs -->
-    <div class="mb-8 md:mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+    <div class="mb-8 md:mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 reveal-on-scroll" style="--delay: 0ms">
       <div class="text-center md:text-left">
         <span
           class="inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-purple-300 text-sm text-loop mb-4"
@@ -851,19 +861,19 @@
      ============================================================================= -->
 <section id="contact" class="py-12 md:py-16 text-white relative overflow-hidden">
   <div class="max-w-6xl mx-auto px-4 relative z-10">
-    <div class="text-center max-w-2xl mx-auto mb-10 md:mb-12">
+    <div class="text-center max-w-2xl mx-auto mb-10 md:mb-12 reveal-on-scroll" style="--delay: 0ms">
       <span
         class="inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-purple-300 text-sm mb-4 text-loop"
       >
         Get In Touch
       </span>
       <h2
-        class="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-white opacity-0 translate-y-10 transition-all duration-1000 contact-animasi"
+        class="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-white"
       >
-        Let's Work Together & Build Something Great
+        Let's Work Together &amp; Build Something Great
       </h2>
       <p
-        class="text-gray-400 text-base opacity-0 translate-y-10 transition-all duration-1000 contact-animasi"
+        class="text-gray-400 text-base"
       >
         Have a project in mind, job opportunity, or just want to say hi?
         Currently open for <span class="text-white font-medium">Remote</span>, <span class="text-white font-medium">Freelance</span>, and <span class="text-white font-medium">Hybrid Remote</span> collaborations.
@@ -872,7 +882,8 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
       <div
-        class="lg:col-span-5 space-y-8 opacity-0 translate-y-8 transition-all duration-1000 contact-animasi"
+        class="lg:col-span-5 space-y-8 reveal-on-scroll"
+        style="--delay: 150ms"
       >
         <h3 class="text-2xl font-semibold text-white">
           Contact Information
@@ -981,7 +992,8 @@
       </div>
 
       <div
-        class="lg:col-span-7 bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-md opacity-0 translate-y-8 transition-all duration-1000 contact-animasi"
+        class="lg:col-span-7 bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-md reveal-on-scroll"
+        style="--delay: 300ms"
       >
         <form id="contactForm" class="space-y-6">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -1063,7 +1075,7 @@
 <footer
   class="text-gray-400 border-t border-white/10 py-12 relative overflow-hidden z-40 bg-black/20 backdrop-blur-sm"
 >
-  <div class="max-w-6xl mx-auto px-4 relative z-10">
+  <div class="max-w-6xl mx-auto px-4 relative z-10 reveal-on-scroll" style="--delay: 0ms">
     <div
       class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center pb-8 border-b border-white/10"
     >
