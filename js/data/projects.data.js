@@ -6,6 +6,17 @@
  */
 export const projectsData = [
   {
+    title: "DapurRasa Food Store",
+    category: "app",
+    collab: "Mentor: Ahmad Hakim",
+    role: "Front-End",
+    description: "Modern culinary e-commerce web application featuring real-time menu search, category filtering, cart state management powered by Pinia, data caching with TanStack Vue Query, and Vue Router navigation.",
+    skills: ["Vue 3", "Pinia", "TanStack Vue Query", "Vue Router", "Composables"],
+    url: "https://rayhandev9.github.io/e-commerce-vue.js/menu",
+    img: "assets/images/projects/dapur-rasa.avif",
+    alt: "DapurRasa Food Store",
+  },
+  {
     title: "Fast React Pizza",
     category: "app",
     description: "Interactive pizza ordering application featuring live cart management, SPA client-side routing, and real-time order tracking.",

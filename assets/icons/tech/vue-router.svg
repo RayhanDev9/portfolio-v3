@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="vr-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#41B883"/>
+      <stop offset="100%" stop-color="#35495E"/>
+    </linearGradient>
+  </defs>
+  <!-- Background subtle badge -->
+  <rect width="256" height="256" rx="54" fill="#35495E" opacity="0.12"/>
+  <!-- Vue Router Connected Path -->
+  <path d="M68 64 H138 C166 64 188 86 188 114 C188 142 166 164 138 164 H108 C90 164 76 178 76 196 V196" fill="none" stroke="#41B883" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Branching route -->
+  <path d="M148 164 H188" fill="none" stroke="#35495E" stroke-width="20" stroke-linecap="round"/>
+  <!-- Route Nodes -->
+  <circle cx="68" cy="64" r="18" fill="#41B883"/>
+  <circle cx="68" cy="64" r="8" fill="#FFFFFF"/>
+  <circle cx="76" cy="196" r="18" fill="#41B883"/>
+  <circle cx="76" cy="196" r="8" fill="#FFFFFF"/>
+  <circle cx="188" cy="164" r="18" fill="#35495E"/>
+  <circle cx="188" cy="164" r="8" fill="#FFFFFF"/>
+</svg>

@@ -32,7 +32,7 @@ export const certificatesData = [
     desc: "Sertifikat partisipasi atas dedikasi dalam kompetisi Hackathon bertema 'Innovating Beyond The Code' yang diselenggarakan oleh HIMTIF.",
   },
 
-  // --- 2. UDEMY COURSES ---
+  // --- 3. UDEMY COURSES ---
   {
     id: "udemy-js-jonas",
     title: "The Complete JavaScript Course 2024: From Zero to Expert!",
@@ -67,7 +67,18 @@ export const certificatesData = [
     desc: "In-depth practical guide to industry-standard JavaScript programming, data structures, and best development practices.",
   },
 
-  // --- 2. CODEPOLITAN COURSES ---
+  // --- 4. CODEPOLITAN COURSES ---
+  {
+    id: "codepolitan-vue-pinia",
+    title: "Belajar State Management Vue 3 dengan Pinia",
+    platform: "codepolitan",
+    platformName: "Codepolitan",
+    issuer: "Ahmad Hakim",
+    img: "assets/images/sertifikat/vue-pinia.avif",
+    alt: "Certificate Belajar State Management Vue 3 dengan Pinia Codepolitan",
+    skills: ["Vue 3", "Pinia", "State Management", "Vue Router", "Composables"],
+    desc: "Penguasaan state management modern Vue 3 menggunakan Pinia, modular store architecture, getters, actions, dan integrasi komponen reaktif.",
+  },
   {
     id: "codepolitan-html-dasar",
     title: "Belajar Dasar HTML",

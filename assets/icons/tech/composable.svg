@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="comp-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#41B883"/>
+      <stop offset="100%" stop-color="#2C8E64"/>
+    </linearGradient>
+  </defs>
+  <!-- Composition API / Reusable Function Hooks Symbol -->
+  <rect x="24" y="24" width="208" height="208" rx="48" fill="#35495E" opacity="0.12"/>
+  <!-- Curly function braces with hook & reactivity sparkle -->
+  <path d="M96 68C80 68 68 80 68 96V116C68 124 60 128 52 128C60 128 68 132 68 140V160C68 176 80 188 96 188" fill="none" stroke="#41B883" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M160 68C176 68 188 80 188 96V116C188 124 196 128 204 128C196 128 188 132 188 140V160C188 176 176 188 160 188" fill="none" stroke="#41B883" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Reactive reusable node center -->
+  <circle cx="128" cy="128" r="16" fill="url(#comp-grad)"/>
+  <path d="M128 92V112M128 144V164M92 128H112M144 128H164" stroke="#41B883" stroke-width="8" stroke-linecap="round"/>
+</svg>

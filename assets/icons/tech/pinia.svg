@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 374" width="256" height="374">
+  <defs>
+    <linearGradient id="pinia-body" x1="50%" x2="50%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFE664"/>
+      <stop offset="100%" stop-color="#FFCE2E"/>
+    </linearGradient>
+    <linearGradient id="pinia-leaves" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#34DD8D"/>
+      <stop offset="100%" stop-color="#19925E"/>
+    </linearGradient>
+  </defs>
+  <!-- Top leaves -->
+  <path d="M128 0C128 35 150 65 175 80C155 75 135 85 128 105C121 85 101 75 81 80C106 65 128 35 128 0Z" fill="url(#pinia-leaves)"/>
+  <path d="M128 30C145 60 185 80 220 75C195 95 180 120 170 145C160 120 145 105 128 95C111 105 96 120 86 145C76 120 61 95 36 75C71 80 111 60 128 30Z" fill="#24A16C"/>
+  <!-- Pineapple body -->
+  <path d="M128 95C185 95 235 140 235 220C235 305 185 365 128 365C71 365 21 305 21 220C21 140 71 95 128 95Z" fill="url(#pinia-body)"/>
+  <!-- Eyes -->
+  <ellipse cx="98" cy="205" rx="10" ry="14" fill="#35495E"/>
+  <circle cx="101" cy="200" r="4" fill="#FFFFFF"/>
+  <ellipse cx="158" cy="205" rx="10" ry="14" fill="#35495E"/>
+  <circle cx="161" cy="200" r="4" fill="#FFFFFF"/>
+  <!-- Smile -->
+  <path d="M116 230C122 238 134 238 140 230" stroke="#35495E" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <!-- Cheeks -->
+  <ellipse cx="80" cy="222" rx="10" ry="6" fill="#FFA500" opacity="0.4"/>
+  <ellipse cx="176" cy="222" rx="10" ry="6" fill="#FFA500" opacity="0.4"/>
+</svg>
